@@ -17,4 +17,10 @@ public class BoostedShip extends AbstractBoosted {
 		return base.takeDamage((1.0f-damagereduction)*damage, tilecoord);
 	}
 
+	@Override
+	public boolean isAlive() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

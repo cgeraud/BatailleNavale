@@ -15,4 +15,9 @@ public abstract class AbstractBoosted implements IAttaquable{
 	public AttackResult takeDamage(float damage, Coordinates tilecoord) {
 		return base.takeDamage(damage, tilecoord);
 	}
+	
+	@Override
+	public boolean isAlive() {
+		return base.isAlive();
+	}
 }

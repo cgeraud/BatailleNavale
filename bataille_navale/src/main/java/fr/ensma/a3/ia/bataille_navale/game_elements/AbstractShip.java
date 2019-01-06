@@ -60,4 +60,16 @@ public abstract class AbstractShip implements IAttaquable, IOffensif{
 		}
 		return tiles[(int)id].takeDamage(damage);
 	}
+	
+	@Override
+	public boolean isAlive() {
+		for (Tile tile : tiles) {
+			// si Une tile est en vie, True
+			if (tile.isAlive()) {
+				return true;
+			}
+		}
+		//si aucune: false
+		return false;
+	}
 }

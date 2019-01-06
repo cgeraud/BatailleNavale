@@ -51,6 +51,5 @@ public class Player implements IPlayable {
 	@Override
 	public void attack(Player target, Coordinates coos, IOffensif bateau)throws ShipIsDisabledException {
 		this.turnCoolDown = attackmode.attack(bateau, target.getMap(), coos);
-		
 	}
 }
