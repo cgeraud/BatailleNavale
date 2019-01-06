@@ -18,5 +18,8 @@ public class Tile {
 	public float getResistance() {
 		return resistance;
 	}
-
+	
+	public boolean isAlive() {
+		return (this.resistance > 0.0f);
+	}
 }

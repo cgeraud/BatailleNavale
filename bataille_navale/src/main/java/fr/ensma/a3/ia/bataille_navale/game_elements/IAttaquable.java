@@ -4,4 +4,5 @@ import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 
 public interface IAttaquable {
 	public void takeDamage(float damage, Coordinates tilecoord);
+	public boolean isAlive();
 }
