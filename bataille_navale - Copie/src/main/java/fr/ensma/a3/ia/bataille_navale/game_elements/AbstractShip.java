@@ -34,7 +34,7 @@ public abstract class AbstractShip implements IAttaquable{
         }
 		return damage;
 	}
-	// TODO
+	
 	public void attack(Map map, Coordinates target) throws Exception {
 		
 		float damage = power();

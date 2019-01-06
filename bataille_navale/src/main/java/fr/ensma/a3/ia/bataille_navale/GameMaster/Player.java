@@ -2,6 +2,7 @@ package fr.ensma.a3.ia.bataille_navale.GameMaster;
 
 import java.util.ArrayList;
 
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.BaseAttack;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IAttack;
 import fr.ensma.a3.ia.bataille_navale.game_elements.AbstractShip;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
@@ -12,7 +13,7 @@ public class Player implements IPlayable {
 	
 	private int turnCoolDown = 0;
 	private Map playerMap;
-	private ArrayList<IOffensif> shipList = new ArrayList<IOffensif>;
+	private ArrayList<IOffensif> shipList = new ArrayList<IOffensif>();
 	private IAttack attackmode = new BaseAttack();
 	
 	public Player(Map playerMap) {
