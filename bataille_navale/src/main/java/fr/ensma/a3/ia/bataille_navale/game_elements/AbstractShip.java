@@ -24,7 +24,7 @@ public abstract class AbstractShip implements IAttaquable{
 		direction = dir;
 	}
 	
-	public void attack(Map map, Coordinates target) throws Exception {
+	public float power() {
 		float damage = 0.0f;
 		for (Tile tile : tiles) {
 			// Ajoute 1.0 de degats pour chaque tile intact
@@ -32,6 +32,12 @@ public abstract class AbstractShip implements IAttaquable{
             	damage += 1.0;
             }
         }
+		return damage;
+	}
+	
+	public void attack(Map map, Coordinates target) throws Exception {
+		
+		float damage = power();
 		
 		if(Math.abs(damage)<1e-10) {
 			throw new Exception("Error: ship disabled");
