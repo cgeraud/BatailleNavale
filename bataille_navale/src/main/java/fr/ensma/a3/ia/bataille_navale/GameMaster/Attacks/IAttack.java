@@ -1,6 +1,7 @@
 package fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks;
 
 import fr.ensma.a3.ia.bataille_navale.game_elements.IOffensif;
+import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 
