@@ -6,7 +6,7 @@ import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
-public abstract class AbstractShip implements IAttaquable{
+public abstract class AbstractShip implements IAttaquable, IOffensif{
 	
 	private final int length;
 	private final Coordinates reference;
@@ -24,6 +24,7 @@ public abstract class AbstractShip implements IAttaquable{
 		direction = dir;
 	}
 	
+	@Override
 	public float power() {
 		float damage = 0.0f;
 		for (Tile tile : tiles) {
@@ -35,6 +36,7 @@ public abstract class AbstractShip implements IAttaquable{
 		return damage;
 	}
 	
+	@Override
 	public void attack(Map map, Coordinates target) throws Exception {
 		
 		float damage = power();
