@@ -4,5 +4,6 @@ public class GameMaster {
 	
 	IPlayable player1, player2;
 	IPlayable CurrentPlayer;
+
 	
 }

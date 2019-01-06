@@ -12,16 +12,33 @@ public class Map {
 	
 	public Map() {
 		grid = new IAttaquable[Height][Width];
-		
 	}
 
 	public void fireAt(Coordinates target, float damage) {
-		// TODO Auto-generated method stub
-		
+		IAttaquable targetCell = grid[target.getY()][target.getX()];
+		if(targetCell != null) {
+			targetCell.takeDamage(damage, target);
+		}
 	}
 	
-	public void addShipToMap(IAttaquable myship, Coordinates ref, Direction dir) {
-		
+	// TODO exceptions
+	public void addShipToMap(IAttaquable myship, int length, Coordinates ref, Direction dir) {
+		if (ref.getX()>0 && ref.getX() <= Width && ref.getY()>0 && ref.getY() <= Height) {
+			switch(dir) {
+			case Horizontal:
+				if(ref.getX()+length <= Width) {
+					for(int i = ref.getX(); i < ref.getX()+length; i++) {
+						grid[ref.getY()][i] = myship;
+					}
+				}
+			case Vertical:
+				if(ref.getY()+length <= Height) {
+					for(int i = ref.getY(); i < ref.getY()+length; i++) {
+						grid[i][ref.getX()] = myship;
+					}
+				}
+			}
+		}
 	}
 
 }
