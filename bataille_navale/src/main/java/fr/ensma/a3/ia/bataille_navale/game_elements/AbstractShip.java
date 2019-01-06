@@ -34,13 +34,13 @@ public abstract class AbstractShip implements IAttaquable{
         }
 		return damage;
 	}
-	// TODO
-	public void attack(Map map, Coordinates target) throws Exception {
+	// TODO exceptions
+	public void attack(Map map, Coordinates target) throws ShipIsDisabledException {
 		
 		float damage = power();
 		
 		if(Math.abs(damage)<1e-10) {
-			throw new Exception("Error: ship disabled");
+			throw new ShipIsDisabledException();
 		}
 		
 		map.fireAt(target, damage);
