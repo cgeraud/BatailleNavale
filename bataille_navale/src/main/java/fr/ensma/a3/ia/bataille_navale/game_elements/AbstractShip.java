@@ -2,6 +2,7 @@ package fr.ensma.a3.ia.bataille_navale.game_elements;
 
 import java.util.Objects;
 
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
@@ -13,7 +14,7 @@ public abstract class AbstractShip implements IAttaquable, IOffensif{
 	private final Direction direction;
 	private final Tile[] tiles;
 
-	public AbstractShip(int len, Direction dir, Coordinates ref, Map mymap) {
+	public AbstractShip(int len, Direction dir, Coordinates ref) {
 		Objects.requireNonNull(ref, "null reference point");
 		tiles = new Tile[len];
 		length = len;
@@ -49,7 +50,7 @@ public abstract class AbstractShip implements IAttaquable, IOffensif{
 	}
 
 	@Override
-	public void takeDamage(float damage, Coordinates tilecoord) {
+	public AttackResult takeDamage(float damage, Coordinates tilecoord) {
 		long id = 0;
 		switch(direction) {
 		case Horizontal:
@@ -57,7 +58,7 @@ public abstract class AbstractShip implements IAttaquable, IOffensif{
 		case Vertical:
 			id = Math.abs(tilecoord.getY() - reference.getY());
 		}
-		tiles[(int)id].takeDamage(damage);
+		return tiles[(int)id].takeDamage(damage);
 	}
 	
 	@Override

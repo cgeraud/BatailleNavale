@@ -1,5 +1,6 @@
 package fr.ensma.a3.ia.bataille_navale.map;
 
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
 import fr.ensma.a3.ia.bataille_navale.game_elements.IAttaquable;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
@@ -14,11 +15,16 @@ public class Map {
 		grid = new IAttaquable[Height][Width];
 	}
 
-	public void fireAt(Coordinates target, float damage) {
+	public AttackResult fireAt(Coordinates target, float damage) {
 		IAttaquable targetCell = grid[target.getY()][target.getX()];
+		AttackResult res = AttackResult.Missed;
+		
+		// TODO takeDamage must return an AttackResult
 		if(targetCell != null) {
-			targetCell.takeDamage(damage, target);
+			res = targetCell.takeDamage(damage, target);
 		}
+		
+		return res;
 	}
 	
 	// TODO exceptions
