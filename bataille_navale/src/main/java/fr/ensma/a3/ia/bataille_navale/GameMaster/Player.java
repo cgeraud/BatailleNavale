@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.BaseAttack;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IAttack;
 import fr.ensma.a3.ia.bataille_navale.game_elements.AbstractShip;
-import fr.ensma.a3.ia.bataille_navale.game_elements.IOffensif;
+import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
@@ -15,16 +15,15 @@ public class Player implements IPlayable {
 	
 	private int turnCoolDown = 0;
 	private Map playerMap;
-	private ArrayList<IOffensif> shipList = new ArrayList<IOffensif>();
+	private ArrayList<IUnit> shipList = new ArrayList<IUnit>();
 	private IAttack attackmode = new BaseAttack();
 	
 	public Player(Map playerMap) {
 		this.playerMap = playerMap;
 	}
 	
-	public void addShip(AbstractShip ship, int len, Coordinates coos, Direction dir) {
+	public void addShip(IUnit ship) {
 		this.shipList.add(ship);
-		this.playerMap.addShipToMap(ship, len, coos, dir);
 	}
 	
 	public void setModeAttaque(IAttack mode) {
@@ -49,7 +48,7 @@ public class Player implements IPlayable {
 	}
 	
 	@Override
-	public void attack(Player target, Coordinates coos, IOffensif bateau)throws ShipIsDisabledException {
+	public void attack(Player target, Coordinates coos, IUnit bateau)throws ShipIsDisabledException {
 		this.turnCoolDown = attackmode.attack(bateau, target.getMap(), coos);
 	}
 }
