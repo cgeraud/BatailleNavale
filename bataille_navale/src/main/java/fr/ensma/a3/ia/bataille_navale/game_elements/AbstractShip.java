@@ -12,11 +12,11 @@ public abstract class AbstractShip implements IUnit{
 	private final int length;
 	private final Coordinates reference;
 	private final Direction direction;
-	private final Tile[] tiles;
+	private final ITile[] tiles;
 
 	public AbstractShip(Map map, int len, Direction dir, Coordinates ref) {
 		Objects.requireNonNull(ref, "null reference point");
-		tiles = new Tile[len];
+		tiles = new ITile[len];
 		length = len;
 		for (int i = 0; i < length; i++) {
 			tiles[i] = new Tile((float)length);
@@ -29,7 +29,7 @@ public abstract class AbstractShip implements IUnit{
 	@Override
 	public float power() {
 		float damage = 0.0f;
-		for (Tile tile : tiles) {
+		for (ITile tile : tiles) {
 			// Ajoute 1.0 de degats pour chaque tile intact
             if(Math.abs((float)length-tile.getResistance())<1e-10) {
             	damage += 1.0;
@@ -66,7 +66,7 @@ public abstract class AbstractShip implements IUnit{
 	
 	@Override
 	public boolean isAlive() {
-		for (Tile tile : tiles) {
+		for (ITile tile : tiles) {
 			// si Une tile est en vie, True
 			if (tile.isAlive()) {
 				return true;
@@ -74,5 +74,12 @@ public abstract class AbstractShip implements IUnit{
 		}
 		//si aucune: false
 		return false;
+	}
+	
+	@Override
+	public void upgradeShip(float dmgreduce) {
+		for (int i = 0; i < tiles.length ; i += 1) {
+			tiles[i] = new BoostedTile(tiles[i], dmgreduce);
+		}
 	}
 }

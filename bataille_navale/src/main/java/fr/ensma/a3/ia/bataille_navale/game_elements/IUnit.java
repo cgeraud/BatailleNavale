@@ -9,4 +9,5 @@ public interface IUnit {
 	public boolean isAlive();
 	public AttackResult attack(Map target, Coordinates coos) throws ShipIsDisabledException;
 	public float power();
+	public void upgradeShip(float dmgReduce);
 }
