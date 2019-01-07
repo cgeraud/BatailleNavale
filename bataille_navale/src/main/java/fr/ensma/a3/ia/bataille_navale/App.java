@@ -2,7 +2,6 @@ package fr.ensma.a3.ia.bataille_navale;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Player;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.CrossAttack;
-import fr.ensma.a3.ia.bataille_navale.game_elements.BoostedTile;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Cruiser;
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
@@ -30,13 +29,15 @@ public class App
 			player1.attack(player2, new Coordinates(0,0), nimitz);
 			player1.attack(player2, new Coordinates(1,0), nimitz);
 			player1.attack(player2, new Coordinates(2,0), nimitz);
-			player1.attack(player2, new Coordinates(3,0), nimitz);
+			player1.attack(player2, new Coordinates(2,0), nimitz);
 		} catch (ShipIsDisabledException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        
+        player2.setModeAttaque(new CrossAttack());
         try {
-			player2.attack(player1, new Coordinates(0,0), yamato);
+			player2.attack(player1, new Coordinates(1,1), yamato);
 		} catch (ShipIsDisabledException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

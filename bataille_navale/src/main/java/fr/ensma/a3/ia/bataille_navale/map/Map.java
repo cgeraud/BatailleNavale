@@ -19,7 +19,6 @@ public class Map {
 		IUnit targetCell = grid[target.getY()][target.getX()];
 		AttackResult res = AttackResult.Missed;
 		
-		// TODO takeDamage must return an AttackResult
 		if(targetCell != null) {
 			res = targetCell.takeDamage(damage, target);
 		}

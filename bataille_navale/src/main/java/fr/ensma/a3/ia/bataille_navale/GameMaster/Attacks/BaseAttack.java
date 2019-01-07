@@ -8,7 +8,7 @@ import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 public class BaseAttack implements IAttack {
 
 	public int baseAttack(IUnit bateau, Map targetMap, Coordinates coos) throws ShipIsDisabledException {
-		System.out.println(bateau.attack(targetMap, coos));
+		bateau.attack(targetMap, coos);
 		return 0;
 	}
 	

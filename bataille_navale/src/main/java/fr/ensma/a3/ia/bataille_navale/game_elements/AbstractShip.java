@@ -10,8 +10,6 @@ import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 public abstract class AbstractShip implements IUnit{
 	
 	private final int length;
-	private final Coordinates reference;
-	private final Direction direction;
 	private final ITile[] tiles;
 
 	public AbstractShip(Map map, int len, Direction dir, Coordinates ref) {
@@ -19,10 +17,15 @@ public abstract class AbstractShip implements IUnit{
 		tiles = new ITile[len];
 		length = len;
 		for (int i = 0; i < length; i++) {
-			tiles[i] = new Tile((float)length);
+			switch(dir){
+			case Horizontal:
+				tiles[i] = new Tile((float)length, new Coordinates(ref.getX()+i,ref.getY()));
+				break;
+			case Vertical:
+				tiles[i] = new Tile((float)length, new Coordinates(ref.getX(),ref.getY()+i));
+				break;
+			}
 		}
-		reference = ref;
-		direction = dir;
 		map.addShipToMap(this, len, ref, dir);
 	}
 	
@@ -39,6 +42,7 @@ public abstract class AbstractShip implements IUnit{
 	}
 
 	// TODO exceptions
+	@Override
 	public AttackResult attack(Map map, Coordinates target) throws ShipIsDisabledException {
 		
 		float damage = power();
@@ -52,16 +56,16 @@ public abstract class AbstractShip implements IUnit{
 
 	@Override
 	public AttackResult takeDamage(float damage, Coordinates tilecoord) {
-		long id = 0;
-		switch(direction) {
-		case Horizontal:
-			id = Math.abs(tilecoord.getX() - reference.getX());
-			break;
-		case Vertical:
-			id = Math.abs(tilecoord.getY() - reference.getY());
-			break;
+		int id = 0;
+		for(ITile tile : tiles) {
+			if(tilecoord.equals(tile.getCoordinates())) {
+				break;
+			}
+			else {
+				id += 1;
+			}
 		}
-		return tiles[(int)id].takeDamage(damage);
+		return tiles[id].takeDamage(damage);
 	}
 	
 	@Override

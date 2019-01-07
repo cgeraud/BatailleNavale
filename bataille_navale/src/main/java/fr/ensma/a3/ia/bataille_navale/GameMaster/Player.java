@@ -7,7 +7,7 @@ import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 
-public class Player implements IPlayable {
+public class Player{
 	
 	private int turnCoolDown = 0;
 	private Map playerMap;
@@ -25,7 +25,7 @@ public class Player implements IPlayable {
 		return this.playerMap;
 	}
 	
-	public boolean playerIsDead() {
+	public boolean playerIsalive() {
 		//TODO
 		return false;
 	}
@@ -38,7 +38,6 @@ public class Player implements IPlayable {
 		this.turnCoolDown = val;
 	}
 	
-	@Override
 	public void attack(Player target, Coordinates coos, IUnit bateau)throws ShipIsDisabledException {
 		this.turnCoolDown = attackmode.attack(bateau, target.getMap(), coos);
 	}

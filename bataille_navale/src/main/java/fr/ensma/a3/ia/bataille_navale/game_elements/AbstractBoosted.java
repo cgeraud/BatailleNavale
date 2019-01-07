@@ -20,4 +20,14 @@ public abstract class AbstractBoosted implements ITile{
 	public boolean isAlive() {
 		return base.isAlive();
 	}
+	
+	@Override
+	public Coordinates getCoordinates() {
+		return base.getCoordinates();
+	}
+	
+	@Override
+	public float getResistance() {
+		return base.getResistance();
+	}
 }
