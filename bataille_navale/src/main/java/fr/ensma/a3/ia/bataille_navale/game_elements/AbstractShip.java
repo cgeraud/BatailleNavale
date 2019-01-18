@@ -1,5 +1,6 @@
 package fr.ensma.a3.ia.bataille_navale.game_elements;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
@@ -9,11 +10,25 @@ import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
 public abstract class AbstractShip implements IUnit{
 	
+	private static ArrayList<String> id_list = new ArrayList<String>();
+	private final String id;
 	private final int length;
 	private final ITile[] tiles;
 
-	public AbstractShip(Map map, int len, Direction dir, Coordinates ref) {
+	public AbstractShip(String id, Map map, int len, Direction dir, Coordinates ref) throws ShipAlreadyExistsException {
 		Objects.requireNonNull(ref, "null reference point");
+		Objects.requireNonNull(id, "null ship id");
+		
+		for(String prev_id : AbstractShip.id_list) {
+			if(prev_id.equals(id)) {
+				// TODO
+				throw new ShipAlreadyExistsException();
+			}
+		}
+		
+		this.id = id;
+		AbstractShip.id_list.add(this.id);
+		
 		tiles = new ITile[len];
 		length = len;
 		for (int i = 0; i < length; i++) {
@@ -27,6 +42,11 @@ public abstract class AbstractShip implements IUnit{
 			}
 		}
 		map.addShipToMap(this, len, ref, dir);
+	}
+	
+	@Override
+	public String getId() {
+		return id;
 	}
 	
 	@Override
