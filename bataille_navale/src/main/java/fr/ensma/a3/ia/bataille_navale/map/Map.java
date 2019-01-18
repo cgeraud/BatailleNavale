@@ -29,25 +29,25 @@ public class Map {
 		return res;
 	}
 	
-	// TODO exceptions
-	public void addShipToMap(IUnit myship, int length, Coordinates ref, Direction dir) {
-		if (ref.getX() >= 0 && ref.getX() < Width && ref.getY() >= 0 && ref.getY() < Height) {
-			switch(dir) {
-			case Horizontal:
-				if(ref.getX()+length < Width) {
-					for(int i = ref.getX(); i < ref.getX()+length; i++) {
-						grid[ref.getY()][i] = myship;
-					}
-				}
-				break;
-			case Vertical:
-				if(ref.getY()+length < Height) {
-					for(int i = ref.getY(); i < ref.getY()+length; i++) {
-						grid[i][ref.getX()] = myship;
-					}
-				}
-				break;
+	public void updateMap() {
+		for(int i = 0; i < Width; i++) {
+			for(int j = 0; j < Height; j++) {
+				grid[j][i] = null;
 			}
+		}
+		for(IUnit ship : this.ships) {
+			ArrayList<Coordinates> coordList = ship.getUnitCoordinates();
+			for(Coordinates coord : coordList) {
+				grid[coord.getY()][coord.getX()] = ship;
+			}
+		}
+	}
+	
+	// TODO exceptions
+	public void addShipToMap(IUnit myship) {
+		ArrayList<Coordinates> coordList = myship.getUnitCoordinates();
+		for(Coordinates coord : coordList) {
+			grid[coord.getY()][coord.getX()] = myship;
 		}
 		this.ships.add(myship);
 	}
