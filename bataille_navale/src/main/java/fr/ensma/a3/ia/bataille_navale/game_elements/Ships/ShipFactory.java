@@ -13,16 +13,16 @@ public class ShipFactory {
 			toReturn = new Destroyer(id, map, dir, ref);
 			break;
 		case Cruiser:
-			toReturn = new Destroyer(id, map, dir, ref);
+			toReturn = new Cruiser(id, map, dir, ref);
 			break;
 		case AircraftCarrier:
-			toReturn = new Destroyer(id, map, dir, ref);
+			toReturn = new AircraftCarrier(id, map, dir, ref);
 			break;
 		case Submarine:
-			toReturn = new Destroyer(id, map, dir, ref);
+			toReturn = new Submarine(id, map, dir, ref);
 			break;
 		case TorpedoBoat:
-			toReturn = new Destroyer(id, map, dir, ref);
+			toReturn = new TorpedoBoat(id, map, dir, ref);
 			break;
 		default:
 			break;
