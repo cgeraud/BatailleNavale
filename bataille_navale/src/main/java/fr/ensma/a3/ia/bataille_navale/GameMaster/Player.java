@@ -2,9 +2,9 @@ package fr.ensma.a3.ia.bataille_navale.GameMaster;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.BaseAttack;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IAttack;
-import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
+import fr.ensma.a3.ia.bataille_navale.map.ShipDoesNotExistException;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 
 public class Player{
@@ -38,7 +38,7 @@ public class Player{
 		this.turnCoolDown = val;
 	}
 	
-	public void attack(Player target, Coordinates coos, IUnit bateau)throws ShipIsDisabledException {
-		this.turnCoolDown = attackmode.attack(bateau, target.getMap(), coos);
+	public void attack(Player target, Coordinates coos, String idbateau)throws ShipIsDisabledException, ShipDoesNotExistException {
+		this.turnCoolDown = this.attackmode.attack(this.playerMap.getShipFromId(idbateau), target.getMap(), coos);
 	}
 }

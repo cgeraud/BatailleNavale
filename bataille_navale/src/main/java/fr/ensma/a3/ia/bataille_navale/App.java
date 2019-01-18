@@ -36,19 +36,19 @@ public class App
 		
         yamato.upgradeShip(0.5f);
         try {
-			player1.attack(player2, new Coordinates(0,0), nimitz);
-			player1.attack(player2, new Coordinates(1,0), nimitz);
-			player1.attack(player2, new Coordinates(2,0), nimitz);
-			player1.attack(player2, new Coordinates(2,0), nimitz);
-		} catch (ShipIsDisabledException e) {
+			player1.attack(player2, new Coordinates(0,0), "Nimitz");
+			player1.attack(player2, new Coordinates(1,0), "Nimitz");
+			player1.attack(player2, new Coordinates(2,0), "Nimitz");
+			player1.attack(player2, new Coordinates(2,0), "Nimitz");
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
         player2.setModeAttaque(new CrossAttack());
         try {
-			player2.attack(player1, new Coordinates(1,1), yamato);
-		} catch (ShipIsDisabledException e) {
+			player2.attack(player1, new Coordinates(1,1), "Yamato");
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
