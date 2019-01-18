@@ -67,5 +67,12 @@ public class Map {
 		return retUnit;
 	}
 	
-	
+	public boolean isOnMap(Coordinates coos) {
+		boolean retVal = false;
+		if(coos.getX()>=0 && coos.getX()<Width &&
+				coos.getY()>=0 && coos.getY()<Height) {
+			retVal = true;
+		}
+		return retVal;
+	}
 }

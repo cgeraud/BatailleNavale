@@ -13,7 +13,12 @@ public class BaseAttack implements IAttack {
 	}
 	
 	@Override
-	public int attack(IUnit bateau, Map targetMap, Coordinates coos) throws ShipIsDisabledException {
-		return baseAttack(bateau, targetMap, coos);
+	public int attack(IUnit bateau, Map targetMap, Coordinates coos) throws ShipIsDisabledException, AttackOutOfMapException {
+		if(targetMap.isOnMap(coos)) {
+			return baseAttack(bateau, targetMap, coos);
+		}
+		else {
+			throw new AttackOutOfMapException(coos);
+		}
 	}
 }
