@@ -2,10 +2,10 @@ package fr.ensma.a3.ia.bataille_navale;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Player;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.CrossAttack;
-import fr.ensma.a3.ia.bataille_navale.game_elements.Cruiser;
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
-import fr.ensma.a3.ia.bataille_navale.game_elements.ShipAlreadyExistsException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.Cruiser;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipAlreadyExistsException;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;

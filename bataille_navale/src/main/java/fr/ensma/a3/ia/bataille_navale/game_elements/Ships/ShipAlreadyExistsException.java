@@ -1,4 +1,4 @@
-package fr.ensma.a3.ia.bataille_navale.game_elements;
+package fr.ensma.a3.ia.bataille_navale.game_elements.Ships;
 
 public class ShipAlreadyExistsException extends Exception {
 

@@ -1,9 +1,14 @@
-package fr.ensma.a3.ia.bataille_navale.game_elements;
+package fr.ensma.a3.ia.bataille_navale.game_elements.Ships;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
+import fr.ensma.a3.ia.bataille_navale.game_elements.BoostedTile;
+import fr.ensma.a3.ia.bataille_navale.game_elements.ITile;
+import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
+import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Tile;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
