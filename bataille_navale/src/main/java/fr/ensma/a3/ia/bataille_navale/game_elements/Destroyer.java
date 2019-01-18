@@ -8,8 +8,8 @@ public class Destroyer extends AbstractShip {
 	
 	private static final int length = 3;
 	
-	public Destroyer(Map map, Direction dir, Coordinates ref) {
-		super(map, length, dir, ref);
+	public Destroyer(String id, Map map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException {
+		super(id, map, length, dir, ref);
 	}
 
 }

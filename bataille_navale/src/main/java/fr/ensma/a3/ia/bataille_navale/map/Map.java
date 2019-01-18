@@ -1,5 +1,7 @@
 package fr.ensma.a3.ia.bataille_navale.map;
 
+import java.util.ArrayList;
+
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
@@ -9,6 +11,7 @@ public class Map {
 	
 	private static final int Height = 10;
 	private static final int Width = 10;
+	private ArrayList<IUnit> ships = new ArrayList<IUnit>();
 	private IUnit[][] grid;
 	
 	public Map() {
@@ -46,6 +49,23 @@ public class Map {
 				break;
 			}
 		}
+		this.ships.add(myship);
 	}
-
+	
+	public IUnit getShipFromId(String id) throws ShipDoesNotExistException {
+		IUnit retUnit = null;
+		
+		for(IUnit unit : this.ships) {
+			if(unit.getId().equals(id)) {
+				retUnit = unit;
+				break;
+			}
+		}
+		if(retUnit == null) {
+			throw new ShipDoesNotExistException(id);
+		}
+		return retUnit;
+	}
+	
+	
 }

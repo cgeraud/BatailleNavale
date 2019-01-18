@@ -8,8 +8,8 @@ public class Submarine extends AbstractShip {
 	
 	private static final int length = 3;
 	
-	public Submarine(Map map, Direction dir, Coordinates ref) {
-		super(map, length, dir, ref);
+	public Submarine(String id, Map map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException {
+		super(id, map, length, dir, ref);
 	}
 
 }

@@ -8,8 +8,8 @@ public class AircraftCarrier extends AbstractShip {
 	
 	private static final int length = 5;
 	
-	public AircraftCarrier(Map map, Direction dir, Coordinates ref) {
-		super(map, length, dir, ref);
+	public AircraftCarrier(String id, Map map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException {
+		super(id, map, length, dir, ref);
 	}
 
 }
