@@ -6,6 +6,7 @@ import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.Cruiser;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipAlreadyExistsException;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipOutOfMapException;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
@@ -21,14 +22,24 @@ public class App
         Player player2 = new Player(mapPlayer2);
         IUnit nimitz = null;
 		try {
-			nimitz = new Cruiser("Nimitz", mapPlayer1, Direction.Horizontal, new Coordinates(0,0));
+			try {
+				nimitz = new Cruiser("Nimitz", mapPlayer1, Direction.Horizontal, new Coordinates(0,0));
+			} catch (ShipOutOfMapException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (ShipAlreadyExistsException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
         IUnit yamato = null;
 		try {
-			yamato = new Cruiser("Yamato", mapPlayer2, Direction.Horizontal, new Coordinates(0,0));
+			try {
+				yamato = new Cruiser("Yamato", mapPlayer2, Direction.Horizontal, new Coordinates(0,0));
+			} catch (ShipOutOfMapException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (ShipAlreadyExistsException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

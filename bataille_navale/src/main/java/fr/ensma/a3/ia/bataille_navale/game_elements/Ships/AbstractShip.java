@@ -13,41 +13,43 @@ import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.movements.IMovement;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
+import fr.ensma.a3.ia.bataille_navale.utils.Shape;
 
 public abstract class AbstractShip implements IUnit{
 	
 	private static ArrayList<String> id_list = new ArrayList<String>();
 	private final String id;
-	private final int length;
 	private final ArrayList<ITile> tiles = new ArrayList<ITile>();
 	private Direction dir = Direction.Horizontal;
 
-	public AbstractShip(String id, Map map, int len, Direction dir, Coordinates ref) throws ShipAlreadyExistsException {
+	public AbstractShip(String id, Map map, Shape shipShape, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
 		Objects.requireNonNull(ref, "null reference point");
 		Objects.requireNonNull(id, "null ship id");
 		
 		for(String prev_id : AbstractShip.id_list) {
 			if(prev_id.equals(id)) {
-				// TODO
 				throw new ShipAlreadyExistsException();
 			}
 		}
 		
 		this.id = id;
 		AbstractShip.id_list.add(this.id);
-		
-		this.length = len;
+
 		this.dir = dir;
-		
-		for (int i = 0; i < length; i++) {
+		for (Coordinates coos : shipShape.getRelativeTiles()) {
+			Coordinates newCoos = null;
 			switch(dir){
 			case Horizontal:
-				tiles.add(new Tile((float)length, new Coordinates(ref.getX()+i,ref.getY())));
+				newCoos = new Coordinates(ref.getX() + coos.getX(), ref.getY() + coos.getY());
 				break;
 			case Vertical:
-				tiles.add(new Tile((float)length, new Coordinates(ref.getX(),ref.getY()+i)));
+				newCoos = new Coordinates(ref.getX() + coos.getY(), ref.getY() - coos.getX());
 				break;
 			}
+			if (!map.isOnMap(newCoos)) {
+				throw new ShipOutOfMapException();
+			}
+			tiles.add(new Tile((float)shipShape.getRelativeTiles().size(), newCoos));
 		}
 		map.addShipToMap(this);
 	}
@@ -70,7 +72,7 @@ public abstract class AbstractShip implements IUnit{
 		float damage = 0.0f;
 		for (ITile tile : tiles) {
 			// Ajoute 1.0 de degats pour chaque tile intact
-            if(Math.abs((float)length-tile.getResistance())<1e-10) {
+            if(Math.abs((float)tiles.size()-tile.getResistance())<1e-10) {
             	damage += 1.0;
             }
         }
@@ -128,7 +130,13 @@ public abstract class AbstractShip implements IUnit{
 
 	@Override
 	public void move(IMovement movement, int value, Map map) {
-		movement.move(this, value, map);
+		// TODO
+		try {
+			movement.move(this, value, map);
+		} catch (ShipOutOfMapException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

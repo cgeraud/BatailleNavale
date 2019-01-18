@@ -6,7 +6,7 @@ import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
 public class ShipFactory {
-	public static IUnit CreateShip(String id, ShipType type, Map map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException {
+	public static IUnit CreateShip(String id, ShipType type, Map map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
 		IUnit toReturn = null;
 		switch(type) {
 		case Destroyer:

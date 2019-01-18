@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
-import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
 public class Map {
 	
