@@ -70,7 +70,7 @@ public abstract class AbstractShip implements IUnit{
 		float damage = 0.0f;
 		for (ITile tile : tiles) {
 			// Ajoute 1.0 de degats pour chaque tile intact
-            if(Math.abs((float)length-tile.getResistance())<1e-10) {
+            if(Math.abs((float)tiles.size()-tile.getResistance())<1e-10) {
             	damage += 1.0;
             }
         }

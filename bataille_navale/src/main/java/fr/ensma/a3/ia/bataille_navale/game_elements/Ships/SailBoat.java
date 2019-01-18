@@ -19,7 +19,7 @@ public class SailBoat extends AbstractShip {
 		return shipShape;
 	}
 	
-	public SailBoat(String id, Map map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException {
+	public SailBoat(String id, Map map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
 		super(id, map, getShape(), dir, ref);
 		
 	}
