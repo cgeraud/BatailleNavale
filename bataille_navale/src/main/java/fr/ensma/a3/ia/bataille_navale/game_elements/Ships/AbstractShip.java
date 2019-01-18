@@ -26,6 +26,7 @@ public abstract class AbstractShip implements IUnit{
 	private static ArrayList<String> id_list = new ArrayList<String>();
 	private final String id;
 	private final ArrayList<ITile> tiles = new ArrayList<ITile>();
+	private Direction dir = Direction.Horizontal;
 
 	public AbstractShip(String id, Map map, Shape shipShape, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
 		Objects.requireNonNull(ref, "null reference point");
@@ -39,7 +40,8 @@ public abstract class AbstractShip implements IUnit{
 		
 		this.id = id;
 		AbstractShip.id_list.add(this.id);
-		
+
+		this.dir = dir;
 		for (Coordinates coos : shipShape.getRelativeTiles()) {
 			Coordinates newCoos = null;
 			switch(dir){
@@ -135,6 +137,22 @@ public abstract class AbstractShip implements IUnit{
 
 	@Override
 	public void move(IMovement movement, int value, Map map) {
-		movement.move(this, value, map);
+		// TODO
+		try {
+			movement.move(this, value, map);
+		} catch (ShipOutOfMapException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public Direction getDirection() {
+		return this.dir;
+	}
+	
+	@Override
+	public void setDirection(Direction dir) {
+		this.dir = dir;
 	}
 }
