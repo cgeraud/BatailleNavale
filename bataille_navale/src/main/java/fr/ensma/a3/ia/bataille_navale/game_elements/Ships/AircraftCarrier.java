@@ -5,7 +5,7 @@ import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 import fr.ensma.a3.ia.bataille_navale.utils.Shape;
 
-public class AircraftCarrier extends AbstractShip {
+public class AircraftCarrier extends BattleShip {
 	
 	private static Shape shipShape = null;
 	private static Shape getShape() {

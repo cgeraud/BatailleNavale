@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Shape {
 	
-	private ArrayList<Coordinates> relativeTiles;
+	private ArrayList<Coordinates> relativeTiles = new ArrayList<Coordinates>();
 	
 	public Shape() {
 	}

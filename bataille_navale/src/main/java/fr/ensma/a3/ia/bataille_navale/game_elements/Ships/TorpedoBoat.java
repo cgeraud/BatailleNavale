@@ -5,7 +5,7 @@ import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 import fr.ensma.a3.ia.bataille_navale.utils.Shape;
 
-public class TorpedoBoat extends AbstractShip {
+public class TorpedoBoat extends BattleShip {
 	
 	private static Shape shipShape = null;
 	private static Shape getShape() {
