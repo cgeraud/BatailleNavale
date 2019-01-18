@@ -1,5 +1,6 @@
 package fr.ensma.a3.ia.bataille_navale.GameMaster;
 
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackOutOfMapException;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.BaseAttack;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IAttack;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
@@ -38,7 +39,7 @@ public class Player{
 		this.turnCoolDown = val;
 	}
 	
-	public void attack(Player target, Coordinates coos, String idbateau)throws ShipIsDisabledException, ShipDoesNotExistException {
+	public void attack(Player target, Coordinates coos, String idbateau)throws ShipIsDisabledException, ShipDoesNotExistException, AttackOutOfMapException {
 		this.turnCoolDown = this.attackmode.attack(this.playerMap.getShipFromId(idbateau), target.getMap(), coos);
 	}
 }

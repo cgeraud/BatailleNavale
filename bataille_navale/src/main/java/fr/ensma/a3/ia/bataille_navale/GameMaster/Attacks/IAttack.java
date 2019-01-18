@@ -6,5 +6,5 @@ import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 
 public interface IAttack {
-	public int attack(IUnit bateau, Map targetMap, Coordinates coos) throws ShipIsDisabledException;
+	public int attack(IUnit bateau, Map targetMap, Coordinates coos) throws ShipIsDisabledException, AttackOutOfMapException;
 }
