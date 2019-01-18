@@ -19,7 +19,7 @@ public abstract class AbstractShip implements IUnit{
 	private static ArrayList<String> id_list = new ArrayList<String>();
 	private final String id;
 	private final int length;
-	private final ITile[] tiles;
+	private final ArrayList<ITile> tiles = new ArrayList<ITile>();
 
 	public AbstractShip(String id, Map map, int len, Direction dir, Coordinates ref) throws ShipAlreadyExistsException {
 		Objects.requireNonNull(ref, "null reference point");
@@ -35,15 +35,14 @@ public abstract class AbstractShip implements IUnit{
 		this.id = id;
 		AbstractShip.id_list.add(this.id);
 		
-		tiles = new ITile[len];
 		length = len;
 		for (int i = 0; i < length; i++) {
 			switch(dir){
 			case Horizontal:
-				tiles[i] = new Tile((float)length, new Coordinates(ref.getX()+i,ref.getY()));
+				tiles.add(new Tile((float)length, new Coordinates(ref.getX()+i,ref.getY())));
 				break;
 			case Vertical:
-				tiles[i] = new Tile((float)length, new Coordinates(ref.getX(),ref.getY()+i));
+				tiles.add(new Tile((float)length, new Coordinates(ref.getX(),ref.getY()+i)));
 				break;
 			}
 		}
@@ -92,7 +91,7 @@ public abstract class AbstractShip implements IUnit{
 				id += 1;
 			}
 		}
-		return tiles[id].takeDamage(damage);
+		return tiles.get(id).takeDamage(damage);
 	}
 	
 	@Override
@@ -109,14 +108,19 @@ public abstract class AbstractShip implements IUnit{
 	
 	@Override
 	public void upgradeShip(float dmgreduce) {
-		for (int i = 0; i < tiles.length ; i += 1) {
-			tiles[i] = new BoostedTile(tiles[i], dmgreduce);
+		for (int i = 0; i < tiles.size() ; i += 1) {
+			tiles.set(i, new BoostedTile(tiles.get(i), dmgreduce));
 		}
 	}
 	
 	@Override
 	public AttackResult flare(Map target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
 		throw new ShipCannotFlareException();
+	}
+	
+	@Override
+	public ArrayList<ITile> getTiles(){
+		return tiles;
 	}
 
 	@Override

@@ -18,5 +18,6 @@ public interface IUnit {
 	public void upgradeShip(float dmgReduce);
 	public AttackResult flare(Map target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException;
 	public ArrayList<Coordinates> getUnitCoordinates();
+	public ArrayList<ITile> getTiles();
 	public void move(IMovement movement, int value, Map map);
 }
