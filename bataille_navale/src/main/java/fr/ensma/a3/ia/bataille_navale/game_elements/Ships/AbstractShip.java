@@ -3,6 +3,8 @@ package fr.ensma.a3.ia.bataille_navale.game_elements.Ships;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import java.util.logging.Logger;
+
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
 import fr.ensma.a3.ia.bataille_navale.game_elements.BoostedTile;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ITile;
@@ -15,7 +17,11 @@ import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 import fr.ensma.a3.ia.bataille_navale.utils.Shape;
 
+
+
 public abstract class AbstractShip implements IUnit{
+	
+	private final static Logger LOGGER = Logger.getLogger(AbstractShip.class.getName());
 	
 	private static ArrayList<String> id_list = new ArrayList<String>();
 	private final String id;
@@ -48,6 +54,7 @@ public abstract class AbstractShip implements IUnit{
 				throw new ShipOutOfMapException();
 			}
 			tiles.add(new Tile((float)shipShape.getRelativeTiles().size(), newCoos));
+			LOGGER.info(this.getId()+ ": Added Tile to Coordinates :" + String.valueOf(newCoos.getX() + ":" + String.valueOf(newCoos.getY())));
 		}
 		map.addShipToMap(this);
 	}

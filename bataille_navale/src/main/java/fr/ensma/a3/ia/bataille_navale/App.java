@@ -4,6 +4,7 @@ import fr.ensma.a3.ia.bataille_navale.GameMaster.Player;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.CrossAttack;
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.AircraftCarrier;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.Cruiser;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipAlreadyExistsException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipOutOfMapException;
@@ -45,6 +46,16 @@ public class App
 			e1.printStackTrace();
 		}
 		
+		IUnit GFord = null;
+		try {
+			GFord = new AircraftCarrier("GFord", mapPlayer1, Direction.Vertical, new Coordinates(0,5));
+		} catch (ShipAlreadyExistsException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ShipOutOfMapException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         yamato.upgradeShip(0.5f);
         try {
 			player1.attack(player2, new Coordinates(0,0), "Nimitz");
