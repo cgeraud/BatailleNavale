@@ -10,6 +10,7 @@ import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Tile;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
+import fr.ensma.a3.ia.bataille_navale.movements.IMovement;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
@@ -47,6 +48,14 @@ public abstract class AbstractShip implements IUnit{
 			}
 		}
 		map.addShipToMap(this, len, ref, dir);
+	}
+	
+	public ArrayList<Coordinates> getUnitCoordinates() {
+		ArrayList<Coordinates> retArray = new ArrayList<Coordinates>();
+		for(ITile tile : tiles) {
+			retArray.add(tile.getCoordinates());
+		}
+		return retArray;
 	}
 	
 	@Override
@@ -108,5 +117,10 @@ public abstract class AbstractShip implements IUnit{
 	@Override
 	public AttackResult flare(Map target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
 		throw new ShipCannotFlareException();
+	}
+
+	@Override
+	public void move(IMovement movement, int value, Map map) {
+		movement.move(this, value, map);
 	}
 }
