@@ -44,7 +44,7 @@ public class Map {
 	}
 	
 	// TODO exceptions
-	public void addShipToMap(IUnit myship, int length, Coordinates ref, Direction dir) {
+	public void addShipToMap(IUnit myship) {
 		ArrayList<Coordinates> coordList = myship.getUnitCoordinates();
 		for(Coordinates coord : coordList) {
 			grid[coord.getY()][coord.getX()] = myship;

@@ -46,7 +46,7 @@ public abstract class AbstractShip implements IUnit{
 				break;
 			}
 		}
-		map.addShipToMap(this, len, ref, dir);
+		map.addShipToMap(this);
 	}
 	
 	public ArrayList<Coordinates> getUnitCoordinates() {
