@@ -68,15 +68,8 @@ public abstract class AbstractShip implements IUnit{
 
 	// TODO exceptions
 	@Override
-	public AttackResult attack(Map map, Coordinates target) throws ShipIsDisabledException {
-		
-		float damage = power();
-		
-		if(Math.abs(damage)<1e-10) {
-			throw new ShipIsDisabledException();
-		}
-		
-		return map.fireAt(target, damage);
+	public AttackResult attack(Map map, Coordinates target) throws ShipIsDisabledException, ShipCannotAttackException {
+		throw new ShipCannotAttackException();
 	}
 
 	@Override
@@ -110,5 +103,10 @@ public abstract class AbstractShip implements IUnit{
 		for (int i = 0; i < tiles.length ; i += 1) {
 			tiles[i] = new BoostedTile(tiles[i], dmgreduce);
 		}
+	}
+	
+	@Override
+	public AttackResult flare(Map target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
+		throw new ShipCannotFlareException();
 	}
 }
