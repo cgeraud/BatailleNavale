@@ -12,7 +12,7 @@ public class UnderWaterMine{
 	
 	private UnderWaterMine() {}
 	
-	public void initMine(Coordinates coos) {
+	private void initMine(Coordinates coos) {
 		minetile = new Tile(mineresistance, coos);
 	}
 	
