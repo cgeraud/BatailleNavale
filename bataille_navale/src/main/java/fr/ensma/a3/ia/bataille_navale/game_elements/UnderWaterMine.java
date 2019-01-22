@@ -11,46 +11,45 @@ public class UnderWaterMine{
 	private static class holder{
 		private static final UnderWaterMine mine1 = new UnderWaterMine();
 		private static final UnderWaterMine mine2 = new UnderWaterMine();
-		
 	}
 	
-	public UnderWaterMine getMine1(){
+	public static UnderWaterMine getMine1(){
 		return holder.mine1;
 	}
 	
-	public void initMine1(Coordinates coos) {
+	public static void initMine1(Coordinates coos) {
 		holder.mine1.minetile = new Tile(mineresistance, coos);
 	}
 	
-	public UnderWaterMine getMine2() {
+	public static UnderWaterMine getMine2() {
 		return holder.mine2;
 	}
 	
-	public void initMine2(Coordinates coos) {
+	public static void initMine2(Coordinates coos) {
 		holder.mine2.minetile = new Tile(mineresistance, coos);
 	}
 	
-	public boolean isMine1Alive() {
+	public static boolean isMine1Alive() {
 		return holder.mine1.minetile.isAlive();
 	}
 	
-	public boolean isMine2Alive() {
+	public static boolean isMine2Alive() {
 		return holder.mine2.minetile.isAlive();
 	}
 	
-	public AttackResult Mine1TakeDamage(float damage) {
+	public static AttackResult Mine1TakeDamage(float damage) {
 		return holder.mine1.minetile.takeDamage(damage);
 	}
 	
-	public AttackResult Mine2TakeDamage(float damage) {
+	public static AttackResult Mine2TakeDamage(float damage) {
 		return holder.mine2.minetile.takeDamage(damage);
 	}
 	
-	public ITile getMine1Tile() {
+	public static ITile getMine1Tile() {
 		return holder.mine1.minetile;
 	}
 	
-	public ITile getMine2Tile() {
+	public static ITile getMine2Tile() {
 		return holder.mine2.minetile;
 	}
 	
