@@ -2,6 +2,7 @@ package fr.ensma.a3.ia.bataille_navale.game_elements.Ships;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
+import fr.ensma.a3.ia.bataille_navale.map.IMap;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
@@ -21,12 +22,12 @@ public class Submarine extends BattleShip {
 	}
 	
 	
-	public Submarine(String id, Map map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
+	public Submarine(String id, IMap map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
 		super(id, map, getShape(), dir, ref);
 	}
 	
 	@Override
-	public AttackResult flare(Map target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
+	public AttackResult flare(IMap target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
 			float damage = power();
 			if(Math.abs(damage)<1.0) {
 				throw new ShipIsDisabledException();

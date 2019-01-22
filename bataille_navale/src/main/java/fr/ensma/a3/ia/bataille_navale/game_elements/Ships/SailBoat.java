@@ -2,6 +2,7 @@ package fr.ensma.a3.ia.bataille_navale.game_elements.Ships;
 
 import java.util.ArrayList;
 
+import fr.ensma.a3.ia.bataille_navale.map.IMap;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
@@ -19,7 +20,7 @@ public class SailBoat extends AbstractShip {
 		return shipShape;
 	}
 	
-	public SailBoat(String id, Map map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
+	public SailBoat(String id, IMap map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
 		super(id, map, getShape(), dir, ref);
 		
 	}

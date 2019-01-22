@@ -10,6 +10,7 @@ import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipAlreadyExistsExcep
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipFactory;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipOutOfMapException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipType;
+import fr.ensma.a3.ia.bataille_navale.map.IMap;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer1;
 import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer2;
@@ -29,11 +30,11 @@ public class App
     	
     	md.setBuilder(mb1);
     	md.buildMap();
-        Map mapPlayer1 = (Map)md.getMap();
+        IMap mapPlayer1 = md.getMap();
         
         md.setBuilder(mb2);
     	md.buildMap();
-        Map mapPlayer2 = (Map)md.getMap();
+        IMap mapPlayer2 = md.getMap();
         
         Player player1 = new Player(mapPlayer1);
         Player player2 = new Player(mapPlayer2);

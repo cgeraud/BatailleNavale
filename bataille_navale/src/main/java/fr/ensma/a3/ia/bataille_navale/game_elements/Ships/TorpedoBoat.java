@@ -1,5 +1,6 @@
 package fr.ensma.a3.ia.bataille_navale.game_elements.Ships;
 
+import fr.ensma.a3.ia.bataille_navale.map.IMap;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
@@ -17,7 +18,7 @@ public class TorpedoBoat extends BattleShip {
 		return shipShape;
 	}
 	
-	public TorpedoBoat(String id, Map map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
+	public TorpedoBoat(String id, IMap map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
 		super(id, map, getShape(), dir, ref);
 	}
 

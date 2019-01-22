@@ -6,6 +6,7 @@ import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IAttack;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipCannotAttackException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipCannotFlareException;
+import fr.ensma.a3.ia.bataille_navale.map.IMap;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.map.ShipDoesNotExistException;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
@@ -13,10 +14,10 @@ import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 public class Player{
 	
 	private int turnCoolDown = 0;
-	private Map playerMap;
+	private IMap playerMap;
 	private IAttack attackmode = new BaseAttack();
 	
-	public Player(Map playerMap) {
+	public Player(IMap playerMap) {
 		this.playerMap = playerMap;
 	}
 	
@@ -24,7 +25,7 @@ public class Player{
 		this.attackmode = mode;
 	}
 	
-	public Map getMap() {
+	public IMap getMap() {
 		return this.playerMap;
 	}
 	
