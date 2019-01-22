@@ -10,6 +10,9 @@ import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipFactory;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipOutOfMapException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipType;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
+import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer1;
+import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer2;
+import fr.ensma.a3.ia.bataille_navale.map.MapDirector;
 import fr.ensma.a3.ia.bataille_navale.map.ShipDoesNotExistException;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
@@ -18,9 +21,19 @@ public class App
 {
     public static void main( String[] args )
     {
+    	/* For testing puposes only */
+    	MapDirector md = new MapDirector();
+    	MapBuilderPlayer1 mb1 = new MapBuilderPlayer1();
+    	MapBuilderPlayer2 mb2 = new MapBuilderPlayer2();
     	
-        Map mapPlayer1 = new Map();
-        Map mapPlayer2 = new Map();
+    	md.setBuilder(mb1);
+    	md.buildMap();
+        Map mapPlayer1 = (Map)md.getMap();
+        
+        md.setBuilder(mb2);
+    	md.buildMap();
+        Map mapPlayer2 = (Map)md.getMap();
+        
         Player player1 = new Player(mapPlayer1);
         Player player2 = new Player(mapPlayer2);
         IUnit nimitz = null;
