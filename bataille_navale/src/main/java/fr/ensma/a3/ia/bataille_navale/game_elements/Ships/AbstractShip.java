@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.EAttackEffect;
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.EFlareResult;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IShellResult;
 import fr.ensma.a3.ia.bataille_navale.game_elements.BoostedTile;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ITile;
@@ -128,7 +129,7 @@ public abstract class AbstractShip implements IUnit{
 	}
 	
 	@Override
-	public AttackResult flare(Map target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
+	public EFlareResult flare(Map target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
 		throw new ShipCannotFlareException();
 	}
 	

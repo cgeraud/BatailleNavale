@@ -2,7 +2,7 @@ package fr.ensma.a3.ia.bataille_navale.game_elements;
 
 import java.util.ArrayList;
 
-import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.EFlareResult;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IShellResult;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipCannotAttackException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipCannotFlareException;
@@ -18,7 +18,7 @@ public interface IUnit {
 	public IShellResult attack(Map target, Coordinates coos) throws ShipIsDisabledException, ShipCannotAttackException;
 	public float power();
 	public void upgradeShip(float dmgReduce);
-	public AttackResult flare(Map target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException;
+	public EFlareResult flare(Map target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException;
 	public ArrayList<Coordinates> getUnitCoordinates();
 	public ArrayList<ITile> getTiles();
 	public void move(IMovement movement, int value, Map map);

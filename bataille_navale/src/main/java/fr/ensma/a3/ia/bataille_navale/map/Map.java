@@ -3,6 +3,7 @@ package fr.ensma.a3.ia.bataille_navale.map;
 import java.util.ArrayList;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.EFlareResult;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IShellResult;
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.UnderWaterMine;
@@ -42,6 +43,16 @@ public class Map implements IMap{
 		if(targetCell != null) {
 			res = targetCell.takeDamage(damage, target);
 		}
+		
+		return res;
+	}
+	
+	@Override
+	public EFlareResult revealMap(Coordinates target) {
+		IUnit targetCell = grid[target.getY()][target.getX()];
+		EFlareResult res = EFlareResult.Water;
+		if(targetCell != null)
+			res = EFlareResult.ShipTile;
 		
 		return res;
 	}
