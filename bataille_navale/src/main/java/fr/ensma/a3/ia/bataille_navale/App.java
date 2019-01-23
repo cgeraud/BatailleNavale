@@ -50,6 +50,16 @@ public class App
 			e1.printStackTrace();
 		}
 		
+		IUnit GFord = null;
+		try {
+			GFord = ShipFactory.CreateShip("GFord", ShipType.AircraftCarrier, player1.getMap(), Direction.Vertical, new Coordinates(0,5));
+		} catch (ShipAlreadyExistsException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ShipOutOfMapException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         yamato.upgradeShip(0.5f);
         try {
 			player1.attack(player2, new Coordinates(0,0), "Nimitz");

@@ -14,8 +14,6 @@ public class Map implements IMap{
 	private static final int Height = 10;
 	private static final int Width = 10;
 	private ArrayList<IUnit> ships = new ArrayList<IUnit>();
-	// TODO: make mine useful
-	@SuppressWarnings("unused")
 	private UnderWaterMine mine = null;
 	private IUnit[][] grid;
 	
@@ -42,6 +40,31 @@ public class Map implements IMap{
 		
 		if(targetCell != null) {
 			res = targetCell.takeDamage(damage, target);
+		}
+		
+		if(mine.isMineAlive()) {
+			if(mine.getMineTile().getCoordinates().equals(target)) {
+				mine.MineTakeDamage(damage);
+				if(!mine.isMineAlive()) {
+					for(int i=-2 ; i <= 2 ; i++) {
+						for(int j=-2 ; j <= 2 ; j++) {
+							Coordinates coord = new Coordinates(target.getX() + i, target.getY() + j);
+							if(isOnMap(coord)) {
+								this.fireAt(coord, 1.0f);
+							}
+						}
+					}
+					for(int i=-1 ; i <= 1 ; i++) {
+						for(int j=-1 ; j <= 1 ; j++) {
+							Coordinates coord = new Coordinates(target.getX() + i, target.getY() + j);
+							if(isOnMap(coord)) {
+								this.fireAt(coord, 1.0f);
+							}
+						}
+					}
+					this.fireAt(target, 1.0f);
+				}
+			}
 		}
 		
 		return res;
