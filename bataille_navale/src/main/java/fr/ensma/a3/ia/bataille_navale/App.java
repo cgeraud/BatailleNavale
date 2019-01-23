@@ -4,12 +4,10 @@ import fr.ensma.a3.ia.bataille_navale.GameMaster.Player;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.CrossAttack;
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
-import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.Cruiser;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipAlreadyExistsException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipFactory;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipOutOfMapException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipType;
-import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer1;
 import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer2;
 import fr.ensma.a3.ia.bataille_navale.map.MapDirector;
@@ -23,22 +21,18 @@ public class App
     {
     	/* For testing puposes only */
     	MapDirector md = new MapDirector();
-    	MapBuilderPlayer1 mb1 = new MapBuilderPlayer1();
-    	MapBuilderPlayer2 mb2 = new MapBuilderPlayer2();
     	
-    	md.setBuilder(mb1);
+    	md.setBuilder(new MapBuilderPlayer1());
     	md.buildMap();
-        Map mapPlayer1 = (Map)md.getMap();
+    	Player player1 = new Player(md.getMap());
         
-        md.setBuilder(mb2);
+        md.setBuilder(new MapBuilderPlayer2());
     	md.buildMap();
-        Map mapPlayer2 = (Map)md.getMap();
+    	Player player2 = new Player(md.getMap());
         
-        Player player1 = new Player(mapPlayer1);
-        Player player2 = new Player(mapPlayer2);
         IUnit nimitz = null;
 		try {
-			nimitz = ShipFactory.CreateShip("Nimitz", ShipType.Cruiser, mapPlayer1, Direction.Horizontal, new Coordinates(0,0));
+			nimitz = ShipFactory.CreateShip("Nimitz", ShipType.Cruiser, player1.getMap(), Direction.Horizontal, new Coordinates(0,0));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,7 +40,7 @@ public class App
         IUnit yamato = null;
 		try {
 			try {
-				yamato = ShipFactory.CreateShip("Yamato", ShipType.Cruiser, mapPlayer2, Direction.Horizontal, new Coordinates(0,0));
+				yamato = ShipFactory.CreateShip("Yamato", ShipType.Cruiser, player2.getMap(), Direction.Horizontal, new Coordinates(0,0));
 			} catch (ShipOutOfMapException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

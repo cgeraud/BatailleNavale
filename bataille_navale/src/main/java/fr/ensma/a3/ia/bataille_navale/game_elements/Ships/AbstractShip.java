@@ -12,7 +12,7 @@ import fr.ensma.a3.ia.bataille_navale.game_elements.ITile;
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Tile;
-import fr.ensma.a3.ia.bataille_navale.map.Map;
+import fr.ensma.a3.ia.bataille_navale.map.IMap;
 import fr.ensma.a3.ia.bataille_navale.movements.IMovement;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
@@ -25,7 +25,7 @@ public abstract class AbstractShip implements IUnit{
 	private final ArrayList<ITile> tiles = new ArrayList<ITile>();
 	private Direction dir = Direction.Horizontal;
 
-	public AbstractShip(String id, Map map, Shape shipShape, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
+	public AbstractShip(String id, IMap map, Shape shipShape, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
 		Objects.requireNonNull(ref, "null reference point");
 		Objects.requireNonNull(id, "null ship id");
 		
@@ -84,7 +84,7 @@ public abstract class AbstractShip implements IUnit{
 
 	// TODO exceptions
 	@Override
-	public IShellResult attack(Map map, Coordinates target) throws ShipIsDisabledException, ShipCannotAttackException {
+	public IShellResult attack(IMap map, Coordinates target) throws ShipIsDisabledException, ShipCannotAttackException {
 		throw new ShipCannotAttackException();
 	}
 
@@ -129,7 +129,7 @@ public abstract class AbstractShip implements IUnit{
 	}
 	
 	@Override
-	public EFlareResult flare(Map target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
+	public EFlareResult flare(IMap target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
 		throw new ShipCannotFlareException();
 	}
 	
@@ -139,7 +139,7 @@ public abstract class AbstractShip implements IUnit{
 	}
 
 	@Override
-	public void move(IMovement movement, int value, Map map) {
+	public void move(IMovement movement, int value, IMap map) {
 		// TODO
 		try {
 			movement.move(this, value, map);
