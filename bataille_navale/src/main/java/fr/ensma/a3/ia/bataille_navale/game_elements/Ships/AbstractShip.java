@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.EAttackEffect;
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IShellResult;
 import fr.ensma.a3.ia.bataille_navale.game_elements.BoostedTile;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ITile;
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
@@ -81,12 +83,12 @@ public abstract class AbstractShip implements IUnit{
 
 	// TODO exceptions
 	@Override
-	public AttackResult attack(Map map, Coordinates target) throws ShipIsDisabledException, ShipCannotAttackException {
+	public IShellResult attack(Map map, Coordinates target) throws ShipIsDisabledException, ShipCannotAttackException {
 		throw new ShipCannotAttackException();
 	}
 
 	@Override
-	public AttackResult takeDamage(float damage, Coordinates tilecoord) {
+	public IShellResult takeDamage(float damage, Coordinates tilecoord) {
 		int id = 0;
 		for(ITile tile : tiles) {
 			if(tilecoord.equals(tile.getCoordinates())) {
@@ -96,7 +98,14 @@ public abstract class AbstractShip implements IUnit{
 				id += 1;
 			}
 		}
-		return tiles.get(id).takeDamage(damage);
+		
+		AttackResult res = tiles.get(id).takeDamage(damage);
+		if(!this.isAlive()) {
+			res.setFireResult(EAttackEffect.ShipSunk);
+			res.setSunkShipId(this.id);
+		}
+		
+		return res;
 	}
 	
 	@Override

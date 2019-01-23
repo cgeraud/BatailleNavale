@@ -24,7 +24,7 @@ public class Submarine extends BattleShip {
 	public Submarine(String id, Map map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
 		super(id, map, getShape(), dir, ref);
 	}
-	
+	/*
 	@Override
 	public AttackResult flare(Map target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
 			float damage = power();
@@ -32,5 +32,5 @@ public class Submarine extends BattleShip {
 				throw new ShipIsDisabledException();
 		}
 		return target.fireAt(coos, 0);
-	}
+	}*/
 }

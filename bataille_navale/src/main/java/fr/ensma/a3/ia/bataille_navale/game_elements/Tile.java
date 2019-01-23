@@ -1,6 +1,7 @@
 package fr.ensma.a3.ia.bataille_navale.game_elements;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.EAttackEffect;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 
 public class Tile implements ITile {
@@ -16,10 +17,11 @@ public class Tile implements ITile {
 	@Override
 	public AttackResult takeDamage(float damage) {
 		resistance -= damage;
-		AttackResult res = AttackResult.Hit;
+		AttackResult res = new AttackResult();
+		res.setFireResult(EAttackEffect.Hit);
 		if (resistance < 1e-10) {
 			resistance = 0.0f;
-			res = AttackResult.Destroyed;
+			res.setFireResult(EAttackEffect.TileDestroyed);
 		}
 		return res;
 	}

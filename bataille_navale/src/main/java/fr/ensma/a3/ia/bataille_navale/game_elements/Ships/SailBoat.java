@@ -1,7 +1,5 @@
 package fr.ensma.a3.ia.bataille_navale.game_elements.Ships;
 
-import java.util.ArrayList;
-
 import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
