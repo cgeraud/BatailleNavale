@@ -22,9 +22,15 @@ public class FlareLauncher implements IAttack {
 	
 	private int flareLauncher(IUnit bateau, IMap targetMap, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
 		int res = (int)bateau.power() + 1;
-		for(int i = -res / 2 ; i <= res / 2 ; i += 1) {
-			for(int j = -res / 2 ; j <= res / 2 ; j += 1){
-				bateau.flare(targetMap, new Coordinates(i,j));
+		Coordinates target = new Coordinates(0,0);
+		
+		for(int j = res / 2 ; j >= -res / 2 ; j -= 1) {
+			for(int i = -res / 2 ; i <= res / 2 ; i += 1){
+				target.setX(coos.getX() + i);
+				target.setY(coos.getY() + j);
+				if(targetMap.isOnMap(target)) {
+					bateau.flare(targetMap, target);
+				}
 			}
 		}
 		return 5;

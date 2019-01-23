@@ -2,6 +2,7 @@ package fr.ensma.a3.ia.bataille_navale;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Player;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.CrossAttack;
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.FlareLauncher;
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipAlreadyExistsException;
@@ -78,6 +79,23 @@ public class App
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        /*
+        player2.setModeAttaque(new FlareLauncher());
+        IUnit virginia = null;
+        try {
+			virginia = ShipFactory.CreateShip("USS Virginia", ShipType.Submarine, player2.getMap(), Direction.Horizontal, new Coordinates(0,5));
+		} catch (ShipAlreadyExistsException | ShipOutOfMapException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
+        try {
+			player2.attack(player1, new Coordinates(2,2), "USS Virginia");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
         /*
         try {
 			System.out.println(player1.getMap().getShipFromId("Nimitz").power());
