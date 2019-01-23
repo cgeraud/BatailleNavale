@@ -108,9 +108,13 @@ public abstract class AbstractShip implements IUnit{
 		}
 		
 		AttackResult res = tiles.get(id).takeDamage(damage);
+		LOGGER.info(this.getId() + " was hit on tile " + id + ".");
+		if(!tiles.get(id).isAlive())
+			LOGGER.info(this.getId() + " has tile " + id + " destroyed.");
 		if(!this.isAlive()) {
 			res.setFireResult(EAttackEffect.ShipSunk);
 			res.setSunkShipId(this.id);
+			LOGGER.info(this.getId() + " was sunk.");
 		}
 		
 		return res;

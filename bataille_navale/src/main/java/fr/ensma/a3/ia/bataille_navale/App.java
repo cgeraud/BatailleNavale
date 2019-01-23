@@ -73,12 +73,12 @@ public class App
         
         player2.setModeAttaque(new CrossAttack());
         try {
-			player2.attack(player1, new Coordinates(1,1), "Yamato");
+			player2.attack(player1, new Coordinates(1,4), "Yamato");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
+        /*
         try {
 			System.out.println(player1.getMap().getShipFromId("Nimitz").power());
 			System.out.println(player2.getMap().getShipFromId("Yamato").power());
@@ -86,6 +86,6 @@ public class App
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
+        */
     }
 }
