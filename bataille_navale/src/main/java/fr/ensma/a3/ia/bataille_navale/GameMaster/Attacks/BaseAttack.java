@@ -9,8 +9,8 @@ import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 public class BaseAttack implements IAttack {
 
 	public int baseAttack(IUnit bateau, Map targetMap, Coordinates coos) throws ShipIsDisabledException, ShipCannotAttackException {
-		bateau.attack(targetMap, coos);
-		return 0;
+		IShellResult res = bateau.attack(targetMap, coos);
+		return res.getCoolDownPenalty();
 	}
 	
 	@Override

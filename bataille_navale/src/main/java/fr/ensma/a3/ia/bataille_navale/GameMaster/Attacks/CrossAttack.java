@@ -10,20 +10,23 @@ public class CrossAttack implements IAttack {
 	
 	
 	public int crossAttack(IUnit bateau, Map targetMap, Coordinates coos) throws ShipIsDisabledException, ShipCannotAttackException{
+		int cooldown = 2;
 		int radius = 1;
 		Coordinates attkCoord = new Coordinates(0,0);
+		IShellResult res = null;
 		
 		for(int dx = -radius; dx <= radius; dx++) {
 			for(int dy = -radius+Math.abs(dx); dy <= radius-Math.abs(dx); dy++) {
 				attkCoord.setX(coos.getX()+dx);
 				attkCoord.setY(coos.getY()+dy);
 				if(targetMap.isOnMap(attkCoord)) {
-					bateau.attack(targetMap, attkCoord);
+					res = bateau.attack(targetMap, attkCoord);
+					cooldown += res.getCoolDownPenalty();
 				}
 			}
 		}
 		
-		return 2;
+		return cooldown;
 	}
 	
 	@Override

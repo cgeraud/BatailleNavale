@@ -1,5 +1,8 @@
 package fr.ensma.a3.ia.bataille_navale.game_elements.Ships;
 
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.EAttackEffect;
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IShellResult;
 import fr.ensma.a3.ia.bataille_navale.map.Map;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
@@ -21,5 +24,15 @@ public class SailBoat extends AbstractShip {
 		super(id, map, getShape(), dir, ref);
 		
 	}
-
+	
+	@Override
+	public IShellResult takeDamage(float damage, Coordinates tilecoord) {
+		AttackResult res = this.getTiles().get(0).takeDamage(damage);
+		if(!this.isAlive()) {
+			res.setFireResult(EAttackEffect.ShipSunk);
+			res.setSunkShipId(this.getId());
+			res.setCoolDownPenalty(3);
+		}
+		return res;
+	}
 }
