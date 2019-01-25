@@ -2,7 +2,6 @@ package fr.ensma.a3.ia.bataille_navale.game_elements.Ships;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
 import java.util.logging.Logger;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
@@ -32,7 +31,7 @@ public abstract class AbstractShip implements IUnit{
 	private final ArrayList<ITile> tiles = new ArrayList<ITile>();
 	private Direction dir = Direction.Horizontal;
 
-	public AbstractShip(String id, IMap map, Shape shipShape, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
+	public AbstractShip(String id, IMap map, Shape shipShape, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
 		Objects.requireNonNull(ref, "null reference point");
 		Objects.requireNonNull(id, "null ship id");
 		
@@ -56,9 +55,11 @@ public abstract class AbstractShip implements IUnit{
 				newCoos = new Coordinates(ref.getX() + coos.getY(), ref.getY() - coos.getX());
 				break;
 			}
-			if (!map.isOnMap(newCoos)) {
+			if (!map.isOnMap(newCoos))
 				throw new ShipOutOfMapException();
-			}
+			if (!map.noCollision(newCoos, this))
+				throw new ShipsOverlappingException();
+
 			tiles.add(new Tile((float)shipShape.getRelativeTiles().size(), newCoos));
 			LOGGER.info(this.getId()+ ": Added Tile to Coordinates :" + String.valueOf(newCoos.getX() + ":" + String.valueOf(newCoos.getY())));
 		}

@@ -21,7 +21,7 @@ public class Submarine extends BattleShip {
 	}
 	
 	
-	public Submarine(String id, IMap map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
+	public Submarine(String id, IMap map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
 		super(id, map, getShape(), dir, ref);
 	}
 	

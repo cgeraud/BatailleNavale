@@ -18,7 +18,7 @@ public class Destroyer extends BattleShip {
 		return shipShape;
 	}
 	
-	public Destroyer(String id, IMap map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
+	public Destroyer(String id, IMap map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
 		super(id, map, getShape(), dir, ref);
 	}
 

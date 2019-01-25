@@ -7,6 +7,7 @@ import fr.ensma.a3.ia.bataille_navale.game_elements.UnderWaterMine;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.SailBoat;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipAlreadyExistsException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipOutOfMapException;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipsOverlappingException;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
@@ -37,6 +38,8 @@ public class MapBuilderPlayer1 extends AbsMapBuilder {
 		} catch (ShipAlreadyExistsException e) {
 			e.printStackTrace();
 		} catch (ShipOutOfMapException e) {
+			e.printStackTrace();
+		} catch (ShipsOverlappingException e) {
 			e.printStackTrace();
 		}
 		

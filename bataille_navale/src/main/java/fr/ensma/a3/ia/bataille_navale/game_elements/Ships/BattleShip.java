@@ -9,7 +9,7 @@ import fr.ensma.a3.ia.bataille_navale.utils.Shape;
 
 public abstract class BattleShip extends AbstractShip{
 
-	public BattleShip(String id, IMap map, Shape shape, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException {
+	public BattleShip(String id, IMap map, Shape shape, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
 		super(id, map, shape, dir, ref);
 	}
 
