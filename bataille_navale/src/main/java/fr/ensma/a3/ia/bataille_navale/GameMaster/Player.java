@@ -42,6 +42,6 @@ public class Player{
 	}
 	
 	public void attack(Player target, Coordinates coos, String idbateau)throws ShipIsDisabledException, ShipDoesNotExistException, AttackOutOfMapException, ShipCannotAttackException, ShipCannotFlareException {
-		this.turnCoolDown = this.attackmode.attack(this.playerMap.getShipFromId(idbateau), target.getMap(), coos);
+		this.setTurnCoolDown(this.attackmode.attack(this.playerMap.getShipFromId(idbateau), target.getMap(), coos));
 	}
 }
