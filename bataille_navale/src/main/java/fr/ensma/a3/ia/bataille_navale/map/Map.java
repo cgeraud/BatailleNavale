@@ -43,28 +43,8 @@ public class Map implements IMap{
 		}
 		
 		if(mine.isMineAlive()) {
-			if(mine.getMineTile().getCoordinates().equals(target)) {
-				mine.MineTakeDamage(damage);
-				if(!mine.isMineAlive()) {
-					for(int i=-2 ; i <= 2 ; i++) {
-						for(int j=-2 ; j <= 2 ; j++) {
-							Coordinates coord = new Coordinates(target.getX() + i, target.getY() + j);
-							if(isOnMap(coord)) {
-								this.fireAt(coord, 1.0f);
-							}
-						}
-					}
-					for(int i=-1 ; i <= 1 ; i++) {
-						for(int j=-1 ; j <= 1 ; j++) {
-							Coordinates coord = new Coordinates(target.getX() + i, target.getY() + j);
-							if(isOnMap(coord)) {
-								this.fireAt(coord, 1.0f);
-							}
-						}
-					}
-					this.fireAt(target, 1.0f);
-				}
-			}
+			if(mine.getMineTile().getCoordinates().equals(target))
+				mine.MineTakeDamage(damage, this);
 		}
 		
 		return res;
