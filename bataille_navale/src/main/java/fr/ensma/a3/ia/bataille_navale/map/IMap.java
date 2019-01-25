@@ -12,4 +12,5 @@ public interface IMap {
 	public void addShipToMap(IUnit myship);
 	public IUnit getShipFromId(String id) throws ShipDoesNotExistException;
 	public boolean isOnMap(Coordinates coos);
+	public boolean noCollision(Coordinates coos);
 }

@@ -129,4 +129,12 @@ public class Map implements IMap{
 		}
 		return retVal;
 	}
+
+	@Override
+	public boolean noCollision(Coordinates coos) {
+		boolean ret = true;
+		if(this.isOnMap(coos))
+			ret = (this.grid[coos.getY()][coos.getX()] == null);
+		return ret;
+	}
 }

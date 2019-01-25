@@ -89,7 +89,6 @@ public abstract class AbstractShip implements IUnit{
 		return damage;
 	}
 
-	// TODO exceptions
 	@Override
 	public IShellResult attack(IMap map, Coordinates target) throws ShipIsDisabledException, ShipCannotAttackException {
 		throw new ShipCannotAttackException();
@@ -151,11 +150,10 @@ public abstract class AbstractShip implements IUnit{
 
 	@Override
 	public void move(IMovement movement, int value, IMap map) {
-		// TODO
+		// TODO Exceptions
 		try {
 			movement.move(this, value, map);
-		} catch (ShipOutOfMapException e) {
-			// TODO Auto-generated catch block
+		} catch (ShipOutOfMapException | ShipsOverlappingException e) {
 			e.printStackTrace();
 		}
 	}
