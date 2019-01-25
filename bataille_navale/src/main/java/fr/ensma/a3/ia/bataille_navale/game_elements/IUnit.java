@@ -21,7 +21,7 @@ public interface IUnit {
 	public EFlareResult flare(IMap target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException;
 	public ArrayList<Coordinates> getUnitCoordinates();
 	public ArrayList<ITile> getTiles();
-	public void move(IMovement movement, int value, IMap map);
+	public void move(IMovement movement, Coordinates start, Coordinates end, IMap map);
 	public Direction getDirection();
 	public void setDirection(Direction dir);
 }

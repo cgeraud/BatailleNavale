@@ -131,10 +131,12 @@ public class Map implements IMap{
 	}
 
 	@Override
-	public boolean noCollision(Coordinates coos) {
+	public boolean noCollision(Coordinates coos, IUnit ship) {
 		boolean ret = true;
-		if(this.isOnMap(coos))
-			ret = (this.grid[coos.getY()][coos.getX()] == null);
+		if(this.isOnMap(coos)) {
+			if(this.grid[coos.getY()][coos.getX()] != null)
+				ret = this.grid[coos.getY()][coos.getX()] == ship;
+		}
 		return ret;
 	}
 }

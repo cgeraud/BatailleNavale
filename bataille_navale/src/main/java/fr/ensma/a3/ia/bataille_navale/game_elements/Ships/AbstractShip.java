@@ -149,10 +149,10 @@ public abstract class AbstractShip implements IUnit{
 	}
 
 	@Override
-	public void move(IMovement movement, int value, IMap map) {
+	public void move(IMovement movement, Coordinates start, Coordinates end, IMap map) {
 		// TODO Exceptions
 		try {
-			movement.move(this, value, map);
+			movement.move(this, start, end, map);
 		} catch (ShipOutOfMapException | ShipsOverlappingException e) {
 			e.printStackTrace();
 		}
