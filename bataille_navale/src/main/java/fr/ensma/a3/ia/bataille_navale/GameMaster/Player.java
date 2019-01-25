@@ -3,6 +3,7 @@ package fr.ensma.a3.ia.bataille_navale.GameMaster;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackOutOfMapException;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.BaseAttack;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IAttack;
+import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipAlreadyExistsException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipCannotAttackException;
@@ -36,8 +37,14 @@ public class Player{
 	}
 	
 	public boolean playerIsalive() {
-		//TODO
-		return false;
+		boolean res = false;
+		for(IUnit ship : playerMap.getShips()) {
+			if(ship.isAlive()) {
+				res = true;
+				break;
+			}
+		}
+		return res;
 	}
 	
 	public int getTurnCoolDown() {

@@ -119,4 +119,9 @@ public class Map implements IMapPlayer, IMapOpponent{
 		}
 		return ret;
 	}
+
+	@Override
+	public ArrayList<IUnit> getShips() {
+		return ships;
+	}
 }
