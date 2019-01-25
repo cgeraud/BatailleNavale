@@ -12,7 +12,7 @@ import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 public class Translation implements IMovement{
 	
 	@Override
-	public void move(IUnit ship, Coordinates start, Coordinates end, IMap map) throws ShipOutOfMapException, ShipsOverlappingException {
+	public void move(IUnit ship, Coordinates start, Coordinates end, IMap map) throws ShipOutOfMapException, ShipsOverlappingException, ZeroMovementException {
 		ArrayList<ITile> tiles = ship.getTiles();
 		Coordinates tmp = null;
 		// Determine length of travel
@@ -25,6 +25,9 @@ public class Translation implements IMovement{
 			value = end.getY()-start.getY();
 			break;
 		}
+		// If no move, exception
+		if(value==0)
+			throw new ZeroMovementException();
 		// Test if move is possible
 		for(ITile tile : tiles) {
 			switch(ship.getDirection()) {

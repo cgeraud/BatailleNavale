@@ -16,6 +16,7 @@ import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Tile;
 import fr.ensma.a3.ia.bataille_navale.map.IMap;
 import fr.ensma.a3.ia.bataille_navale.movements.IMovement;
+import fr.ensma.a3.ia.bataille_navale.movements.ZeroMovementException;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 import fr.ensma.a3.ia.bataille_navale.utils.Shape;
@@ -153,7 +154,7 @@ public abstract class AbstractShip implements IUnit{
 		// TODO Exceptions
 		try {
 			movement.move(this, start, end, map);
-		} catch (ShipOutOfMapException | ShipsOverlappingException e) {
+		} catch (ShipOutOfMapException | ShipsOverlappingException | ZeroMovementException e) {
 			e.printStackTrace();
 		}
 	}

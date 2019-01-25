@@ -12,14 +12,17 @@ import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 public class Rotation implements IMovement{
 	
 	@Override
-	public void move(IUnit ship, Coordinates start, Coordinates end, IMap map) throws ShipOutOfMapException, ShipsOverlappingException {
+	public void move(IUnit ship, Coordinates start, Coordinates end, IMap map) throws ShipOutOfMapException, ShipsOverlappingException, ZeroMovementException {
 		ArrayList<ITile> tiles = ship.getTiles();
 		Coordinates tmp = null;
 		// Determine rotation parameters
 		int sin = 0;
 		switch(ship.getDirection()) {
 		case Horizontal:
-			if(end.getY()-start.getY()>0) {
+			int dy = end.getY()-start.getY();
+			if(dy == 0)
+				throw new ZeroMovementException();
+			if(dy > 0) {
 				sin = 1;
 			}
 			else {
@@ -27,7 +30,10 @@ public class Rotation implements IMovement{
 			}
 			break;
 		case Vertical:
-			if(end.getX()-start.getX()>0) {
+			int dx = end.getX()-start.getX();
+			if(dx == 0)
+				throw new ZeroMovementException();
+			if(dx > 0) {
 				sin = 1;
 			}
 			else {
