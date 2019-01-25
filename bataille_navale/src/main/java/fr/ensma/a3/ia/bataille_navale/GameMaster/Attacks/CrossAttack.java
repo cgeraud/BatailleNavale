@@ -3,13 +3,13 @@ package fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks;
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipCannotAttackException;
-import fr.ensma.a3.ia.bataille_navale.map.IMap;
+import fr.ensma.a3.ia.bataille_navale.map.IMapOpponent;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 
 public class CrossAttack implements IAttack {
 	
 	
-	public int crossAttack(IUnit bateau, IMap targetMap, Coordinates coos) throws ShipIsDisabledException, ShipCannotAttackException{
+	public int crossAttack(IUnit bateau, IMapOpponent targetMap, Coordinates coos) throws ShipIsDisabledException, ShipCannotAttackException{
 		int cooldown = 2;
 		int radius = 1;
 		Coordinates attkCoord = new Coordinates(0,0);
@@ -30,7 +30,7 @@ public class CrossAttack implements IAttack {
 	}
 	
 	@Override
-	public int attack(IUnit bateau, IMap targetMap, Coordinates coos) throws ShipIsDisabledException, AttackOutOfMapException, ShipCannotAttackException {
+	public int attack(IUnit bateau, IMapOpponent targetMap, Coordinates coos) throws ShipIsDisabledException, AttackOutOfMapException, ShipCannotAttackException {
 		if(targetMap.isOnMap(coos)) {
 			return crossAttack(bateau, targetMap, coos);
 		}

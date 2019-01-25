@@ -3,7 +3,7 @@ package fr.ensma.a3.ia.bataille_navale.map;
 abstract public class AbsMapBuilder {
 	protected Map map;
 	
-	public IMap getMap() {
+	public Map getMap() {
 		return map;
 	}
 	

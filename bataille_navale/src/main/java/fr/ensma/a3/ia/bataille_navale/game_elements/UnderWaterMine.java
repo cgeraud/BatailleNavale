@@ -1,6 +1,6 @@
 package fr.ensma.a3.ia.bataille_navale.game_elements;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
-import fr.ensma.a3.ia.bataille_navale.map.IMap;
+import fr.ensma.a3.ia.bataille_navale.map.IMapOpponent;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 
 public class UnderWaterMine{
@@ -21,14 +21,14 @@ public class UnderWaterMine{
 		return minetile.isAlive();
 	}
 	
-	public  AttackResult MineTakeDamage(float damage, IMap map) {
+	public  AttackResult MineTakeDamage(float damage, IMapOpponent map) {
 		AttackResult res = minetile.takeDamage(damage);
 		if(!this.isMineAlive())
 			this.explode(map);
 		return res;
 	}
 	
-	private void explode(IMap map) {
+	private void explode(IMapOpponent map) {
 		Coordinates target = new Coordinates(0,0);
 		float damage = 0.0f;
 		for(int i=-2 ; i <= 2 ; i++) {

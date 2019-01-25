@@ -6,13 +6,13 @@ import fr.ensma.a3.ia.bataille_navale.game_elements.ITile;
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipOutOfMapException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipsOverlappingException;
-import fr.ensma.a3.ia.bataille_navale.map.IMap;
+import fr.ensma.a3.ia.bataille_navale.map.IMapPlayer;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 
 public class Translation implements IMovement{
 	
 	@Override
-	public void move(IUnit ship, Coordinates start, Coordinates end, IMap map) throws ShipOutOfMapException, ShipsOverlappingException, ZeroMovementException {
+	public void move(IUnit ship, Coordinates start, Coordinates end, IMapPlayer map) throws ShipOutOfMapException, ShipsOverlappingException, ZeroMovementException {
 		ArrayList<ITile> tiles = ship.getTiles();
 		Coordinates tmp = null;
 		// Determine length of travel

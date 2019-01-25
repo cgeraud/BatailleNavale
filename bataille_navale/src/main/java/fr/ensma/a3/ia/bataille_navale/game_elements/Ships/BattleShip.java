@@ -2,19 +2,20 @@ package fr.ensma.a3.ia.bataille_navale.game_elements.Ships;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IShellResult;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
-import fr.ensma.a3.ia.bataille_navale.map.IMap;
+import fr.ensma.a3.ia.bataille_navale.map.IMapOpponent;
+import fr.ensma.a3.ia.bataille_navale.map.IMapPlayer;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 import fr.ensma.a3.ia.bataille_navale.utils.Shape;
 
 public abstract class BattleShip extends AbstractShip{
 
-	public BattleShip(String id, IMap map, Shape shape, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
+	public BattleShip(String id, IMapPlayer map, Shape shape, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
 		super(id, map, shape, dir, ref);
 	}
 
 	@Override
-	public IShellResult attack(IMap map, Coordinates target) throws ShipIsDisabledException {
+	public IShellResult attack(IMapOpponent map, Coordinates target) throws ShipIsDisabledException {
 		
 		float damage = this.power();
 		

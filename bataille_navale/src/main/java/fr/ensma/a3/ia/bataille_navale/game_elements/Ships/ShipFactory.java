@@ -1,12 +1,12 @@
 package fr.ensma.a3.ia.bataille_navale.game_elements.Ships;
 
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
-import fr.ensma.a3.ia.bataille_navale.map.IMap;
+import fr.ensma.a3.ia.bataille_navale.map.IMapPlayer;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
 public class ShipFactory {
-	public static IUnit CreateShip(String id, ShipType type, IMap map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
+	public static IUnit CreateShip(String id, ShipType type, IMapPlayer map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
 		IUnit toReturn = null;
 		switch(type) {
 		case Destroyer:

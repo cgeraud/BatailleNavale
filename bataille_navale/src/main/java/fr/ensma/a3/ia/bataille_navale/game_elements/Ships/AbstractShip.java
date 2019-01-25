@@ -13,7 +13,8 @@ import fr.ensma.a3.ia.bataille_navale.game_elements.ITile;
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Tile;
-import fr.ensma.a3.ia.bataille_navale.map.IMap;
+import fr.ensma.a3.ia.bataille_navale.map.IMapOpponent;
+import fr.ensma.a3.ia.bataille_navale.map.IMapPlayer;
 import fr.ensma.a3.ia.bataille_navale.movements.IMovement;
 import fr.ensma.a3.ia.bataille_navale.movements.ZeroMovementException;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
@@ -31,7 +32,7 @@ public abstract class AbstractShip implements IUnit{
 	private final ArrayList<ITile> tiles = new ArrayList<ITile>();
 	private Direction dir = Direction.Horizontal;
 
-	public AbstractShip(String id, IMap map, Shape shipShape, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
+	public AbstractShip(String id, IMapPlayer map, Shape shipShape, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
 		Objects.requireNonNull(ref, "null reference point");
 		Objects.requireNonNull(id, "null ship id");
 		
@@ -92,7 +93,7 @@ public abstract class AbstractShip implements IUnit{
 	}
 
 	@Override
-	public IShellResult attack(IMap map, Coordinates target) throws ShipIsDisabledException, ShipCannotAttackException {
+	public IShellResult attack(IMapOpponent map, Coordinates target) throws ShipIsDisabledException, ShipCannotAttackException {
 		throw new ShipCannotAttackException();
 	}
 
@@ -141,7 +142,7 @@ public abstract class AbstractShip implements IUnit{
 	}
 	
 	@Override
-	public EFlareResult flare(IMap target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
+	public EFlareResult flare(IMapOpponent target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
 		throw new ShipCannotFlareException();
 	}
 	
@@ -151,7 +152,7 @@ public abstract class AbstractShip implements IUnit{
 	}
 
 	@Override
-	public void move(IMovement movement, Coordinates start, Coordinates end, IMap map) {
+	public void move(IMovement movement, Coordinates start, Coordinates end, IMapPlayer map) {
 		// TODO Exceptions
 		try {
 			movement.move(this, start, end, map);

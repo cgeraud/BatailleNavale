@@ -9,7 +9,7 @@ import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.UnderWaterMine;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 
-public class Map implements IMap{
+public class Map implements IMapPlayer, IMapOpponent{
 	
 	private static final int Height = 10;
 	private static final int Width = 10;

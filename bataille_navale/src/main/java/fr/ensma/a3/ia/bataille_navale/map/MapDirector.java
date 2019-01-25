@@ -7,7 +7,7 @@ public class MapDirector {
 		this.builder = builder;
 	}
 	
-	public IMap getMap() {
+	public Map getMap() {
 		return builder.getMap();
 	}
 	

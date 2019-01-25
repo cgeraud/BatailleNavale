@@ -3,7 +3,7 @@ package fr.ensma.a3.ia.bataille_navale.game_elements.Ships;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.EAttackEffect;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IShellResult;
-import fr.ensma.a3.ia.bataille_navale.map.IMap;
+import fr.ensma.a3.ia.bataille_navale.map.IMapPlayer;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 import fr.ensma.a3.ia.bataille_navale.utils.Shape;
@@ -20,7 +20,7 @@ public class SailBoat extends AbstractShip {
 		return shipShape;
 	}
 	
-	public SailBoat(String id, IMap map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
+	public SailBoat(String id, IMapPlayer map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
 		super(id, map, getShape(), dir, ref);
 		
 	}
