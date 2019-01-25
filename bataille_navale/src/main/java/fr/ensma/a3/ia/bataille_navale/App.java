@@ -2,8 +2,6 @@ package fr.ensma.a3.ia.bataille_navale;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Player;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.CrossAttack;
-import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
-import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipFactory;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipType;
 import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer1;
 import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer2;
@@ -27,20 +25,20 @@ public class App
     	Player player2 = new Player(md.getMap());
         
 		try {
-			ShipFactory.CreateShip("Nimitz", ShipType.Cruiser, player1.getMap(), Direction.Horizontal, new Coordinates(0,0));
+			player1.addNewShip("Nimitz", ShipType.Cruiser, Direction.Horizontal, new Coordinates(0,0));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		try {
-			IUnit yamato = ShipFactory.CreateShip("Yamato", ShipType.Cruiser, player2.getMap(), Direction.Horizontal, new Coordinates(0,0));
-			yamato.upgradeShip(0.5f);
+			player2.addNewShip("Yamato", ShipType.Cruiser, Direction.Horizontal, new Coordinates(0,0));
+			player2.upgradeShipsResistance("Yamato", 0.5f);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		try {
-			ShipFactory.CreateShip("GFord", ShipType.AircraftCarrier, player1.getMap(), Direction.Vertical, new Coordinates(0,5));
+			player1.addNewShip("GFord", ShipType.AircraftCarrier, Direction.Vertical, new Coordinates(0,5));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
