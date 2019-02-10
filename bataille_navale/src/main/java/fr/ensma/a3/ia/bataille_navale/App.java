@@ -1,8 +1,8 @@
 package fr.ensma.a3.ia.bataille_navale;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Player;
-import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.CrossAttack;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipType;
+import fr.ensma.a3.ia.bataille_navale.kernel.GameKernel;
 import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer1;
 import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer2;
 import fr.ensma.a3.ia.bataille_navale.map.MapDirector;
@@ -15,46 +15,97 @@ public class App
     {
     	/* For testing purposes only */
     	MapDirector md = new MapDirector();
+    	GameKernel kernel = GameKernel.getGameKernel();
     	
-    	md.setBuilder(new MapBuilderPlayer1());
-    	md.buildMap();
-    	Player player1 = new Player(md.getMap());
-        
-        md.setBuilder(new MapBuilderPlayer2());
-    	md.buildMap();
-    	Player player2 = new Player(md.getMap());
-        
-		try {
-			player1.addNewShip("Nimitz", ShipType.Cruiser, Direction.Horizontal, new Coordinates(0,0));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+    	try {
+    		md.setBuilder(new MapBuilderPlayer1());
+        	md.buildMap();
+        	
+			kernel.setPlayer1(new Player(md.getMap()));
+		
+	        md.setBuilder(new MapBuilderPlayer2());
+	    	md.buildMap();
+    	
+			kernel.setPlayer2(new Player(md.getMap()));
 
-		try {
-			player2.addNewShip("Yamato", ShipType.Cruiser, Direction.Horizontal, new Coordinates(0,0));
-			player2.upgradeShipsResistance("Yamato", 0.5f);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			kernel.getPlayer1().addNewShip("Lexington", ShipType.AircraftCarrier, Direction.Horizontal, new Coordinates(0,0));
+			kernel.getPlayer1().addNewShip("Nimitz", ShipType.Cruiser, Direction.Horizontal, new Coordinates(0,2));
+			kernel.getPlayer1().addNewShip("Fletcher", ShipType.Destroyer, Direction.Horizontal, new Coordinates(0,3));
+			kernel.getPlayer1().addNewShip("Nautilus", ShipType.Submarine, Direction.Horizontal, new Coordinates(0,4));
+			kernel.getPlayer1().addNewShip("Plouffy", ShipType.TorpedoBoat, Direction.Horizontal, new Coordinates(0,5));
 		
-		try {
-			player1.addNewShip("GFord", ShipType.AircraftCarrier, Direction.Vertical, new Coordinates(0,5));
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
+			kernel.getPlayer2().addNewShip("Hiryu", ShipType.AircraftCarrier, Direction.Horizontal, new Coordinates(0,0));
+			kernel.getPlayer2().addNewShip("Yamato", ShipType.Cruiser, Direction.Horizontal, new Coordinates(0,2));
+			kernel.getPlayer2().addNewShip("Senzu", ShipType.Destroyer, Direction.Horizontal, new Coordinates(0,3));
+			kernel.getPlayer2().addNewShip("Musashi", ShipType.Submarine, Direction.Horizontal, new Coordinates(0,4));
+			kernel.getPlayer2().addNewShip("Purufu", ShipType.TorpedoBoat, Direction.Horizontal, new Coordinates(0,5));
 		
-        try {
-			player1.attack(player2, new Coordinates(0,0), "Nimitz");
-			player1.attack(player2, new Coordinates(1,0), "Nimitz");
-			player1.attack(player2, new Coordinates(2,0), "Nimitz");
-			player1.attack(player2, new Coordinates(2,0), "Nimitz");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        
-        player2.setModeAttaque(new CrossAttack());
-        try {
-			player2.attack(player1, new Coordinates(1,4), "Yamato");
+			kernel.startGame();
+		
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(0,0), "Lexington");
+			
+			kernel.changePlayer();
+			
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(9,9), "Senzu");
+			
+			kernel.changePlayer();
+			
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(1,0), "Lexington");
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(2,0), "Lexington");
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(0,1), "Lexington");
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(1,1), "Lexington");
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(2,1), "Lexington");
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(3,1), "Lexington");
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(4,1), "Lexington");
+			
+			kernel.changePlayer();
+			
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(0,2), "Senzu");
+			
+			kernel.changePlayer();
+			
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(0,2), "Lexington");
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(1,2), "Lexington");
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(2,2), "Lexington");
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(3,2), "Lexington");
+			
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(0,3), "Lexington");
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(1,3), "Lexington");
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(2,3), "Lexington");
+			
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(0,4), "Lexington");
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(1,4), "Lexington");
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(2,4), "Plouffy");
+			
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(0,5), "Lexington");
+			kernel.getCurrentPlayer().attack(kernel.getCurrentOpponent(), 
+					new Coordinates(1,5), "Lexington");
+			
+			kernel.changePlayer();
+			
+			kernel.quit();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
