@@ -83,6 +83,11 @@ public class Map implements IMapPlayer, IMapOpponent{
 		}
 		this.ships.add(myship);
 	}
+	
+	@Override
+	public void makeShipInvisible(IUnit ship) {
+		this.ships.remove(ship);
+	}
 
 	@Override
 	public IUnit getShipFromId(String id) throws ShipDoesNotExistException {
