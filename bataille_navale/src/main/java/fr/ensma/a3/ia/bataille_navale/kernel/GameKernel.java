@@ -124,6 +124,15 @@ public class GameKernel implements IKernelAutomaton, IKernelState, IGameKernelOb
 
 	@Override
 	public void replay() throws IllegalKernelTransitionException {
+		// On replay, reset each player's map
+		this.mapDirector.setBuilder(new MapBuilderPlayer1());
+    	this.mapDirector.buildMap();
+		this.player1.setMap(this.mapDirector.getMap());
+		this.mapDirector.setBuilder(new MapBuilderPlayer2());
+    	this.mapDirector.buildMap();
+		this.player2.setMap(this.mapDirector.getMap());
+		
+		// Then change state
 		this.getCurrentState().replay();
 	}
 
