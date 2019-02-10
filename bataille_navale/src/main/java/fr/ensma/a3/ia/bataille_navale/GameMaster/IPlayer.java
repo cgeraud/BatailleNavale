@@ -10,11 +10,16 @@ import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipOutOfMapException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipType;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipsOverlappingException;
 import fr.ensma.a3.ia.bataille_navale.map.IMapOpponent;
+import fr.ensma.a3.ia.bataille_navale.map.IMapPlayer;
 import fr.ensma.a3.ia.bataille_navale.map.ShipDoesNotExistException;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
 public interface IPlayer {
+	// Player structural methods
+	void setMap(IMapPlayer map);
+	IMapOpponent getMap();
+	
 	// Player state methods
 	boolean playerIsalive();
 	int getTurnCoolDown();
@@ -24,7 +29,6 @@ public interface IPlayer {
 	
 	// Player interaction methods
 	void setModeAttaque(IAttack mode);
-	IMapOpponent getMap();
 	void attack(IPlayer target, Coordinates coos, String idbateau) throws ShipIsDisabledException, ShipDoesNotExistException, AttackOutOfMapException, ShipCannotAttackException, ShipCannotFlareException;
 	void addNewShip(String id, ShipType type, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException, ShipDoesNotExistException;
 	void upgradeShipsResistance(String id, float dmgreduction) throws ShipDoesNotExistException;
