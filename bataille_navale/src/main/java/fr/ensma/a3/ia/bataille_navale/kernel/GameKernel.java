@@ -18,17 +18,17 @@ public class GameKernel implements IKernelAutomaton, IKernelState {
 	private static GameKernel kernel = null;
 	
 	private MapDirector mapDirector = new MapDirector();
-	IPlayer player1 = null;
-	IPlayer player2 = null;
-	IPlayer currentPlayer = null;
-	IPlayer currentOpponent = null;
+	private IPlayer player1 = null;
+	private IPlayer player2 = null;
+	private IPlayer currentPlayer = null;
+	private IPlayer currentOpponent = null;
 	
-	IKernelState currentState = new GameInitState(this);
-	IKernelState preGameState = new PreGameState(this);
-	IKernelState player1TurnState = new Player1TurnState(this);
-	IKernelState player2TurnState = new Player2TurnState(this);
-	IKernelState player1WonState = new Player1WonState(this);
-	IKernelState player2WonState = new Player2WonState(this);
+	private IKernelState currentState = new GameInitState(this);
+	private IKernelState preGameState = new PreGameState(this);
+	private IKernelState player1TurnState = new Player1TurnState(this);
+	private IKernelState player2TurnState = new Player2TurnState(this);
+	private IKernelState player1WonState = new Player1WonState(this);
+	private IKernelState player2WonState = new Player2WonState(this);
 	
 	private GameKernel(){}
 	
