@@ -11,4 +11,5 @@ public interface IMapPlayer extends IMapOpponent{
 	public IUnit getShipFromId(String id) throws ShipDoesNotExistException;
 	public ArrayList<IUnit> getShips();
 	public boolean noCollision(Coordinates coos, IUnit ship);
+	void makeShipInvisible(IUnit ship);
 }
