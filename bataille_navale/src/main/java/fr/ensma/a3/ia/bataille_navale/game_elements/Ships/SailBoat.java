@@ -22,7 +22,7 @@ public class SailBoat extends AbstractShip {
 	
 	public SailBoat(String id, IMapPlayer map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
 		super(id, map, getShape(), dir, ref);
-		
+		map.makeShipInvisible(this);
 	}
 	
 	@Override
