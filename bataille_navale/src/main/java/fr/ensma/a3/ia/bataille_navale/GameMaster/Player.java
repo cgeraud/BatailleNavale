@@ -18,7 +18,7 @@ import fr.ensma.a3.ia.bataille_navale.map.ShipDoesNotExistException;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
-public class Player{
+public class Player implements IPlayer{
 	
 	private int turnCoolDown = 0;
 	private IMapPlayer playerMap;
@@ -28,14 +28,17 @@ public class Player{
 		this.playerMap = playerMap;
 	}
 	
+	@Override
 	public void setModeAttaque(IAttack mode) {
 		this.attackmode = mode;
 	}
-
+	
+	@Override
 	public IMapOpponent getMap() {
 		return this.playerMap;
 	}
 	
+	@Override
 	public boolean playerIsalive() {
 		boolean res = false;
 		for(IUnit ship : playerMap.getShips()) {
@@ -47,23 +50,43 @@ public class Player{
 		return res;
 	}
 	
+	@Override
 	public int getTurnCoolDown() {
 		return this.turnCoolDown;
 	}
 	
+	@Override
 	public void setTurnCoolDown(int val) {
 		this.turnCoolDown = val;
 	}
 	
-	public void attack(Player target, Coordinates coos, String idbateau)throws ShipIsDisabledException, ShipDoesNotExistException, AttackOutOfMapException, ShipCannotAttackException, ShipCannotFlareException {
+	@Override
+	public void attack(IPlayer target, Coordinates coos, String idbateau)throws ShipIsDisabledException, ShipDoesNotExistException, AttackOutOfMapException, ShipCannotAttackException, ShipCannotFlareException {
 		this.setTurnCoolDown(this.attackmode.attack(this.playerMap.getShipFromId(idbateau), target.getMap(), coos));
 	}
 	
+	@Override
 	public void addNewShip(String id, ShipType type, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException, ShipDoesNotExistException {
 		ShipFactory.CreateShip(id, type, this.playerMap, dir, ref);
 	}
 	
+	@Override
 	public void upgradeShipsResistance(String id, float dmgreduction) throws ShipDoesNotExistException {
 		this.playerMap.getShipFromId(id).upgradeShip(dmgreduction);
+	}
+
+	@Override
+	public boolean isReady() {
+		return (this.playerMap.getShips().size()==5);
+	}
+
+	@Override
+	public boolean isDisabled() {
+		boolean ret = true;
+		for(IUnit ship : playerMap.getShips()) {
+			if(ship.power()>0.1f)
+				ret = false;
+		}
+		return ret;
 	}
 }
