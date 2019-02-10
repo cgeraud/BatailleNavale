@@ -1,5 +1,7 @@
 package fr.ensma.a3.ia.bataille_navale.kernel;
 
+import java.util.ArrayList;
+
 import fr.ensma.a3.ia.bataille_navale.GameMaster.IPlayer;
 import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.GameInitState;
 import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.IKernelAutomaton;
@@ -14,7 +16,7 @@ import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer1;
 import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer2;
 import fr.ensma.a3.ia.bataille_navale.map.MapDirector;
 
-public class GameKernel implements IKernelAutomaton, IKernelState {
+public class GameKernel implements IKernelAutomaton, IKernelState, IGameKernelObserver {
 	private static GameKernel kernel = null;
 	
 	private MapDirector mapDirector = new MapDirector();
@@ -29,6 +31,8 @@ public class GameKernel implements IKernelAutomaton, IKernelState {
 	private IKernelState player2TurnState = new Player2TurnState(this);
 	private IKernelState player1WonState = new Player1WonState(this);
 	private IKernelState player2WonState = new Player2WonState(this);
+	
+	private ArrayList<IGameKernelObserver> observers = new ArrayList<IGameKernelObserver>();
 	
 	private GameKernel(){}
 	
@@ -165,5 +169,47 @@ public class GameKernel implements IKernelAutomaton, IKernelState {
 	@Override
 	public IKernelState getPlayer2WonState() {
 		return this.player2WonState;
+	}
+	
+	/*
+	 * Observer management part
+	 */
+	
+	public void addObserver(IGameKernelObserver obs) {
+		this.observers.add(obs);
+	}
+	
+	public void remObserver(IGameKernelObserver obs) {
+		this.observers.remove(obs);
+	}
+
+	@Override
+	public void notifyPreGame() {
+		for(IGameKernelObserver obs : observers)
+			obs.notifyPreGame();
+	}
+
+	@Override
+	public void notifyPlayer1Turn() {
+		for(IGameKernelObserver obs : observers)
+			obs.notifyPlayer1Turn();
+	}
+
+	@Override
+	public void notifyPlayer2Turn() {
+		for(IGameKernelObserver obs : observers)
+			obs.notifyPlayer2Turn();
+	}
+
+	@Override
+	public void notifyPlayer1Won() {
+		for(IGameKernelObserver obs : observers)
+			obs.notifyPlayer1Won();
+	}
+
+	@Override
+	public void notifyPlayer2Won() {
+		for(IGameKernelObserver obs : observers)
+			obs.notifyPlayer2Won();
 	}
 }
