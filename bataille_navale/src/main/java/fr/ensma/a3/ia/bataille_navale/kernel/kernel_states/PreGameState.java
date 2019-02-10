@@ -10,7 +10,8 @@ public class PreGameState extends AbsKernelState {
 	public void startGame() {
 		this.getKernel().setCurrentPlayer(this.getKernel().getPlayer1());
 		this.getKernel().setCurrentOpponent(this.getKernel().getPlayer2());
-		this.getKernel().setCurrentState(this.getKernel().getPlayer1TurnState());;
+		this.getKernel().setCurrentState(this.getKernel().getPlayer1TurnState());
+		this.getKernel().notifyPlayer1Turn();
 		LOGGER.info("Game started : player 1 begins");
 	}
 }

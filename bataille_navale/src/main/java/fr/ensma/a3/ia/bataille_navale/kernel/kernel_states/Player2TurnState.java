@@ -11,12 +11,14 @@ public class Player2TurnState extends AbsKernelState {
 		this.getKernel().setCurrentPlayer(this.getKernel().getPlayer1());
 		this.getKernel().setCurrentOpponent(this.getKernel().getPlayer2());
 		this.getKernel().setCurrentState(this.getKernel().getPlayer1TurnState());
+		this.getKernel().notifyPlayer1Turn();
 		LOGGER.info("Player 1's turn");
 	}
 
 	@Override
 	public void playerLost() {
 		this.getKernel().setCurrentState(this.getKernel().getPlayer1WonState());
+		this.getKernel().notifyPlayer1Won();
 		LOGGER.info("Player 1 has won !");
 	}
 

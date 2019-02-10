@@ -11,6 +11,7 @@ public class Player1WonState extends AbsKernelState {
 		this.getKernel().setCurrentPlayer(null);
 		this.getKernel().setCurrentOpponent(null);
 		this.getKernel().setCurrentState(this.getKernel().getPreGameState());
+		this.getKernel().notifyPreGame();
 		LOGGER.info("Reset game");
 	}
 	

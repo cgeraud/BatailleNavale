@@ -9,6 +9,7 @@ public class GameInitState extends AbsKernelState {
 	@Override
 	public void gameInitialized() {
 		this.getKernel().setCurrentState(this.getKernel().getPreGameState());
+		this.getKernel().notifyPreGame();
 		LOGGER.info("Game initialized");
 	}
 	

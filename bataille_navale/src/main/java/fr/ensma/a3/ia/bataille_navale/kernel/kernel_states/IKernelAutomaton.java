@@ -1,8 +1,9 @@
 package fr.ensma.a3.ia.bataille_navale.kernel.kernel_states;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.IPlayer;
+import fr.ensma.a3.ia.bataille_navale.kernel.IGameKernelObserver;
 
-public interface IKernelAutomaton {
+public interface IKernelAutomaton extends IGameKernelObserver {
 	void setCurrentState(IKernelState state);
 	IKernelState getCurrentState();
 	IKernelState getPreGameState();
