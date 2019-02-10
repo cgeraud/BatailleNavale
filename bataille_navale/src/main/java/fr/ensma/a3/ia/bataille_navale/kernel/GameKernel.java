@@ -1,11 +1,23 @@
 package fr.ensma.a3.ia.bataille_navale.kernel;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.IPlayer;
-import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.*;
+import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.GameInitState;
+import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.IKernelAutomaton;
+import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.IKernelState;
+import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.IllegalKernelTransitionException;
+import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.Player1TurnState;
+import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.Player1WonState;
+import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.Player2TurnState;
+import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.Player2WonState;
+import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.PreGameState;
+import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer1;
+import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer2;
+import fr.ensma.a3.ia.bataille_navale.map.MapDirector;
 
 public class GameKernel implements IKernelAutomaton, IKernelState {
 	private static GameKernel kernel = null;
 	
+	private MapDirector mapDirector = new MapDirector();
 	IPlayer player1 = null;
 	IPlayer player2 = null;
 	IPlayer currentPlayer = null;
@@ -29,11 +41,17 @@ public class GameKernel implements IKernelAutomaton, IKernelState {
 	
 	public void setPlayer1(IPlayer player) throws IllegalKernelTransitionException {
 		this.player1 = player;
+		this.mapDirector.setBuilder(new MapBuilderPlayer1());
+    	this.mapDirector.buildMap();
+		this.player1.setMap(this.mapDirector.getMap());
 		this.gameInitialized();
 	}
 	
 	public void setPlayer2(IPlayer player) throws IllegalKernelTransitionException {
 		this.player2 = player;
+		this.mapDirector.setBuilder(new MapBuilderPlayer2());
+    	this.mapDirector.buildMap();
+    	this.player2.setMap(this.mapDirector.getMap());
 		this.gameInitialized();
 	}
 	

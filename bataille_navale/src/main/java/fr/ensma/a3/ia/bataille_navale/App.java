@@ -3,9 +3,6 @@ package fr.ensma.a3.ia.bataille_navale;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Player;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipType;
 import fr.ensma.a3.ia.bataille_navale.kernel.GameKernel;
-import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer1;
-import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer2;
-import fr.ensma.a3.ia.bataille_navale.map.MapDirector;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
@@ -14,19 +11,12 @@ public class App
     public static void main( String[] args )
     {
     	/* For testing purposes only */
-    	MapDirector md = new MapDirector();
+    	
     	GameKernel kernel = GameKernel.getGameKernel();
     	
     	try {
-    		md.setBuilder(new MapBuilderPlayer1());
-        	md.buildMap();
-        	
-			kernel.setPlayer1(new Player(md.getMap()));
-		
-	        md.setBuilder(new MapBuilderPlayer2());
-	    	md.buildMap();
-    	
-			kernel.setPlayer2(new Player(md.getMap()));
+			kernel.setPlayer1(new Player());
+			kernel.setPlayer2(new Player());
 
 			kernel.getPlayer1().addNewShip("Lexington", ShipType.AircraftCarrier, Direction.Horizontal, new Coordinates(0,0));
 			kernel.getPlayer1().addNewShip("Nimitz", ShipType.Cruiser, Direction.Horizontal, new Coordinates(0,2));
