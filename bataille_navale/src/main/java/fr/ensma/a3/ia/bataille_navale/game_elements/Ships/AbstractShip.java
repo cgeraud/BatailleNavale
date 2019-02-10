@@ -27,7 +27,6 @@ public abstract class AbstractShip implements IUnit{
 	
 	private final static Logger LOGGER = Logger.getLogger(AbstractShip.class.getName());
 	
-	private static ArrayList<String> id_list = new ArrayList<String>();
 	private final String id;
 	private final ArrayList<ITile> tiles = new ArrayList<ITile>();
 	private Direction dir = Direction.Horizontal;
@@ -36,14 +35,13 @@ public abstract class AbstractShip implements IUnit{
 		Objects.requireNonNull(ref, "null reference point");
 		Objects.requireNonNull(id, "null ship id");
 		
-		for(String prev_id : AbstractShip.id_list) {
-			if(prev_id.equals(id)) {
+		for(IUnit ship : map.getShips()) {
+			if(ship.getId().equals(id)) {
 				throw new ShipAlreadyExistsException();
 			}
 		}
 		
 		this.id = id;
-		AbstractShip.id_list.add(this.id);
 
 		this.dir = dir;
 		for (Coordinates coos : shipShape.getRelativeTiles()) {
