@@ -21,11 +21,14 @@ import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 public class Player implements IPlayer{
 	
 	private int turnCoolDown = 0;
-	private IMapPlayer playerMap;
+	private IMapPlayer playerMap = null;
 	private IAttack attackmode = new BaseAttack();
 	
-	public Player(IMapPlayer playerMap) {
-		this.playerMap = playerMap;
+	public Player() {}
+	
+	@Override
+	public void setMap(IMapPlayer map) {
+		this.playerMap = map;
 	}
 	
 	@Override
