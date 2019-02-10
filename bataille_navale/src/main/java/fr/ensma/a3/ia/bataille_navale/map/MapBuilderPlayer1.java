@@ -42,8 +42,6 @@ public class MapBuilderPlayer1 extends AbsMapBuilder {
 		} catch (ShipsOverlappingException e) {
 			e.printStackTrace();
 		}
-		
-		map.addShipToMap(sailship);
 	}
 
 }
