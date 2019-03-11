@@ -1,6 +1,7 @@
 package fr.ensma.a3.ia.bataille_navale.GUI.game_gui;
 
 import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIPres;
+import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIView;
 import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.I_GUIAutomaton;
 import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.I_GUIState;
 import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.IllegalGUITransitionException;
@@ -10,7 +11,7 @@ import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.ShipPlacementState
 import fr.ensma.a3.ia.bataille_navale.kernel.GameKernel;
 import fr.ensma.a3.ia.bataille_navale.kernel.IGameKernelObserver;
 
-public class GameGUIPresenter implements IGameKernelObserver, I_GUIAutomaton{
+public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAutomaton{
 	
 	private GameKernel gameModel = null;
 	private IGameGUIView gameView = null;
@@ -26,12 +27,17 @@ public class GameGUIPresenter implements IGameKernelObserver, I_GUIAutomaton{
 		
 		// TODO initialization
 		this.activePres = null;
-		this.activePres.setView(null);
+		//this.activePres.setView(null);
 	}
 	
-	public void setView(IGameGUIView view) {
-		this.gameView = view;
-		this.gameView.setView(this.activePres.getView());
+	public void setView(I_GUIView view) {
+		this.gameView = (IGameGUIView) view;
+		//this.gameView.setView(this.activePres.getView());
+	}
+	
+	@Override
+	public I_GUIView getView() {
+		return this.gameView;
 	}
 	
 	/*
