@@ -8,7 +8,8 @@ public class ShipPlacementState extends AbsGUIState {
 	
 	@Override
 	public void startGame() {
-		// TODO
+		this.getGUI().setCurrentState(this.getGUI().getInGameState());
+		LOGGER.info("Switching to in-game screen");
 	}
 
 }
