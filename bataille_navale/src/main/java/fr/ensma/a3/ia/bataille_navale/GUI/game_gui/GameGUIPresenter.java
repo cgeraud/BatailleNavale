@@ -8,6 +8,8 @@ import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.IllegalGUITransiti
 import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.InGameState;
 import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.PlayerSelectionState;
 import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.ShipPlacementState;
+import fr.ensma.a3.ia.bataille_navale.GUI.initgame.InitGamePresenter;
+import fr.ensma.a3.ia.bataille_navale.GUI.initgame.InitGameView;
 import fr.ensma.a3.ia.bataille_navale.kernel.GameKernel;
 import fr.ensma.a3.ia.bataille_navale.kernel.IGameKernelObserver;
 
@@ -26,13 +28,13 @@ public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAu
 		this.gameModel = GameKernel.getGameKernel();
 		
 		// TODO initialization
-		this.activePres = null;
-		//this.activePres.setView(null);
+		this.activePres = new InitGamePresenter();
+		this.activePres.setView(new InitGameView(this.activePres));
 	}
 	
 	public void setView(I_GUIView view) {
 		this.gameView = (IGameGUIView) view;
-		//this.gameView.setView(this.activePres.getView());
+		this.gameView.setView(this.activePres.getView());
 	}
 	
 	@Override
