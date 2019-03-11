@@ -25,12 +25,13 @@ public class GameKernel implements IKernelAutomaton, IKernelState, IGameKernelOb
 	private IPlayer currentPlayer = null;
 	private IPlayer currentOpponent = null;
 	
-	private IKernelState currentState = new GameInitState(this);
+	private IKernelState initGameState = new GameInitState(this);
 	private IKernelState preGameState = new PreGameState(this);
 	private IKernelState player1TurnState = new Player1TurnState(this);
 	private IKernelState player2TurnState = new Player2TurnState(this);
 	private IKernelState player1WonState = new Player1WonState(this);
 	private IKernelState player2WonState = new Player2WonState(this);
+	private IKernelState currentState = initGameState;
 	
 	private ArrayList<IGameKernelObserver> observers = new ArrayList<IGameKernelObserver>();
 	
@@ -41,6 +42,12 @@ public class GameKernel implements IKernelAutomaton, IKernelState, IGameKernelOb
 			GameKernel.kernel = new GameKernel();
 		}
 		return GameKernel.kernel;
+	}
+	
+	@Override
+	public void resetPlayers() {
+		this.player1 = null;
+		this.player2 = null;
 	}
 	
 	public void setPlayer1(IPlayer player) throws IllegalKernelTransitionException {
@@ -154,6 +161,11 @@ public class GameKernel implements IKernelAutomaton, IKernelState, IGameKernelOb
 	public IKernelState getCurrentState() {
 		return this.currentState;
 	}
+	
+	@Override
+	public IKernelState getInitGameState() {
+		return this.initGameState;
+	}
 
 	@Override
 	public IKernelState getPreGameState() {
@@ -220,5 +232,11 @@ public class GameKernel implements IKernelAutomaton, IKernelState, IGameKernelOb
 	public void notifyPlayer2Won() {
 		for(IGameKernelObserver obs : observers)
 			obs.notifyPlayer2Won();
+	}
+
+	@Override
+	public void notifyQuit() {
+		for(IGameKernelObserver obs : observers)
+			obs.notifyQuit();
 	}
 }

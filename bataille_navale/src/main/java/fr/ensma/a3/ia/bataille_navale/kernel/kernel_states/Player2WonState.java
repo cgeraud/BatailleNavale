@@ -17,6 +17,11 @@ public class Player2WonState extends AbsKernelState {
 	
 	@Override
 	public void quit() {
+		this.getKernel().setCurrentPlayer(null);
+		this.getKernel().setCurrentOpponent(null);
+		this.getKernel().resetPlayers();
+		this.getKernel().setCurrentState(this.getKernel().getInitGameState());
+		this.getKernel().notifyQuit();
 		LOGGER.info("Quit game");
 	}
 

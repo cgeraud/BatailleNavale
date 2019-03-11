@@ -6,4 +6,5 @@ public interface IGameKernelObserver {
 	void notifyPlayer2Turn();
 	void notifyPlayer1Won();
 	void notifyPlayer2Won();
+	void notifyQuit();
 }

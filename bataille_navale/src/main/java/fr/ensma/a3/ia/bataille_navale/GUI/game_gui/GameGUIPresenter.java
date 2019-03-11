@@ -69,6 +69,15 @@ public class GameGUIPresenter implements IGameKernelObserver, I_GUIAutomaton{
 	@Override
 	public void notifyPlayer2Won() {}
 	
+	@Override
+	public void notifyQuit() {
+		try {
+			this.currState.quit();
+		} catch (IllegalGUITransitionException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/*
 	 * Automaton methods
 	 */
@@ -97,5 +106,4 @@ public class GameGUIPresenter implements IGameKernelObserver, I_GUIAutomaton{
 	public I_GUIState getInGameState() {
 		return this.inGameState;
 	}
-
 }
