@@ -3,6 +3,7 @@ package fr.ensma.a3.ia.bataille_navale.GUI.game_gui;
 import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIView;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 public class GameGUIView extends BorderPane implements IGameGUIView {
 	private GameGUIPresenter pres = null;
@@ -16,6 +17,6 @@ public class GameGUIView extends BorderPane implements IGameGUIView {
 	public void setView(I_GUIView view) {
 		this.getChildren().clear();
 		this.currentView = view;
-		this.setCenter((Node) view);
+		this.setCenter((Node) this.currentView);
 	}
 }
