@@ -10,12 +10,13 @@ import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.PlayerSelectionSta
 import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.ShipPlacementState;
 import fr.ensma.a3.ia.bataille_navale.GUI.initgame.InitGamePresenter;
 import fr.ensma.a3.ia.bataille_navale.GUI.initgame.InitGameView;
+import fr.ensma.a3.ia.bataille_navale.GUI.pregame.IPreGameGUIObserver;
 import fr.ensma.a3.ia.bataille_navale.GUI.pregame.PreGamePresenter;
 import fr.ensma.a3.ia.bataille_navale.GUI.pregame.PreGameView;
 import fr.ensma.a3.ia.bataille_navale.kernel.GameKernel;
 import fr.ensma.a3.ia.bataille_navale.kernel.IGameKernelObserver;
 
-public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAutomaton{
+public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAutomaton, IPreGameGUIObserver{
 	
 	private GameKernel gameModel = null;
 	private IGameGUIView gameView = null;
@@ -64,12 +65,7 @@ public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAu
 	@Override
 	public void notifyPlayer1Turn() {
 		if(currState != inGameState) {
-			// If game has not stated yet (aka first call)
-			try {
-				this.currState.startGame();
-			} catch (IllegalGUITransitionException e) {
-				e.printStackTrace();
-			}
+			// If game has not stated yet, do nothing
 		}
 	}
 
@@ -86,6 +82,15 @@ public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAu
 	public void notifyQuit() {
 		try {
 			this.currState.quit();
+		} catch (IllegalGUITransitionException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void notifyPreGameGUIDone() {
+		try {
+			this.currState.startGame();
 		} catch (IllegalGUITransitionException e) {
 			e.printStackTrace();
 		}
@@ -115,8 +120,10 @@ public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAu
 
 	@Override
 	public I_GUIState getShipPlacementState() {
-		this.activePres = new PreGamePresenter();
-		this.activePres.setView(new PreGameView(this.activePres));
+		PreGamePresenter pres = new PreGamePresenter();
+		this.activePres = pres;
+		this.activePres.setView(new PreGameView(pres));
+		pres.addObserver(this);
 		this.updateView();
 		return this.shipPlaceState;
 	}
