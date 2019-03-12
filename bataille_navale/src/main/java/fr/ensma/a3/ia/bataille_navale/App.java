@@ -24,7 +24,7 @@ public class App extends Application
 		GameGUIView root = new GameGUIView(gui);
 		gui.setView(root);
 		
-		Scene scene = new Scene(root, 600, 400);
+		Scene scene = new Scene(root, 1024, 640);
 		primaryStage.setTitle("Bataille Navale");
 		primaryStage.setScene(scene);
 		primaryStage.show();
