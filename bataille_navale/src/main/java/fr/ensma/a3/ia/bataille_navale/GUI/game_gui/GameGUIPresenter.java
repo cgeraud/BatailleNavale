@@ -10,6 +10,8 @@ import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.PlayerSelectionSta
 import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.ShipPlacementState;
 import fr.ensma.a3.ia.bataille_navale.GUI.initgame.InitGamePresenter;
 import fr.ensma.a3.ia.bataille_navale.GUI.initgame.InitGameView;
+import fr.ensma.a3.ia.bataille_navale.GUI.pregame.PreGamePresenter;
+import fr.ensma.a3.ia.bataille_navale.GUI.pregame.PreGameView;
 import fr.ensma.a3.ia.bataille_navale.kernel.GameKernel;
 import fr.ensma.a3.ia.bataille_navale.kernel.IGameKernelObserver;
 
@@ -26,15 +28,18 @@ public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAu
 	
 	public GameGUIPresenter() {
 		this.gameModel = GameKernel.getGameKernel();
-		
-		// TODO initialization
-		this.activePres = new InitGamePresenter();
-		this.activePres.setView(new InitGameView(this.activePres));
+		this.currState = this.getPlayerSelectionState();
 	}
 	
 	public void setView(I_GUIView view) {
 		this.gameView = (IGameGUIView) view;
-		this.gameView.setView(this.activePres.getView());
+		this.updateView();
+	}
+	
+	private void updateView() {
+		if(this.gameView != null) {
+			this.gameView.setView(this.activePres.getView());
+		}
 	}
 	
 	@Override
@@ -102,16 +107,24 @@ public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAu
 
 	@Override
 	public I_GUIState getPlayerSelectionState() {
+		this.activePres = new InitGamePresenter();
+		this.activePres.setView(new InitGameView(this.activePres));
+		this.updateView();
 		return this.playerSelState;
 	}
 
 	@Override
 	public I_GUIState getShipPlacementState() {
+		this.activePres = new PreGamePresenter();
+		this.activePres.setView(new PreGameView(this.activePres));
+		this.updateView();
 		return this.shipPlaceState;
 	}
 
 	@Override
 	public I_GUIState getInGameState() {
+		// TODO switch to in-game screen
+		this.updateView();
 		return this.inGameState;
 	}
 }
