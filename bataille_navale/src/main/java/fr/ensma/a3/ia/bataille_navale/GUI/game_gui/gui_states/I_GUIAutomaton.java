@@ -6,4 +6,8 @@ public interface I_GUIAutomaton {
 	I_GUIState getPlayerSelectionState();
 	I_GUIState getShipPlacementState();
 	I_GUIState getInGameState();
+	
+	void switchToPlayerSelectionScreen();
+	void switchToShipPlacementScreen();
+	void switchToInGameScreen();
 }

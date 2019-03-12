@@ -8,6 +8,7 @@ public class PlayerSelectionState extends AbsGUIState {
 
 	@Override
 	public void gameInitialized() {
+		this.getGUI().switchToShipPlacementScreen();
 		this.getGUI().setCurrentState(this.getGUI().getShipPlacementState());
 		LOGGER.info("Switching to ship placement screen");
 	}

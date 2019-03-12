@@ -8,12 +8,14 @@ public class InGameState extends AbsGUIState {
 	
 	@Override
 	public void gameInitialized() {
+		this.getGUI().switchToShipPlacementScreen();
 		this.getGUI().setCurrentState(this.getGUI().getShipPlacementState());
 		LOGGER.info("Switching to ship placement screen");
 	}
 
 	@Override
 	public void quit() {
+		this.getGUI().switchToPlayerSelectionScreen();
 		this.getGUI().setCurrentState(this.getGUI().getPlayerSelectionState());
 		LOGGER.info("Switching to player selection screen");
 	}

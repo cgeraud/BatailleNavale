@@ -15,10 +15,11 @@ import fr.ensma.a3.ia.bataille_navale.GUI.pregame.PreGamePresenter;
 import fr.ensma.a3.ia.bataille_navale.GUI.pregame.PreGameView;
 import fr.ensma.a3.ia.bataille_navale.kernel.GameKernel;
 import fr.ensma.a3.ia.bataille_navale.kernel.IGameKernelObserver;
+import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.IllegalKernelTransitionException;
 
 public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAutomaton, IPreGameGUIObserver{
 	
-	private GameKernel gameModel = null;
+	private GameGUIModel gameModel = null;
 	private IGameGUIView gameView = null;
 	private I_GUIPres activePres = null;
 	
@@ -28,13 +29,14 @@ public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAu
 	private I_GUIState currState = this.playerSelState;
 	
 	public GameGUIPresenter() {
-		this.gameModel = GameKernel.getGameKernel();
+		// Dummy model (placeholder)
+		this.gameModel = new GameGUIModel();
 		this.currState = this.getPlayerSelectionState();
 	}
 	
 	public void setView(I_GUIView view) {
 		this.gameView = (IGameGUIView) view;
-		this.updateView();
+		this.switchToPlayerSelectionScreen();
 	}
 	
 	private void updateView() {
@@ -63,11 +65,7 @@ public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAu
 	}
 
 	@Override
-	public void notifyPlayer1Turn() {
-		if(currState != inGameState) {
-			// If game has not stated yet, do nothing
-		}
-	}
+	public void notifyPlayer1Turn() {}
 
 	@Override
 	public void notifyPlayer2Turn() {}
@@ -88,11 +86,20 @@ public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAu
 	}
 	
 	@Override
-	public void notifyPreGameGUIDone() {
+	public void notifyGameStarted() {
 		try {
 			this.currState.startGame();
 		} catch (IllegalGUITransitionException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void notifyPreGameGUIDone() {
+		try {
+			GameKernel.getGameKernel().startGame();
+		} catch (IllegalKernelTransitionException e1) {
+			e1.printStackTrace();
 		}
 	}
 	
@@ -112,26 +119,38 @@ public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAu
 
 	@Override
 	public I_GUIState getPlayerSelectionState() {
-		this.activePres = new InitGamePresenter();
-		this.activePres.setView(new InitGameView(this.activePres));
-		this.updateView();
 		return this.playerSelState;
 	}
 
 	@Override
 	public I_GUIState getShipPlacementState() {
-		PreGamePresenter pres = new PreGamePresenter();
-		this.activePres = pres;
-		this.activePres.setView(new PreGameView(pres));
-		pres.addObserver(this);
-		this.updateView();
 		return this.shipPlaceState;
 	}
 
 	@Override
 	public I_GUIState getInGameState() {
+		return this.inGameState;
+	}
+
+	@Override
+	public void switchToPlayerSelectionScreen() {
+		this.activePres = new InitGamePresenter();
+		this.activePres.setView(new InitGameView(this.activePres));
+		this.updateView();
+	}
+
+	@Override
+	public void switchToShipPlacementScreen() {
+		PreGamePresenter pres = new PreGamePresenter();
+		this.activePres = pres;
+		this.activePres.setView(new PreGameView(pres));
+		pres.addObserver(this);
+		this.updateView();
+	}
+
+	@Override
+	public void switchToInGameScreen() {
 		// TODO switch to in-game screen
 		this.updateView();
-		return this.inGameState;
 	}
 }

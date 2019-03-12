@@ -239,4 +239,10 @@ public class GameKernel implements IKernelAutomaton, IKernelState, IGameKernelOb
 		for(IGameKernelObserver obs : observers)
 			obs.notifyQuit();
 	}
+
+	@Override
+	public void notifyGameStarted() {
+		for(IGameKernelObserver obs : observers)
+			obs.notifyGameStarted();
+	}
 }
