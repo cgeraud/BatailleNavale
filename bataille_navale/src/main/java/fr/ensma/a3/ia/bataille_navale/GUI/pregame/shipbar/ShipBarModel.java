@@ -4,17 +4,16 @@ public class ShipBarModel {
 	private int checkedShips = 0;
 	private int lastCheckedShip = -1;
 	
-	public void checkButton(int index) {
+	public void checkButton() {
 		this.checkedShips += 1;
-		this.lastCheckedShip = index;
-	}
-	
-	public void unCheckButton() {
-		this.checkedShips -= 1;
 	}
 	
 	public int getLastCheckedShip() {
 		return this.lastCheckedShip;
+	}
+	
+	public void setLastCheckedShip(int index) {
+		this.lastCheckedShip = index;
 	}
 	
 	public boolean allShipsPlaced() {

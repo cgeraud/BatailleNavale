@@ -30,14 +30,13 @@ public class ShipBarPresenter implements I_GUIPres {
 		return this.model.allShipsPlaced();
 	}
 	
-	public void shipPlacementFailed() {
-		this.model.unCheckButton();
-		this.view.setButtonDisabled(this.model.getLastCheckedShip(), false);
+	public void shipPlaced() {
+		this.model.checkButton();
+		this.view.setButtonDisabled(this.model.getLastCheckedShip(), true);
 	}
 
 	public void buttonClicked(int indexOf) {
-		this.model.checkButton(indexOf);
-		this.view.setButtonDisabled(indexOf, true);
+		this.model.setLastCheckedShip(indexOf);
 		for(IShipBarObserver obs : observers) {
 			switch(indexOf) {
 			case 0:
@@ -62,5 +61,4 @@ public class ShipBarPresenter implements I_GUIPres {
 	public void addObserver(IShipBarObserver obs) {
 		this.observers.add(obs);
 	}
-	
 }
