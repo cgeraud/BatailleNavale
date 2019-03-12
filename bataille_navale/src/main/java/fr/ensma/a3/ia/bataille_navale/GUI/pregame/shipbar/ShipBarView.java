@@ -1,5 +1,7 @@
 package fr.ensma.a3.ia.bataille_navale.GUI.pregame.shipbar;
 
+import java.util.ArrayList;
+
 import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIPres;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,23 +14,20 @@ public class ShipBarView extends VBox implements I_ShipBarView, EventHandler<Act
 	
 	private ShipBarPresenter presenter = null;
 	
-	private Button torpButton = null;
-	private Button destButton = null;
-	private Button subButton = null;
-	private Button cruiButton = null;
-	private Button CVNButton = null;
+	private ArrayList<Button> shipButtons = new ArrayList<Button>();
 	
 	public ShipBarView(I_GUIPres pres) {
 		this.presenter = (ShipBarPresenter) pres;
 		
-		torpButton = new Button("Torpedo boat");
-		destButton = new Button("Destroyer");
-		subButton = new Button("Submarine");
-		cruiButton = new Button("Cruiser");
-		CVNButton = new Button("Carrier vehicle");
+		shipButtons.add(new Button("Torpedo boat"));
+		shipButtons.add(new Button("Destroyer"));
+		shipButtons.add(new Button("Submarine"));
+		shipButtons.add(new Button("Cruiser"));
+		shipButtons.add(new Button("Carrier vehicle"));
 		
-		this.getChildren().addAll(torpButton, destButton, subButton,
-				cruiButton, CVNButton);
+
+		
+		this.getChildren().addAll(shipButtons);
 		this.setAlignment(Pos.CENTER);
 		
 		for(Node but : this.getChildren()) {
@@ -38,7 +37,18 @@ public class ShipBarView extends VBox implements I_ShipBarView, EventHandler<Act
 
 	@Override
 	public void handle(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		this.presenter.buttonClicked(shipButtons.indexOf(arg0.getSource()));
 		
+}
+
+	@Override
+	public void setButtonDisabled(int index, boolean bool) {
+		this.shipButtons.get(index).setDisable(bool);	
+		if(!bool) {
+			this.shipButtons.get(index).removeEventHandler(ActionEvent.ANY, this);
+		}
+		else {
+			this.shipButtons.get(index).addEventHandler(ActionEvent.ANY, this);
+		}
 	}
 }

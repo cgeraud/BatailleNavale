@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIPres;
 import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIView;
+import fr.ensma.a3.ia.bataille_navale.GUI.pregame.shipbar.IShipBarObserver;
 import fr.ensma.a3.ia.bataille_navale.GUI.pregame.shipbar.ShipBarPresenter;
 
-public class PreGamePresenter implements I_GUIPres{
+public class PreGamePresenter implements I_GUIPres, IShipBarObserver{
 	
 	private I_PreGameView view = null;
 	private PreGameModel model = null;
@@ -18,6 +19,7 @@ public class PreGamePresenter implements I_GUIPres{
 	public PreGamePresenter() {
 		this.model = new PreGameModel();
 		this.shipBar = new ShipBarPresenter();
+		this.shipBar.addObserver(this);
 	}
 	
 	public I_GUIPres getShipBarPresenter() {
@@ -52,6 +54,40 @@ public class PreGamePresenter implements I_GUIPres{
 	
 	public void remObserver(IPreGameGUIObserver obs) {
 		this.observers.remove(obs);
+	}
+	
+	/*
+	 * Observer methods
+	 */
+
+	@Override
+	public void notifyTorpClicked() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyDestClicked() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifySubClicked() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyCruiClicked() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyCVNClicked() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

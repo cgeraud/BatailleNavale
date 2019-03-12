@@ -1,9 +1,13 @@
 package fr.ensma.a3.ia.bataille_navale.GUI.pregame.shipbar;
 
+import java.util.ArrayList;
+
 import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIPres;
 import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIView;
 
 public class ShipBarPresenter implements I_GUIPres {
+	
+	private ArrayList<IShipBarObserver> observers = new ArrayList<>();
 	
 	private I_ShipBarView view = null;
 	private ShipBarModel model = null;
@@ -21,5 +25,42 @@ public class ShipBarPresenter implements I_GUIPres {
 	public I_GUIView getView() {
 		return this.view;
 	}
+	
+	public boolean allShipsPlaced() {
+		return this.model.allShipsPlaced();
+	}
+	
+	public void shipPlacementFailed() {
+		this.model.unCheckButton();
+		this.view.setButtonDisabled(this.model.getLastCheckedShip(), false);
+	}
 
+	public void buttonClicked(int indexOf) {
+		this.model.checkButton(indexOf);
+		this.view.setButtonDisabled(indexOf, true);
+		for(IShipBarObserver obs : observers) {
+			switch(indexOf) {
+			case 0:
+				obs.notifyTorpClicked();
+				break;
+			case 1:
+				obs.notifyDestClicked();
+				break;
+			case 2:
+				obs.notifySubClicked();
+				break;
+			case 3:
+				obs.notifyCruiClicked();
+				break;
+			case 4:
+				obs.notifyCVNClicked();
+				break;
+			}
+		}
+	}
+	
+	public void addObserver(IShipBarObserver obs) {
+		this.observers.add(obs);
+	}
+	
 }
