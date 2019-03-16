@@ -8,7 +8,7 @@ import fr.ensma.a3.ia.bataille_navale.utils.Shape;
 public class Cruiser extends BattleShip {
 	
 	private static Shape shipShape = null;
-	private static Shape getShape() {
+	public static Shape getShape() {
 		if (shipShape == null) {
 			shipShape = new Shape();
 			shipShape.addRelativeTile(new Coordinates(0,0));

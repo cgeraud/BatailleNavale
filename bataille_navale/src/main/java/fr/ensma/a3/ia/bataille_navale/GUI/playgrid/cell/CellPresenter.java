@@ -14,7 +14,9 @@ public class CellPresenter implements I_GUIPres{
 	
 	private ArrayList<I_CellObserver> observers = new ArrayList<>();
 	
-	public CellPresenter() {}
+	public CellPresenter() {
+		this.model = new CellModel();
+	}
 
 	@Override
 	public void setView(I_GUIView view) {
@@ -33,6 +35,13 @@ public class CellPresenter implements I_GUIPres{
 		}
 	}
 	
+	public void onMouseEnter() {
+		for(I_CellObserver obs : observers) {
+			obs.cellEntered(this);
+		}
+		updateView();
+	}
+
 	public void setDisable(boolean value) {
 		this.view.setDeactivated(value);
 	}

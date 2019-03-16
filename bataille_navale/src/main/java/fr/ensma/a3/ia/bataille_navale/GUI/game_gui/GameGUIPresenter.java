@@ -1,5 +1,7 @@
 package fr.ensma.a3.ia.bataille_navale.GUI.game_gui;
 
+import java.util.logging.Logger;
+
 import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIPres;
 import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIView;
 import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.I_GUIAutomaton;
@@ -10,18 +12,34 @@ import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.PlayerSelectionSta
 import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.ShipPlacementState;
 import fr.ensma.a3.ia.bataille_navale.GUI.initgame.InitGamePresenter;
 import fr.ensma.a3.ia.bataille_navale.GUI.initgame.InitGameView;
+import fr.ensma.a3.ia.bataille_navale.GUI.pregame.EShipTypes;
 import fr.ensma.a3.ia.bataille_navale.GUI.pregame.IPreGameGUIObserver;
 import fr.ensma.a3.ia.bataille_navale.GUI.pregame.PreGamePresenter;
 import fr.ensma.a3.ia.bataille_navale.GUI.pregame.PreGameView;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.AircraftCarrier;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.Cruiser;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.Destroyer;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipAlreadyExistsException;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipOutOfMapException;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipType;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipsOverlappingException;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.Submarine;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.TorpedoBoat;
 import fr.ensma.a3.ia.bataille_navale.kernel.GameKernel;
 import fr.ensma.a3.ia.bataille_navale.kernel.IGameKernelObserver;
 import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.IllegalKernelTransitionException;
+import fr.ensma.a3.ia.bataille_navale.map.ShipDoesNotExistException;
+import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
+import fr.ensma.a3.ia.bataille_navale.utils.Direction;
+import fr.ensma.a3.ia.bataille_navale.utils.Shape;
 
 public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAutomaton, IPreGameGUIObserver{
 	
 	private GameGUIModel gameModel = null;
 	private IGameGUIView gameView = null;
 	private I_GUIPres activePres = null;
+	
+	private Logger LOGGER = Logger.getLogger(GameGUIPresenter.class.getName());
 	
 	private I_GUIState playerSelState = new PlayerSelectionState(this);
 	private I_GUIState shipPlaceState = new ShipPlacementState(this);
@@ -94,6 +112,8 @@ public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAu
 		}
 	}
 	
+	// Pre-game
+	
 	@Override
 	public void notifyPreGameGUIDone() {
 		try {
@@ -101,6 +121,68 @@ public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAu
 		} catch (IllegalKernelTransitionException e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void tryPlacingShipAt(EShipTypes type, Direction dir, int x, int y) {
+		// GUI-wise, the controlled player is always player 1
+		String id = "";
+		ShipType shipType = ShipType.SailBoat;
+		Coordinates ref = new Coordinates(x, y);
+		Shape shape = null;
+		
+		switch(type) {
+		case CVN:
+			id = "CVN_1";
+			break;
+		case Crui:
+			id = "Cruiser_1";
+			break;
+		case Dest:
+			id = "Destroyer_1";
+			break;
+		case Sub:
+			id = "Submarine_1";
+			break;
+		case Torp:
+			id = "TorpedoBoat_1";
+			break;
+		}
+		
+		shipType = getKernelShipEnum(type);
+		shape = GameKernel.getGameKernel().getShipShape(shipType);
+		
+		try {
+			GameKernel.getGameKernel().getPlayer1().addNewShip(id, shipType, dir, ref);
+			LOGGER.info(id + " placed successfully.");
+			((PreGamePresenter)this.activePres).shipSuccessfullyPlaced(id, shape, x, y);
+		} catch (ShipAlreadyExistsException | ShipDoesNotExistException e) {
+			e.printStackTrace();
+		} catch (ShipOutOfMapException | ShipsOverlappingException e) {
+			LOGGER.info("Try placing your ship elsewhere.");
+		};
+	}
+	
+	public static ShipType getKernelShipEnum(EShipTypes type) {
+		ShipType shipType = null;
+		switch(type) {
+		case CVN:
+			shipType = ShipType.AircraftCarrier;
+			break;
+		case Crui:
+			shipType = ShipType.Cruiser;
+			break;
+		case Dest:
+			shipType = ShipType.Destroyer;
+			break;
+		case Sub:
+			shipType = ShipType.Submarine;
+			break;
+		case Torp:
+			shipType = ShipType.TorpedoBoat;
+			break;
+		}
+		return shipType;
 	}
 	
 	/*

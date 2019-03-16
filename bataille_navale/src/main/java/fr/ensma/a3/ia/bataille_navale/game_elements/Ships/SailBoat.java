@@ -12,7 +12,7 @@ public class SailBoat extends AbstractShip {
 
 	
 	private static Shape shipShape = null;
-	private static Shape getShape() {
+	public static Shape getShape() {
 		if (shipShape == null) {
 			shipShape = new Shape();
 			shipShape.addRelativeTile(new Coordinates(0,0));

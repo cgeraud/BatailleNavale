@@ -2,11 +2,13 @@ package fr.ensma.a3.ia.bataille_navale.GUI.playgrid.cell;
 
 import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIPres;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
-public class CellView extends BorderPane implements I_CellView, EventHandler<ActionEvent>{
+public class CellView extends BorderPane implements I_CellView, EventHandler<Event>{
 	
 	private CellPresenter presenter = null;
 	
@@ -14,18 +16,25 @@ public class CellView extends BorderPane implements I_CellView, EventHandler<Act
 	
 	public CellView(I_GUIPres presenter) {
 		this.presenter = (CellPresenter) presenter;
-		this.setWidth(32.0f);
-		this.setHeight(32.0f);
 		this.setCenter(button);
-		
-		this.button.setPrefWidth(this.button.getMaxWidth());
-		this.button.setPrefHeight(this.button.getMaxHeight());
-		this.button.addEventHandler(ActionEvent.ANY, this);
+
+		this.button.setMinWidth(32.0f);
+		this.button.setMaxWidth(32.0f);
+		this.button.setMinHeight(32.0f);
+		this.button.setMaxHeight(32.0f);
+		this.button.addEventHandler(Event.ANY, this);
 	}
 
 	@Override
-	public void handle(ActionEvent arg0) {
-		this.presenter.onClick();
+	public void handle(Event arg0) {
+		if(arg0.getEventType()==ActionEvent.ANY) {
+			this.presenter.onClick();
+		} else if (arg0.getEventType()==MouseEvent.MOUSE_ENTERED_TARGET) {
+			System.out.println("p");
+			this.presenter.onMouseEnter();
+		} else if (arg0.getEventType()==MouseEvent.MOUSE_EXITED_TARGET) {
+			// For future expansion
+		}
 	}
 
 	@Override

@@ -3,6 +3,13 @@ package fr.ensma.a3.ia.bataille_navale.kernel;
 import java.util.ArrayList;
 
 import fr.ensma.a3.ia.bataille_navale.GameMaster.IPlayer;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.AircraftCarrier;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.Cruiser;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.Destroyer;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.SailBoat;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipType;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.Submarine;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.TorpedoBoat;
 import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.GameInitState;
 import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.IKernelAutomaton;
 import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.IKernelState;
@@ -15,6 +22,7 @@ import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.PreGameState;
 import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer1;
 import fr.ensma.a3.ia.bataille_navale.map.MapBuilderPlayer2;
 import fr.ensma.a3.ia.bataille_navale.map.MapDirector;
+import fr.ensma.a3.ia.bataille_navale.utils.Shape;
 
 public class GameKernel implements IKernelAutomaton, IKernelState, IGameKernelObserver {
 	private static GameKernel kernel = null;
@@ -64,6 +72,31 @@ public class GameKernel implements IKernelAutomaton, IKernelState, IGameKernelOb
     	this.mapDirector.buildMap();
     	this.player2.setMap(this.mapDirector.getMap());
 		this.gameInitialized();
+	}
+	
+	public Shape getShipShape(ShipType type) {
+		Shape shape = null;
+		switch(type) {
+		case AircraftCarrier:
+			shape = AircraftCarrier.getShape();
+			break;
+		case Cruiser:
+			shape = Cruiser.getShape();
+			break;
+		case Destroyer:
+			shape = Destroyer.getShape();
+			break;
+		case Submarine:
+			shape = Submarine.getShape();
+			break;
+		case TorpedoBoat:
+			shape = TorpedoBoat.getShape();
+			break;
+		case SailBoat:
+			shape = SailBoat.getShape();
+			break;
+		}
+		return shape;
 	}
 	
 	@Override
