@@ -10,12 +10,10 @@ import fr.ensma.a3.ia.bataille_navale.GUI.playgrid.cell.I_CellObserver;
 public abstract class PlayGridPresenter implements I_GUIPres, I_CellObserver {
 	
 	private I_PlayGridView view = null;
-	private PlayGridModel model = null;
 	
 	private ArrayList<CellPresenter> cells = new ArrayList<>();
 	
-	public PlayGridPresenter(PlayGridModel model) {
-		this.model = model;
+	public PlayGridPresenter() {
 		for(int i=0; i<100; i++) {
 			CellPresenter cPres = new CellPresenter();
 			this.cells.add(cPres);
