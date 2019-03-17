@@ -12,6 +12,8 @@ import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipsOverlappingExcept
 import fr.ensma.a3.ia.bataille_navale.map.IMapOpponent;
 import fr.ensma.a3.ia.bataille_navale.map.IMapPlayer;
 import fr.ensma.a3.ia.bataille_navale.map.ShipDoesNotExistException;
+import fr.ensma.a3.ia.bataille_navale.movements.IMovement;
+import fr.ensma.a3.ia.bataille_navale.movements.ZeroMovementException;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
@@ -31,5 +33,8 @@ public interface IPlayer {
 	void setModeAttaque(IAttack mode);
 	void attack(IPlayer target, Coordinates coos, String idbateau) throws ShipIsDisabledException, ShipDoesNotExistException, AttackOutOfMapException, ShipCannotAttackException, ShipCannotFlareException;
 	void addNewShip(String id, ShipType type, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException, ShipDoesNotExistException;
+	boolean canAddNewShip(String id, ShipType type, Direction dir, Coordinates ref);
+	void moveShip(String id, IMovement movement, Coordinates start, Coordinates end) throws ShipOutOfMapException, ShipsOverlappingException, ZeroMovementException, ShipDoesNotExistException;
+	boolean canMoveShip(String id, IMovement movement, Coordinates start, Coordinates end) throws ShipDoesNotExistException;
 	void upgradeShipsResistance(String id, float dmgreduction) throws ShipDoesNotExistException;
 }

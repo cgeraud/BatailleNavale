@@ -29,10 +29,9 @@ public class CellView extends BorderPane implements I_CellView, EventHandler<Eve
 	public void handle(Event arg0) {
 		if(arg0.getEventType()==ActionEvent.ANY) {
 			this.presenter.onClick();
-		} else if (arg0.getEventType()==MouseEvent.MOUSE_ENTERED_TARGET) {
-			System.out.println("p");
+		} else if (arg0.getEventType()==MouseEvent.MOUSE_ENTERED) {
 			this.presenter.onMouseEnter();
-		} else if (arg0.getEventType()==MouseEvent.MOUSE_EXITED_TARGET) {
+		} else if (arg0.getEventType()==MouseEvent.MOUSE_EXITED) {
 			// For future expansion
 		}
 	}

@@ -150,13 +150,13 @@ public abstract class AbstractShip implements IUnit{
 	}
 
 	@Override
-	public void move(IMovement movement, Coordinates start, Coordinates end, IMapPlayer map) {
-		// TODO Exceptions
-		try {
-			movement.move(this, start, end, map);
-		} catch (ShipOutOfMapException | ShipsOverlappingException | ZeroMovementException e) {
-			e.printStackTrace();
-		}
+	public void move(IMovement movement, Coordinates start, Coordinates end, IMapPlayer map) throws ShipOutOfMapException, ShipsOverlappingException, ZeroMovementException {
+		movement.move(this, start, end, map);
+	}
+	
+	@Override
+	public boolean canMove(IMovement movement, Coordinates start, Coordinates end, IMapPlayer map) {
+		return movement.canMove(this, start, end, map);
 	}
 	
 	@Override

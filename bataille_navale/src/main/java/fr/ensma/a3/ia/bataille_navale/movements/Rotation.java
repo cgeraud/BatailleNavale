@@ -75,4 +75,54 @@ public class Rotation implements IMovement{
 		map.updateMap();
 	}
 
+	@Override
+	public boolean canMove(IUnit ship, Coordinates start, Coordinates end, IMapPlayer map) {
+		ArrayList<ITile> tiles = ship.getTiles();
+		Coordinates tmp = null;
+		// Determine rotation parameters
+		int sin = 0;
+		switch(ship.getDirection()) {
+		case Horizontal:
+			int dy = end.getY()-start.getY();
+			if(dy == 0)
+				return true;
+			if(dy > 0) {
+				sin = 1;
+			}
+			else {
+				sin = -1;
+			}
+			break;
+		case Vertical:
+			int dx = end.getX()-start.getX();
+			if(dx == 0)
+				return true;
+			if(dx > 0) {
+				sin = 1;
+			}
+			else {
+				sin = -1;
+			}
+			break;
+		}
+		// Test if move is possible
+		int x_o = start.getX();
+		int y_o = start.getY();
+		for(ITile tile : tiles) {
+			int dx = tile.getCoordinates().getX() - x_o;
+			int dy = tile.getCoordinates().getY() - y_o;
+			if(sin > 0) {
+				tmp = new Coordinates(x_o + dy, y_o - dx);
+			}
+			else {
+				tmp = new Coordinates(x_o - dy, y_o + dx);
+			}
+			if(!map.isOnMap(tmp))
+				return false;
+			if(!map.noCollision(tmp, ship))
+				return false;
+		}
+		return true;
+	}
+
 }

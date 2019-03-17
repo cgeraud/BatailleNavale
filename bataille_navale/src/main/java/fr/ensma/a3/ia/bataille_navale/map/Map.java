@@ -85,6 +85,15 @@ public class Map implements IMapPlayer, IMapOpponent{
 	}
 	
 	@Override
+	public void removeShipFromMap(IUnit myship) {
+		ArrayList<Coordinates> coordList = myship.getUnitCoordinates();
+		for(Coordinates coord : coordList) {
+			grid[coord.getY()][coord.getX()] = null;
+		}
+		this.ships.remove(myship);
+	}
+	
+	@Override
 	public void makeShipInvisible(IUnit ship) {
 		this.ships.remove(ship);
 	}

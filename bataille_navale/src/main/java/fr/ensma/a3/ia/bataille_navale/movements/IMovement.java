@@ -8,4 +8,5 @@ import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 
 public interface IMovement {
 	public void move(IUnit ship, Coordinates start, Coordinates end, IMapPlayer map) throws ShipOutOfMapException, ShipsOverlappingException, ZeroMovementException;
+	public boolean canMove(IUnit ship, Coordinates start, Coordinates end, IMapPlayer map);
 }

@@ -6,9 +6,12 @@ import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.EFlareResult;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IShellResult;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipCannotAttackException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipCannotFlareException;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipOutOfMapException;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipsOverlappingException;
 import fr.ensma.a3.ia.bataille_navale.map.IMapOpponent;
 import fr.ensma.a3.ia.bataille_navale.map.IMapPlayer;
 import fr.ensma.a3.ia.bataille_navale.movements.IMovement;
+import fr.ensma.a3.ia.bataille_navale.movements.ZeroMovementException;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
@@ -22,7 +25,8 @@ public interface IUnit {
 	public EFlareResult flare(IMapOpponent target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException;
 	public ArrayList<Coordinates> getUnitCoordinates();
 	public ArrayList<ITile> getTiles();
-	public void move(IMovement movement, Coordinates start, Coordinates end, IMapPlayer map);
+	public void move(IMovement movement, Coordinates start, Coordinates end, IMapPlayer map) throws ShipOutOfMapException, ShipsOverlappingException, ZeroMovementException;
+	public boolean canMove(IMovement movement, Coordinates start, Coordinates end, IMapPlayer map);
 	public Direction getDirection();
 	public void setDirection(Direction dir);
 }

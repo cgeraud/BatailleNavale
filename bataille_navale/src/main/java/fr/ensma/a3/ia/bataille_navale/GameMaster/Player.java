@@ -15,6 +15,8 @@ import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipsOverlappingExcept
 import fr.ensma.a3.ia.bataille_navale.map.IMapOpponent;
 import fr.ensma.a3.ia.bataille_navale.map.IMapPlayer;
 import fr.ensma.a3.ia.bataille_navale.map.ShipDoesNotExistException;
+import fr.ensma.a3.ia.bataille_navale.movements.IMovement;
+import fr.ensma.a3.ia.bataille_navale.movements.ZeroMovementException;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
@@ -91,5 +93,29 @@ public class Player implements IPlayer{
 				ret = false;
 		}
 		return ret;
+	}
+
+	@Override
+	public boolean canAddNewShip(String id, ShipType type, Direction dir, Coordinates ref) {
+		boolean ret = false;
+		try {
+			IUnit stubShip = ShipFactory.CreateShip(id, type, this.playerMap, dir, ref);
+			ret = true;
+			this.playerMap.removeShipFromMap(stubShip);
+		} catch (ShipAlreadyExistsException | ShipOutOfMapException | ShipsOverlappingException
+				| ShipDoesNotExistException e) {
+			ret = false;
+		} 
+		return ret;
+	}
+
+	@Override
+	public boolean canMoveShip(String id, IMovement movement, Coordinates start, Coordinates end) throws ShipDoesNotExistException {
+		return this.playerMap.getShipFromId(id).canMove(movement, start, end, playerMap);
+	}
+
+	@Override
+	public void moveShip(String id, IMovement movement, Coordinates start, Coordinates end) throws ShipOutOfMapException, ShipsOverlappingException, ZeroMovementException, ShipDoesNotExistException {
+		this.playerMap.getShipFromId(id).move(movement, start, end, playerMap);
 	}
 }

@@ -60,4 +60,41 @@ public class Translation implements IMovement{
 		map.updateMap();
 	}
 
+	@Override
+	public boolean canMove(IUnit ship, Coordinates start, Coordinates end, IMapPlayer map) {
+		ArrayList<ITile> tiles = ship.getTiles();
+		Coordinates tmp = null;
+		// Determine length of travel
+		int value = 0;
+		switch(ship.getDirection()) {
+		case Horizontal:
+			value = end.getX()-start.getX();
+			break;
+		case Vertical:
+			value = end.getY()-start.getY();
+			break;
+		}
+		// If no move, exception
+		if(value==0)
+			return true;
+		// Test if move is possible
+		for(ITile tile : tiles) {
+			switch(ship.getDirection()) {
+			case Horizontal:
+				tmp = new Coordinates(tile.getCoordinates().getX() + value, 
+						tile.getCoordinates().getY());
+				break;
+			case Vertical:
+				tmp = new Coordinates(tile.getCoordinates().getX(), 
+						tile.getCoordinates().getY() + value);
+				break;
+			}
+			if(!map.isOnMap(tmp))
+				return false;
+			if(!map.noCollision(tmp, ship))
+				return false;
+		}
+		return true;
+	}
+
 }
