@@ -2,13 +2,7 @@ package fr.ensma.a3.ia.bataille_navale;
 
 import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.GameGUIPresenter;
 import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.GameGUIView;
-import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.IGameGUIView;
-import fr.ensma.a3.ia.bataille_navale.GameMaster.Player;
-import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipType;
 import fr.ensma.a3.ia.bataille_navale.kernel.GameKernel;
-import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
-import fr.ensma.a3.ia.bataille_navale.utils.Direction;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

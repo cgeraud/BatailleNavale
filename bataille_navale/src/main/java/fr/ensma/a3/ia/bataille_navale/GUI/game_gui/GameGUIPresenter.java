@@ -143,7 +143,7 @@ public class GameGUIPresenter implements I_GUIPres, IGameKernelObserver, I_GUIAu
 		try {
 			GameKernel.getGameKernel().getPlayer1().addNewShip(id, type, dir, origin);
 			LOGGER.info(id + " placed successfully.");
-			((PreGamePresenter)this.activePres).shipSuccessfullyPlaced(id, origin);
+			((PreGamePresenter)this.activePres).shipSuccessfullyPlaced(id);
 		} catch (ShipAlreadyExistsException | ShipDoesNotExistException e) {
 			e.printStackTrace();
 		} catch (ShipOutOfMapException | ShipsOverlappingException e) {

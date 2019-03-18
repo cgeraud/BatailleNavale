@@ -1,7 +1,10 @@
 package fr.ensma.a3.ia.bataille_navale.GameMaster;
 
+import java.util.ArrayList;
+
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackOutOfMapException;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IAttack;
+import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipAlreadyExistsException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipCannotAttackException;
@@ -21,6 +24,7 @@ public interface IPlayer {
 	// Player structural methods
 	void setMap(IMapPlayer map);
 	IMapOpponent getMap();
+	ArrayList<IUnit> getShips();
 	
 	// Player state methods
 	boolean playerIsalive();

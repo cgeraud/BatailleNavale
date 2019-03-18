@@ -59,6 +59,7 @@ IShipBarObserver, I_PreGameAutomaton, I_PreGameGridObserver{
 		this.view = (I_PreGameView) view;
 		this.shipBar.setView(this.view.getBarView());
 		this.grid.setView(this.view.getGridView());
+		this.grid.updateGrid();
 	}
 
 	@Override
@@ -82,13 +83,19 @@ IShipBarObserver, I_PreGameAutomaton, I_PreGameGridObserver{
 		} else {
 			this.model.getMockedShip().setDirection(Direction.Horizontal);
 		}
+		this.grid.placeMockedShip(this.model.getMockedShip(),
+				GameKernel.getGameKernel().getPlayer1().canAddNewShip("MockedShip", 
+						this.model.getMockedShip().getType(), 
+						this.model.getMockedShip().getDirection(), 
+						this.model.getMockedShip().getOrigin()));
 		this.grid.updateGrid();
 	}
 	
-	public void shipSuccessfullyPlaced(String name, Coordinates origin) {
+	public void shipSuccessfullyPlaced(String name) {
 		// On successful placement, draw final ship
 		this.grid.addShip(name, this.model.getMockedShip().getType(), 
-				this.model.getMockedShip().getDirection(), origin);
+				this.model.getMockedShip().getDirection(), 
+				this.model.getMockedShip().getOrigin());
 		// Remove mock
 		this.grid.removeMockedShip();
 		// Draw again
@@ -193,7 +200,8 @@ IShipBarObserver, I_PreGameAutomaton, I_PreGameGridObserver{
 			
 			for(IPreGameGUIObserver obs : this.observers) {
 				obs.tryPlacingShipAt(this.model.getMockedShip().getType(), 
-						this.model.getMockedShip().getDirection(), coord);
+						this.model.getMockedShip().getDirection(), 
+						this.model.getMockedShip().getOrigin());
 			}
 		}
 	}
@@ -204,7 +212,9 @@ IShipBarObserver, I_PreGameAutomaton, I_PreGameGridObserver{
 			this.model.getMockedShip().setOrigin(coord);
 			this.grid.placeMockedShip(this.model.getMockedShip(),
 					GameKernel.getGameKernel().getPlayer1().canAddNewShip("MockedShip", 
-							this.model.getMockedShip().getType(), this.model.getMockedShip().getDirection(), coord));
+							this.model.getMockedShip().getType(), 
+							this.model.getMockedShip().getDirection(), 
+							this.model.getMockedShip().getOrigin()));
 			this.grid.updateGrid();
 		}
 	}

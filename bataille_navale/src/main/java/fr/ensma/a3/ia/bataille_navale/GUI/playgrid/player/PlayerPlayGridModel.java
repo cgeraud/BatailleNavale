@@ -3,6 +3,9 @@ package fr.ensma.a3.ia.bataille_navale.GUI.playgrid.player;
 import java.util.ArrayList;
 
 import fr.ensma.a3.ia.bataille_navale.GUI.drawables.DrawableShip;
+import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipType;
+import fr.ensma.a3.ia.bataille_navale.kernel.GameKernel;
 
 public class PlayerPlayGridModel {
 	private ArrayList<DrawableShip> ships = new ArrayList<>();
@@ -10,7 +13,19 @@ public class PlayerPlayGridModel {
 	private boolean mockedShipValid = false;
 	private static PlayerPlayGridModel instance = null;
 	
-	private PlayerPlayGridModel() {}
+	private PlayerPlayGridModel() {
+		// TODO placeholder work
+		// Adding initial sailboat
+		IUnit unit = GameKernel.getGameKernel().getPlayer1().getShips().get(0);
+		
+		DrawableShip newShip = new DrawableShip();
+		newShip.setName(unit.getId());
+		newShip.setOrigin(unit.getUnitCoordinates().get(0));
+		newShip.setDirection(unit.getDirection());
+		newShip.setType(ShipType.SailBoat);
+		
+		this.ships.add(newShip);
+	}
 	
 	public static PlayerPlayGridModel getPlayerPlayGridModel() {
 		if(instance==null) {

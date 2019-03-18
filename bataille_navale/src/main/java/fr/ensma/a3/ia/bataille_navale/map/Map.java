@@ -95,7 +95,8 @@ public class Map implements IMapPlayer, IMapOpponent{
 	
 	@Override
 	public void makeShipInvisible(IUnit ship) {
-		this.ships.remove(ship);
+		// TODO placeholder work
+		//this.ships.remove(ship);
 	}
 
 	@Override

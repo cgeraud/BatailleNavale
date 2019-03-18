@@ -1,5 +1,7 @@
 package fr.ensma.a3.ia.bataille_navale.GameMaster;
 
+import java.util.ArrayList;
+
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackOutOfMapException;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.BaseAttack;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IAttack;
@@ -117,5 +119,10 @@ public class Player implements IPlayer{
 	@Override
 	public void moveShip(String id, IMovement movement, Coordinates start, Coordinates end) throws ShipOutOfMapException, ShipsOverlappingException, ZeroMovementException, ShipDoesNotExistException {
 		this.playerMap.getShipFromId(id).move(movement, start, end, playerMap);
+	}
+
+	@Override
+	public ArrayList<IUnit> getShips() {
+		return this.playerMap.getShips();
 	}
 }
