@@ -9,10 +9,10 @@ import fr.ensma.a3.ia.bataille_navale.kernel.kernel_states.IllegalKernelTransiti
 public class InitGamePresenter implements I_GUIPres{
 	
 	private I_InitGameView view = null;
-	private InitGameModel model = null;
+	//private InitGameModel model = null;
 	
 	public InitGamePresenter() {
-		this.model = new InitGameModel();
+		//this.model = new InitGameModel();
 	}
 
 	@Override

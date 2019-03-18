@@ -1,12 +1,12 @@
 package fr.ensma.a3.ia.bataille_navale.GUI.playgrid.cell;
 
-import fr.ensma.a3.ia.bataille_navale.GUI.pregame.EShipTypes;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipType;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
 public class CellModel {
 	private E_CellContent content = E_CellContent.Empty;
 	private E_ShellEffect splashType = E_ShellEffect.Splash;
-	private EShipTypes shipType = EShipTypes.Torp;
+	private ShipType shipType = ShipType.TorpedoBoat;
 	private int shipTile = 0;
 	private Direction shipDirection = Direction.Horizontal;
 	
@@ -17,10 +17,10 @@ public class CellModel {
 		this.content = content;
 	}
 	
-	public EShipTypes getShipType() {
+	public ShipType getShipType() {
 		return shipType;
 	}
-	public void setShipType(EShipTypes shipType) {
+	public void setShipType(ShipType shipType) {
 		this.shipType = shipType;
 	}
 	

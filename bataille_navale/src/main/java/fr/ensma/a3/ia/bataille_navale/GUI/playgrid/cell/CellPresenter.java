@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIPres;
 import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIView;
-import fr.ensma.a3.ia.bataille_navale.GUI.pregame.EShipTypes;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipType;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
 public class CellPresenter implements I_GUIPres{
@@ -85,7 +85,7 @@ public class CellPresenter implements I_GUIPres{
 		}
 	}
 	
-	public void displayShipTile(EShipTypes type, int tileId, Direction dir) {
+	public void displayShipTile(ShipType type, int tileId, Direction dir) {
 		this.model.setContent(E_CellContent.Ship);
 		this.model.setShipType(type);
 		this.model.setShipTile(tileId);
@@ -103,7 +103,7 @@ public class CellPresenter implements I_GUIPres{
 		updateView();
 	}
 	
-	public void mockShipTile(EShipTypes type, int tileId, Direction dir, boolean valid) {
+	public void mockShipTile(ShipType type, int tileId, Direction dir, boolean valid) {
 		if(valid) {
 			this.model.setContent(E_CellContent.FutureShipValid);
 		} else {

@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIPres;
 import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIView;
-import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.GameGUIPresenter;
 import fr.ensma.a3.ia.bataille_navale.GUI.game_gui.gui_states.IllegalGUITransitionException;
 import fr.ensma.a3.ia.bataille_navale.GUI.pregame.grid.I_PreGameGridObserver;
 import fr.ensma.a3.ia.bataille_navale.GUI.pregame.grid.PreGamePlayGridPresenter;
@@ -16,9 +15,10 @@ import fr.ensma.a3.ia.bataille_navale.GUI.pregame.pregame_states.PreGameReadySta
 import fr.ensma.a3.ia.bataille_navale.GUI.pregame.pregame_states.PreGameShipSelectedState;
 import fr.ensma.a3.ia.bataille_navale.GUI.pregame.shipbar.IShipBarObserver;
 import fr.ensma.a3.ia.bataille_navale.GUI.pregame.shipbar.ShipBarPresenter;
+import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipType;
 import fr.ensma.a3.ia.bataille_navale.kernel.GameKernel;
+import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
-import fr.ensma.a3.ia.bataille_navale.utils.Shape;
 
 public class PreGamePresenter implements I_GUIPres, 
 IShipBarObserver, I_PreGameAutomaton, I_PreGameGridObserver{
@@ -77,17 +77,27 @@ IShipBarObserver, I_PreGameAutomaton, I_PreGameGridObserver{
 	
 	public void rotateShip() {
 		LOGGER.info("Player has changed his ship's orientation.");
-		if(this.model.getShipDir()==Direction.Horizontal) {
-			this.model.setShipDir(Direction.Vertical);
+		if(this.model.getMockedShip().getDirection()==Direction.Horizontal) {
+			this.model.getMockedShip().setDirection(Direction.Vertical);
 		} else {
-			this.model.setShipDir(Direction.Horizontal);
+			this.model.getMockedShip().setDirection(Direction.Horizontal);
 		}
+		this.grid.updateGrid();
 	}
 	
-	public void shipSuccessfullyPlaced(String name, Shape shape, int x, int y) {
-		this.grid.addShip(name, this.model.getCurShip(), shape, this.model.getShipDir(),
-				x, y);
+	public void shipSuccessfullyPlaced(String name, Coordinates origin) {
+		// On successful placement, draw final ship
+		this.grid.addShip(name, this.model.getMockedShip().getType(), 
+				this.model.getMockedShip().getDirection(), origin);
+		// Remove mock
+		this.grid.removeMockedShip();
+		// Draw again
+		this.grid.updateGrid();
+		
+		// Acknowledge ship placement on bar
 		this.shipBar.shipPlaced();
+		
+		// Do transition
 		if(this.shipBar.allShipsPlaced()) {
 			try {
 				this.curstate.shipPlacementDone();
@@ -126,7 +136,7 @@ IShipBarObserver, I_PreGameAutomaton, I_PreGameGridObserver{
 	public void notifyTorpClicked() {
 		try {
 			this.curstate.shipSelected();
-			this.model.setCurShip(EShipTypes.Torp);
+			this.model.getMockedShip().setType(ShipType.TorpedoBoat);
 		} catch (IllegalGUITransitionException e) {
 			e.printStackTrace();
 		}
@@ -136,7 +146,7 @@ IShipBarObserver, I_PreGameAutomaton, I_PreGameGridObserver{
 	public void notifyDestClicked() {
 		try {
 			this.curstate.shipSelected();
-			this.model.setCurShip(EShipTypes.Dest);
+			this.model.getMockedShip().setType(ShipType.Destroyer);
 		} catch (IllegalGUITransitionException e) {
 			e.printStackTrace();
 		}
@@ -146,7 +156,7 @@ IShipBarObserver, I_PreGameAutomaton, I_PreGameGridObserver{
 	public void notifySubClicked() {
 		try {
 			this.curstate.shipSelected();
-			this.model.setCurShip(EShipTypes.Sub);
+			this.model.getMockedShip().setType(ShipType.Submarine);
 		} catch (IllegalGUITransitionException e) {
 			e.printStackTrace();
 		}
@@ -156,7 +166,7 @@ IShipBarObserver, I_PreGameAutomaton, I_PreGameGridObserver{
 	public void notifyCruiClicked() {
 		try {
 			this.curstate.shipSelected();
-			this.model.setCurShip(EShipTypes.Crui);
+			this.model.getMockedShip().setType(ShipType.Cruiser);
 		} catch (IllegalGUITransitionException e) {
 			e.printStackTrace();
 		}
@@ -166,7 +176,7 @@ IShipBarObserver, I_PreGameAutomaton, I_PreGameGridObserver{
 	public void notifyCVNClicked() {
 		try {
 			this.curstate.shipSelected();
-			this.model.setCurShip(EShipTypes.CVN);
+			this.model.getMockedShip().setType(ShipType.AircraftCarrier);
 		} catch (IllegalGUITransitionException e) {
 			e.printStackTrace();
 		}
@@ -175,24 +185,27 @@ IShipBarObserver, I_PreGameAutomaton, I_PreGameGridObserver{
 	// Grid
 	
 	@Override
-	public void notifyTileSelected(int x, int y) {
+	public void notifyTileSelected(Coordinates coord) {
 		if(this.curstate==this.shipSelectedState) {
-			LOGGER.info("Trying to place " + this.model.getShipDir().toString() 
-					+ " ship (" + this.model.getCurShip() + ") at (" 
-					+ x + "," + y + ").");
+			LOGGER.info("Trying to place " + this.model.getMockedShip().getDirection() 
+					+ this.model.getMockedShip().getType() + " at (" 
+					+ coord.getX() + "," + coord.getY() + ").");
+			
 			for(IPreGameGUIObserver obs : this.observers) {
-				obs.tryPlacingShipAt(this.model.getCurShip(), 
-						this.model.getShipDir(), x, y);
+				obs.tryPlacingShipAt(this.model.getMockedShip().getType(), 
+						this.model.getMockedShip().getDirection(), coord);
 			}
 		}
 	}
 	
 	@Override
-	public void notifyTileHovered(int x, int y) {
-		Shape shipShape = GameKernel.getGameKernel().getShipShape(GameGUIPresenter.getKernelShipEnum(this.model.getCurShip()));
+	public void notifyTileHovered(Coordinates coord) {
 		if(this.curstate==this.shipSelectedState) {
-			this.grid.placeMockedShip(this.model.getCurShip(), shipShape,
-					this.model.getShipDir(), x, y);
+			this.model.getMockedShip().setOrigin(coord);
+			this.grid.placeMockedShip(this.model.getMockedShip(),
+					GameKernel.getGameKernel().getPlayer1().canAddNewShip("MockedShip", 
+							this.model.getMockedShip().getType(), this.model.getMockedShip().getDirection(), coord));
+			this.grid.updateGrid();
 		}
 	}
 	
