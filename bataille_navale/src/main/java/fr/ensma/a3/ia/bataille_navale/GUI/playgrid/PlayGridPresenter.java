@@ -44,5 +44,4 @@ public abstract class PlayGridPresenter implements I_GUIPres, I_CellObserver {
 	public I_GUIView getView() {
 		return view;
 	}
-
 }

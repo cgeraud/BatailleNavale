@@ -7,6 +7,7 @@ import fr.ensma.a3.ia.bataille_navale.GUI.playgrid.PlayGridPresenter;
 import fr.ensma.a3.ia.bataille_navale.GUI.playgrid.cell.CellPresenter;
 import fr.ensma.a3.ia.bataille_navale.GUI.playgrid.player.PlayerPlayGridModel;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipType;
+import fr.ensma.a3.ia.bataille_navale.kernel.GameKernel;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
@@ -35,6 +36,11 @@ public class PreGamePlayGridPresenter extends PlayGridPresenter {
 		// Display mocked ship, if any.
 		DrawableShip ship = this.model.getMockedShip();
 		if(ship!=null) {
+			this.model.setMockedShipValid(GameKernel.getGameKernel().getPlayer1().canAddNewShip(
+					this.model.getMockedShip().getName(), 
+					this.model.getMockedShip().getType(), 
+					this.model.getMockedShip().getDirection(), 
+					this.model.getMockedShip().getOrigin()));
 			int i = 0;
 			for(Coordinates coord : ship.getCoordinates().getRelativeTiles()) {
 				if(coord.getX()<10 && coord.getY()<10 && coord.getX() >= 0 && coord.getY() >= 0) {
@@ -46,23 +52,41 @@ public class PreGamePlayGridPresenter extends PlayGridPresenter {
 		}
 	}
 	
-	public void addShip(String name, ShipType type,
-			Direction dir, Coordinates origin) {
-		DrawableShip newShip = new DrawableShip();
-		newShip.setType(type);
-		newShip.setOrigin(origin);
-		newShip.setDirection(dir);
+	public void placeShip(String name) {
+		DrawableShip newShip = this.model.getMockedShip();
 		newShip.setName(name);
 		this.model.addShip(newShip);
+		this.model.setMockedShip(null);
+		
+		updateGrid();
 	}
 
-	public void placeMockedShip(DrawableShip mockedShip, boolean valid) {
+	public void placeMockedShip(ShipType type) {
+		DrawableShip mockedShip = new DrawableShip();
+		mockedShip.setOrigin(new Coordinates(10,10));
+		mockedShip.setDirection(Direction.Horizontal);
+		mockedShip.setType(type);
+		mockedShip.setName("MockedShip");
 		this.model.setMockedShip(mockedShip);
-		this.model.setMockedShipValid(valid);
+		this.model.setMockedShipValid(false);
+		
+		updateGrid();
+	}
+	
+	public void rotateMockedShip() {
+		if(this.model.getMockedShip().getDirection()==Direction.Horizontal) {
+			this.model.getMockedShip().setDirection(Direction.Vertical);
+		} else {
+			this.model.getMockedShip().setDirection(Direction.Horizontal);
+		}
+		
+		updateGrid();
 	}
 	
 	public void removeMockedShip() {
 		this.model.setMockedShip(null);
+		
+		updateGrid();
 	}
 	
 	private Coordinates findTile(CellPresenter cell) {
@@ -81,18 +105,21 @@ public class PreGamePlayGridPresenter extends PlayGridPresenter {
 	
 	@Override
 	public void cellClicked(CellPresenter cell) {
-		Coordinates coord = findTile(cell);
-		for(I_PreGameGridObserver obs : observers) {
-			obs.notifyTileSelected(coord);
+		if(this.model.getMockedShip()!=null) {
+			for(I_PreGameGridObserver obs : observers) {
+				obs.notifyPlaceShip(this.model.getMockedShip().getType(),
+						this.model.getMockedShip().getOrigin(),
+						this.model.getMockedShip().getDirection());
+			}
 		}
 	}
 	
 	@Override
 	public void cellEntered(CellPresenter cell) {
-		Coordinates coord = findTile(cell);
-		for(I_PreGameGridObserver obs : observers) {
-			obs.notifyTileHovered(coord);
-		}
+		if(this.model.getMockedShip()!=null)
+			this.model.getMockedShip().setOrigin(findTile(cell));
+		
+		updateGrid();
 	}
 	
 	public void addObserver(I_PreGameGridObserver obs) {

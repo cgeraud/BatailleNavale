@@ -60,7 +60,6 @@ public abstract class AbstractShip implements IUnit{
 				throw new ShipsOverlappingException();
 
 			tiles.add(new Tile((float)shipShape.getRelativeTiles().size(), newCoos));
-			LOGGER.info(this.getId()+ ": Added Tile to Coordinates :" + String.valueOf(newCoos.getX() + ":" + String.valueOf(newCoos.getY())));
 		}
 		map.addShipToMap(this);
 	}
