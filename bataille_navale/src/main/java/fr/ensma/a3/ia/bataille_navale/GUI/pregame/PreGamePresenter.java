@@ -80,9 +80,9 @@ IShipBarObserver, I_PreGameAutomaton, I_PreGameGridObserver{
 		this.grid.rotateMockedShip();
 	}
 	
-	public void shipSuccessfullyPlaced(String name) {
+	public void shipSuccessfullyPlaced() {
 		// Acknowledge ship placement on grid
-		this.grid.placeShip(name);
+		this.grid.placeShip();
 		
 		// Acknowledge ship placement on bar
 		this.shipBar.shipPlaced();

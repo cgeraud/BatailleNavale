@@ -2,8 +2,10 @@ package fr.ensma.a3.ia.bataille_navale.GameMaster;
 
 import java.util.ArrayList;
 
+import fr.ensma.a3.ia.bataille_navale.GUI.ingame.actionBar.EPossibleActions;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackOutOfMapException;
 import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IAttack;
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IShellResult;
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipAlreadyExistsException;
@@ -25,6 +27,12 @@ public interface IPlayer {
 	void setMap(IMapPlayer map);
 	IMapOpponent getMap();
 	ArrayList<IUnit> getShips();
+	int getHitMissed();
+	void setHitMissed(int hitMissed);
+	void setCurrentlyselectedShip(IUnit ship);
+	IUnit getCurrentlyselectedShip();
+	void setcurrentlyselectedaction(EPossibleActions action);
+	EPossibleActions getCurrentlySelectedAction();
 	
 	// Player state methods
 	boolean playerIsalive();
@@ -35,10 +43,10 @@ public interface IPlayer {
 	
 	// Player interaction methods
 	void setModeAttaque(IAttack mode);
-	void attack(IPlayer target, Coordinates coos, String idbateau) throws ShipIsDisabledException, ShipDoesNotExistException, AttackOutOfMapException, ShipCannotAttackException, ShipCannotFlareException;
+	ArrayList<IShellResult> attack(IPlayer target, Coordinates coos, String idbateau) throws ShipIsDisabledException, ShipDoesNotExistException, AttackOutOfMapException, ShipCannotAttackException, ShipCannotFlareException;
 	void addNewShip(String id, ShipType type, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException, ShipDoesNotExistException;
 	boolean canAddNewShip(String id, ShipType type, Direction dir, Coordinates ref);
-	void moveShip(String id, IMovement movement, Coordinates start, Coordinates end) throws ShipOutOfMapException, ShipsOverlappingException, ZeroMovementException, ShipDoesNotExistException;
+	void moveShip(String id, Coordinates start, Coordinates end) throws ShipOutOfMapException, ShipsOverlappingException, ShipDoesNotExistException;
 	boolean canMoveShip(String id, IMovement movement, Coordinates start, Coordinates end) throws ShipDoesNotExistException;
 	void upgradeShipsResistance(String id, float dmgreduction) throws ShipDoesNotExistException;
 }

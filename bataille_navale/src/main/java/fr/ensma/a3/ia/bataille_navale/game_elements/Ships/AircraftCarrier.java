@@ -23,8 +23,8 @@ public class AircraftCarrier extends BattleShip {
 		return shipShape;
 	}
 	
-	public AircraftCarrier(String id, IMapPlayer map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
-		super(id, map, getShape(), dir, ref);
+	public AircraftCarrier(String id, IMapPlayer map, Direction dir, Coordinates ref, ShipType type) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
+		super(id, map, getShape(), dir, ref, type);
 	}
 	
 

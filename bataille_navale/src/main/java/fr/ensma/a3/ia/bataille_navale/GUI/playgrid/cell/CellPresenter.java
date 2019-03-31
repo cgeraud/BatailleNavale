@@ -86,11 +86,13 @@ public class CellPresenter implements I_GUIPres{
 	}
 	
 	public void displayShipTile(ShipType type, int tileId, Direction dir) {
-		this.model.setContent(E_CellContent.Ship);
-		this.model.setShipType(type);
-		this.model.setShipTile(tileId);
-		this.model.setShipDirection(dir);
-		updateView();
+		if(this.model.getContent() == E_CellContent.Empty) {
+			this.model.setContent(E_CellContent.Ship);
+			this.model.setShipType(type);
+			this.model.setShipTile(tileId);
+			this.model.setShipDirection(dir);
+			updateView();
+		}
 	}
 	
 	public void displayTileDamaged() {

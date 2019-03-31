@@ -49,4 +49,14 @@ public class Coordinates {
 			return false;
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		return "X:" + String.valueOf(X) + " Y: " + String.valueOf(Y);
+	}
+
+	public Coordinates copy() {
+		Coordinates newCo = new Coordinates(this.X, this.Y);
+		return newCo;
+	}
 }

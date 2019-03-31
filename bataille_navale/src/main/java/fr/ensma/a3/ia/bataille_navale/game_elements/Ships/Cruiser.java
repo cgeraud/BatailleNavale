@@ -19,8 +19,8 @@ public class Cruiser extends BattleShip {
 		return shipShape;
 	}
 	
-	public Cruiser(String id, IMapPlayer map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
-		super(id, map, getShape(), dir, ref);
+	public Cruiser(String id, IMapPlayer map, Direction dir, Coordinates ref, ShipType type) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
+		super(id, map, getShape(), dir, ref, type);
 	}
 
 }

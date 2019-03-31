@@ -1,5 +1,8 @@
 package fr.ensma.a3.ia.bataille_navale.GUI.drawables;
 
+import java.util.ArrayList;
+
+import fr.ensma.a3.ia.bataille_navale.GUI.playgrid.cell.E_CellContent;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.AircraftCarrier;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.Cruiser;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.Destroyer;
@@ -17,6 +20,7 @@ public class DrawableShip {
 	private String name = null;
 	private Coordinates origin = null;
 	private Direction direction = null;
+	private ArrayList<E_CellContent> cellStates = new ArrayList<>();
 
 	public DrawableShip() {}
 
@@ -26,6 +30,10 @@ public class DrawableShip {
 
 	public void setType(ShipType type) {
 		this.type = type;
+		
+		for(int i = 0; i<this.getShape().getRelativeTiles().size(); i++) {
+			this.cellStates.add(E_CellContent.Ship);
+		}
 	}
 
 	public String getName() {
@@ -88,5 +96,18 @@ public class DrawableShip {
 						getOrigin().getY()-coord.getX()));
 		}
 		return retShape;
+	}
+	
+	public boolean coordinateBelongsToShip(Coordinates coos) {
+		for(Coordinates trueCoord : this.getCoordinates().getRelativeTiles()) {
+			if (coos.equals(trueCoord)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public ArrayList<E_CellContent> getCellStates() {
+		return cellStates;
 	}
 }

@@ -30,4 +30,9 @@ public abstract class AbstractBoosted implements ITile{
 	public float getResistance() {
 		return base.getResistance();
 	}
+	
+	@Override
+	public boolean isDamaged() {
+		return base.isDamaged();
+	}
 }

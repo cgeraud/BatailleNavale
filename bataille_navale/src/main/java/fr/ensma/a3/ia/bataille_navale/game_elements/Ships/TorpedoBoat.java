@@ -17,8 +17,8 @@ public class TorpedoBoat extends BattleShip {
 		return shipShape;
 	}
 	
-	public TorpedoBoat(String id, IMapPlayer map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
-		super(id, map, getShape(), dir, ref);
+	public TorpedoBoat(String id, IMapPlayer map, Direction dir, Coordinates ref, ShipType type) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
+		super(id, map, getShape(), dir, ref, type);
 	}
 
 }

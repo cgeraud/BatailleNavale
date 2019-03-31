@@ -39,7 +39,7 @@ public class ShipBarView extends VBox implements I_ShipBarView, EventHandler<Act
 	public void handle(ActionEvent arg0) {
 		this.presenter.buttonClicked(shipButtons.indexOf(arg0.getSource()));
 		
-}
+	}
 
 	@Override
 	public void setButtonDisabled(int index, boolean bool) {

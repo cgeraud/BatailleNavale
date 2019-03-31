@@ -4,4 +4,5 @@ public interface I_GUIState {
 	void gameInitialized() throws IllegalGUITransitionException;
 	void startGame() throws IllegalGUITransitionException;
 	void quit() throws IllegalGUITransitionException;
+	void gameFinished() throws IllegalGUITransitionException;
 }

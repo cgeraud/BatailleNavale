@@ -1,5 +1,7 @@
 package fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks;
 
+import java.util.ArrayList;
+
 import fr.ensma.a3.ia.bataille_navale.game_elements.IUnit;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipCannotAttackException;
@@ -10,7 +12,7 @@ import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 public class FlareLauncher implements IAttack {
 
 	@Override
-	public int attack(IUnit bateau, IMapOpponent targetMap, Coordinates coos)
+	public ArrayList<IShellResult> attack(IUnit bateau, IMapOpponent targetMap, Coordinates coos)
 			throws ShipIsDisabledException, AttackOutOfMapException, ShipCannotAttackException, ShipCannotFlareException {
 		if (targetMap.isOnMap(coos)) {
 			return flareLauncher(bateau, targetMap, coos);
@@ -20,19 +22,21 @@ public class FlareLauncher implements IAttack {
 		}
 	}
 	
-	private int flareLauncher(IUnit bateau, IMapOpponent targetMap, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
-		int res = (int)bateau.power() + 1;
+	private ArrayList<IShellResult> flareLauncher(IUnit bateau, IMapOpponent targetMap, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
+		int cooldown = 5;
+		int dia = (int)bateau.power() + 1;
+		ArrayList<IShellResult> res = new ArrayList<IShellResult>();
 		Coordinates target = new Coordinates(0,0);
-		
-		for(int j = res / 2 ; j >= -res / 2 ; j -= 1) {
-			for(int i = -res / 2 ; i <= res / 2 ; i += 1){
+		for(int j = dia / 2 ; j >= -dia / 2 ; j -= 1) {
+			for(int i = -dia / 2 ; i <= dia / 2 ; i += 1){
 				target.setX(coos.getX() + i);
 				target.setY(coos.getY() + j);
 				if(targetMap.isOnMap(target)) {
-					bateau.flare(targetMap, target);
+					res.add(bateau.flare(targetMap, target));
 				}
 			}
 		}
-		return 5;
+		res.get(0).setCoolDownPenality(cooldown + 1);
+		return res;
 	}
 }

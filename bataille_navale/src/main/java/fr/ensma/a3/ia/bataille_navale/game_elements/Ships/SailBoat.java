@@ -20,8 +20,8 @@ public class SailBoat extends AbstractShip {
 		return shipShape;
 	}
 	
-	public SailBoat(String id, IMapPlayer map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
-		super(id, map, getShape(), dir, ref);
+	public SailBoat(String id, IMapPlayer map, Direction dir, Coordinates ref, ShipType type) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
+		super(id, map, getShape(), dir, ref, type);
 		map.makeShipInvisible(this);
 	}
 	
@@ -31,7 +31,7 @@ public class SailBoat extends AbstractShip {
 		if(!this.isAlive()) {
 			res.setFireResult(EAttackEffect.ShipSunk);
 			res.setSunkShipId(this.getId());
-			res.setCoolDownPenalty(3);
+			res.setCoolDownPenality(3);
 		}
 		return res;
 	}

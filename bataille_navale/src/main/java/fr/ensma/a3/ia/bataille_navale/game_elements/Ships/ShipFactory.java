@@ -11,19 +11,19 @@ public class ShipFactory {
 		IUnit toReturn = null;
 		switch(type) {
 		case Destroyer:
-			toReturn = new Destroyer(id, map, dir, ref);
+			toReturn = new Destroyer(id, map, dir, ref, type);
 			break;
 		case Cruiser:
-			toReturn = new Cruiser(id, map, dir, ref);
+			toReturn = new Cruiser(id, map, dir, ref, type);
 			break;
 		case AircraftCarrier:
-			toReturn = new AircraftCarrier(id, map, dir, ref);
+			toReturn = new AircraftCarrier(id, map, dir, ref, type);
 			break;
 		case Submarine:
-			toReturn = new Submarine(id, map, dir, ref);
+			toReturn = new Submarine(id, map, dir, ref, type);
 			break;
 		case TorpedoBoat:
-			toReturn = new TorpedoBoat(id, map, dir, ref);
+			toReturn = new TorpedoBoat(id, map, dir, ref, type);
 			break;
 		default:
 			throw new ShipDoesNotExistException(type.toString());

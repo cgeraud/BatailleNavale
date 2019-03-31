@@ -8,4 +8,5 @@ public interface ITile {
 	public boolean isAlive();
 	public float getResistance();
 	public Coordinates getCoordinates();
+	public boolean isDamaged();
 }

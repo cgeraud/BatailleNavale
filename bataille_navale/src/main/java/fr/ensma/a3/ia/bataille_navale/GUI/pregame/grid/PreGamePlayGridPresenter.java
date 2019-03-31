@@ -24,6 +24,7 @@ public class PreGamePlayGridPresenter extends PlayGridPresenter {
 	public void updateGrid() {
 		// Clear
 		this.clearGrid();
+		this.model.updateModel();
 		// Display all ships
 		for(DrawableShip ship : this.model.getShips()) {
 			int i = 0;
@@ -52,10 +53,8 @@ public class PreGamePlayGridPresenter extends PlayGridPresenter {
 		}
 	}
 	
-	public void placeShip(String name) {
-		DrawableShip newShip = this.model.getMockedShip();
-		newShip.setName(name);
-		this.model.addShip(newShip);
+	public void placeShip() {
+		this.model.updateModel();
 		this.model.setMockedShip(null);
 		
 		updateGrid();
@@ -89,19 +88,6 @@ public class PreGamePlayGridPresenter extends PlayGridPresenter {
 		updateGrid();
 	}
 	
-	private Coordinates findTile(CellPresenter cell) {
-		Coordinates coord = new Coordinates(0, 0);
-		for(int y=0;y<10;y++) {
-			for(int x=0;x<10;x++) {
-				coord.setX(x);
-				coord.setY(y);
-				if(this.getCellPresenter(coord)==cell) {
-					return coord;
-				}
-			}
-		}
-		return null;
-	}
 	
 	@Override
 	public void cellClicked(CellPresenter cell) {

@@ -8,37 +8,25 @@ import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipOutOfMapException;
 import fr.ensma.a3.ia.bataille_navale.game_elements.Ships.ShipsOverlappingException;
 import fr.ensma.a3.ia.bataille_navale.map.IMapPlayer;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
+import fr.ensma.a3.ia.bataille_navale.utils.Direction;
 
 public class Rotation implements IMovement{
 	
 	@Override
-	public void move(IUnit ship, Coordinates start, Coordinates end, IMapPlayer map) throws ShipOutOfMapException, ShipsOverlappingException, ZeroMovementException {
+	public void move(IUnit ship, Coordinates start, Coordinates end, IMapPlayer map) throws ShipOutOfMapException, ShipsOverlappingException {
 		ArrayList<ITile> tiles = ship.getTiles();
 		Coordinates tmp = null;
+		Direction futureDir = null;
 		// Determine rotation parameters
 		int sin = 0;
 		switch(ship.getDirection()) {
 		case Horizontal:
-			int dy = end.getY()-start.getY();
-			if(dy == 0)
-				throw new ZeroMovementException();
-			if(dy > 0) {
-				sin = 1;
-			}
-			else {
-				sin = -1;
-			}
+			sin = 1;
+			futureDir = Direction.Vertical;
 			break;
 		case Vertical:
-			int dx = end.getX()-start.getX();
-			if(dx == 0)
-				throw new ZeroMovementException();
-			if(dx > 0) {
-				sin = 1;
-			}
-			else {
-				sin = -1;
-			}
+			sin = -1;
+			futureDir = Direction.Horizontal;
 			break;
 		}
 		// Test if move is possible
@@ -70,7 +58,9 @@ public class Rotation implements IMovement{
 				tile.getCoordinates().setX(x_o - dy);
 				tile.getCoordinates().setY(y_o + dx);
 			}
+			ship.setDirection(futureDir);
 		}
+		
 		// Update map
 		map.updateMap();
 	}

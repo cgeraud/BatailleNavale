@@ -1,6 +1,6 @@
 package fr.ensma.a3.ia.bataille_navale.game_elements.Ships;
 
-import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.EFlareResult;
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.AttackResult;
 import fr.ensma.a3.ia.bataille_navale.game_elements.ShipIsDisabledException;
 import fr.ensma.a3.ia.bataille_navale.map.IMapOpponent;
 import fr.ensma.a3.ia.bataille_navale.map.IMapPlayer;
@@ -22,16 +22,24 @@ public class Submarine extends BattleShip {
 	}
 	
 	
-	public Submarine(String id, IMapPlayer map, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
-		super(id, map, getShape(), dir, ref);
+	public Submarine(String id, IMapPlayer map, Direction dir, Coordinates ref, ShipType type) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
+		super(id, map, getShape(), dir, ref, type);
 	}
 	
 	@Override
-	public EFlareResult flare(IMapOpponent target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
+	public AttackResult flare(IMapOpponent target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
 		float damage = this.power();
 		if(Math.abs(damage)<1.0) {
 			throw new ShipIsDisabledException();
 		}
-		return target.revealMap(coos);
+		AttackResult res = new AttackResult();
+		res.setFlareresult( target.revealMap(coos));
+		res.setCoordinates(coos.copy());
+		return res;
+	}
+	
+	@Override
+	public boolean canFlare() {
+		return true;
 	}
 }

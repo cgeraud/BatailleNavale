@@ -19,4 +19,11 @@ public class InGameState extends AbsGUIState {
 		this.getGUI().setCurrentState(this.getGUI().getPlayerSelectionState());
 		LOGGER.info("Switching to player selection screen");
 	}
+	
+	@Override
+	public void gameFinished() throws IllegalGUITransitionException{
+		this.getGUI().switchToEndGameScreen();
+		this.getGUI().setCurrentState(this.getGUI().getEndGameState());
+		LOGGER.info("Switching to End Game screen");
+	}
 }

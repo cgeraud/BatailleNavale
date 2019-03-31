@@ -29,9 +29,10 @@ public abstract class AbstractShip implements IUnit{
 	
 	private final String id;
 	private final ArrayList<ITile> tiles = new ArrayList<ITile>();
+	private ShipType type = null;
 	private Direction dir = Direction.Horizontal;
 
-	public AbstractShip(String id, IMapPlayer map, Shape shipShape, Direction dir, Coordinates ref) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
+	public AbstractShip(String id, IMapPlayer map, Shape shipShape, Direction dir, Coordinates ref, ShipType type) throws ShipAlreadyExistsException, ShipOutOfMapException, ShipsOverlappingException {
 		Objects.requireNonNull(ref, "null reference point");
 		Objects.requireNonNull(id, "null ship id");
 		
@@ -42,6 +43,7 @@ public abstract class AbstractShip implements IUnit{
 		}
 		
 		this.id = id;
+		this.type = type;
 
 		this.dir = dir;
 		for (Coordinates coos : shipShape.getRelativeTiles()) {
@@ -73,6 +75,11 @@ public abstract class AbstractShip implements IUnit{
 	}
 	
 	@Override
+	public ShipType getType() {
+		return this.type;
+	}
+	
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -82,7 +89,7 @@ public abstract class AbstractShip implements IUnit{
 		float damage = 0.0f;
 		for (ITile tile : tiles) {
 			// Ajoute 1.0 de degats pour chaque tile intact
-            if(Math.abs((float)tiles.size()-tile.getResistance())<1e-10) {
+            if(!tile.isDamaged()) {
             	damage += 1.0;
             }
         }
@@ -133,13 +140,14 @@ public abstract class AbstractShip implements IUnit{
 	
 	@Override
 	public void upgradeShip(float dmgreduce) {
+		LOGGER.info("Ship: " + this.getId()+ " has been upgraded==========================================================" );
 		for (int i = 0; i < tiles.size() ; i += 1) {
 			tiles.set(i, new BoostedTile(tiles.get(i), dmgreduce));
 		}
 	}
 	
 	@Override
-	public EFlareResult flare(IMapOpponent target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
+	public AttackResult flare(IMapOpponent target, Coordinates coos) throws ShipCannotFlareException, ShipIsDisabledException {
 		throw new ShipCannotFlareException();
 	}
 	
@@ -149,7 +157,7 @@ public abstract class AbstractShip implements IUnit{
 	}
 
 	@Override
-	public void move(IMovement movement, Coordinates start, Coordinates end, IMapPlayer map) throws ShipOutOfMapException, ShipsOverlappingException, ZeroMovementException {
+	public void move(IMovement movement, Coordinates start, Coordinates end, IMapPlayer map) throws ShipOutOfMapException, ShipsOverlappingException {
 		movement.move(this, start, end, map);
 	}
 	
@@ -166,5 +174,25 @@ public abstract class AbstractShip implements IUnit{
 	@Override
 	public void setDirection(Direction dir) {
 		this.dir = dir;
+	}
+	
+	@Override
+	public boolean isPlayable() {
+		return false;
+	}
+	
+	@Override
+	public boolean canFlare() {
+		return false;
+	}
+	
+	@Override
+	public boolean isMovable() {
+		boolean ret = true;
+		for(ITile tile : tiles) {
+			if(!tile.isAlive())
+				ret = false;
+		}
+		return ret;
 	}
 }

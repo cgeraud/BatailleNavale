@@ -6,6 +6,7 @@ import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIPres;
 import fr.ensma.a3.ia.bataille_navale.GUI.I_GUIView;
 import fr.ensma.a3.ia.bataille_navale.GUI.playgrid.cell.CellPresenter;
 import fr.ensma.a3.ia.bataille_navale.GUI.playgrid.cell.I_CellObserver;
+import fr.ensma.a3.ia.bataille_navale.GameMaster.Attacks.IShellResult;
 import fr.ensma.a3.ia.bataille_navale.utils.Coordinates;
 
 public abstract class PlayGridPresenter implements I_GUIPres, I_CellObserver {
@@ -30,6 +31,20 @@ public abstract class PlayGridPresenter implements I_GUIPres, I_CellObserver {
 		for(CellPresenter cell : this.cells) {
 			cell.displayEmpty();
 		}
+	}
+	
+	protected Coordinates findTile(CellPresenter cell) {
+		Coordinates coord = new Coordinates(0, 0);
+		for(int y=0;y<10;y++) {
+			for(int x=0;x<10;x++) {
+				coord.setX(x);
+				coord.setY(y);
+				if(this.getCellPresenter(coord)==cell) {
+					return coord;
+				}
+			}
+		}
+		return null;
 	}
 
 	@Override

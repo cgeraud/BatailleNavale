@@ -10,21 +10,16 @@ import fr.ensma.a3.ia.bataille_navale.kernel.GameKernel;
 public class PlayerPlayGridModel {
 	private ArrayList<DrawableShip> ships = new ArrayList<>();
 	private DrawableShip mockedShip = null;
+	private DrawableShip currentlySelectedShip = null;
 	private boolean mockedShipValid = false;
 	private static PlayerPlayGridModel instance = null;
 	
 	private PlayerPlayGridModel() {
-		// TODO placeholder work
-		// Adding initial sailboat
-		IUnit unit = GameKernel.getGameKernel().getPlayer1().getShips().get(0);
-		
-		DrawableShip newShip = new DrawableShip();
-		newShip.setName(unit.getId());
-		newShip.setOrigin(unit.getUnitCoordinates().get(0));
-		newShip.setDirection(unit.getDirection());
-		newShip.setType(ShipType.SailBoat);
-		
-		this.ships.add(newShip);
+		updateModel();
+	}
+	
+	public void updateModel() {
+		this.ships =  GameKernel.getGameKernel().getShipList(GameKernel.getGameKernel().getPlayer1());
 	}
 	
 	public static PlayerPlayGridModel getPlayerPlayGridModel() {
@@ -36,10 +31,6 @@ public class PlayerPlayGridModel {
 
 	public ArrayList<DrawableShip> getShips() {
 		return ships;
-	}
-
-	public void addShip(DrawableShip ship) {
-		this.ships.add(ship);
 	}
 	
 	public DrawableShip getMockedShip() {
@@ -56,5 +47,13 @@ public class PlayerPlayGridModel {
 
 	public void setMockedShipValid(boolean valid) {
 		this.mockedShipValid = valid;
+	}
+
+	public DrawableShip getCurrentlySelectedShip() {
+		return currentlySelectedShip;
+	}
+
+	public void setCurrentlySelectedShip(DrawableShip currentlySelectedShip) {
+		this.currentlySelectedShip = currentlySelectedShip;
 	}
 }

@@ -30,5 +30,10 @@ public abstract class AbsGUIState implements I_GUIState {
 	public void quit() throws IllegalGUITransitionException {
 		throw new IllegalGUITransitionException();
 	}
+	
+	@Override
+	public void gameFinished() throws IllegalGUITransitionException{
+		throw new IllegalGUITransitionException();
+	}
 
 }

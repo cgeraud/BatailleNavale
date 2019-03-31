@@ -10,4 +10,6 @@ public interface I_GUIAutomaton {
 	void switchToPlayerSelectionScreen();
 	void switchToShipPlacementScreen();
 	void switchToInGameScreen();
+	void switchToEndGameScreen();
+	I_GUIState getEndGameState();
 }
